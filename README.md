@@ -1,15 +1,12 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2301848.svg)](https://doi.org/10.5281/zenodo.2301848)
-[![DOI](https://joss.theoj.org/papers/10.21105/joss.02513/status.svg)](https://doi.org/10.21105/joss.02513)
 [![AMReX](https://amrex-codes.github.io/badges/powered%20by-AMReX-red.svg)](https://amrex-codes.github.io)
 [![yt-project](https://img.shields.io/static/v1?label="works%20with"&message="yt"&color="blueviolet")](https://yt-project.org)
-[![github pages](https://github.com/AMReX-Astro/Furnace/workflows/github%20pages/badge.svg)](https://github.com/AMReX-Astro/Furnace/actions?query=workflow%3A%22github+pages%22)
 
-![Furnace](https://github.com/AMReX-Astro/Furnace/blob/development/Util/logo/furnace_logo_hot_200.png)
+![Furnace](furnace.jpg)
 
-*an adaptive mesh, astrophysical radiation hydrodynamics simulation code*
+*an adaptive mesh, fusion radiation hydrodynamics simulation code*
 
 `Furnace` is an adaptive-mesh compressible radiation / MHD / hydrodynamics
-code for astrophysical flows.  `Furnace` supports a general equation of
+code for fusion. `Furnace` supports a general equation of
 state, full Poisson gravity, and reactive flows, and is parallelized
 with MPI + OpenMP for CPUs and MPI + CUDA for GPUs.
 
@@ -34,7 +31,7 @@ from the `development` branch.
 
 ## Running at Supercomputer Centers
 
-Documentation for running the AMReX Astrophysics codes at popular
+Documentation for running the AMReX Fusion codes at popular
 supercomputing centers can be found at:
 https://amrex-astro.github.io/workflow/
 
