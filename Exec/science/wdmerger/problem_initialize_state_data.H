@@ -136,7 +136,7 @@ void problem_initialize_state_data (int i, int j, int k,
 
     // If we're in the inertial reference frame, use rigid body rotation with velocity omega x r.
 
-    if (((castro::do_rotation != 1) || ((castro::do_rotation == 1) && (castro::state_in_rotating_frame != 1))) && (problem::problem == 1)) {
+    if (((furnace::do_rotation != 1) || ((furnace::do_rotation == 1) && (furnace::state_in_rotating_frame != 1))) && (problem::problem == 1)) {
 
         GpuArray<Real, 3> rot_loc = {loc[0], loc[1], loc[2]};
 
@@ -150,7 +150,7 @@ void problem_initialize_state_data (int i, int j, int k,
         // reasonable velocity. We'll arbitrarily apply the cap at some multiple of the larger
         // of the two stellar radii.
 
-        if (state(i,j,k,URHO) <= castro::ambient_safety_factor * ambient::ambient_state[URHO]) {
+        if (state(i,j,k,URHO) <= furnace::ambient_safety_factor * ambient::ambient_state[URHO]) {
 
             Real cap_radius = 1.25e0_rt * amrex::max(problem::radius_P + std::abs(problem::center_P_initial[problem::axis_1-1]),
                                                      problem::radius_S + std::abs(problem::center_S_initial[problem::axis_1-1]));

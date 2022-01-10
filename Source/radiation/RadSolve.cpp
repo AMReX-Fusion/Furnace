@@ -427,15 +427,15 @@ void RadSolve::levelDCoeffs(int level, Array<MultiFab, AMREX_SPACEDIM>& lambda,
                             MultiFab& vel, MultiFab& dcf)
 {
     BL_PROFILE("RadSolve::levelDCoeffs");
-    const Castro *castro = dynamic_cast<Castro*>(&parent->getLevel(level));
-    const DistributionMapping& dm = castro->DistributionMap();
+    const Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
+    const DistributionMapping& dm = furnace->DistributionMap();
     const Geometry& geom = parent->Geom(level);
     const auto dx = geom.CellSizeArray();
     const auto geomdata = geom.data();
 
     for (int idim=0; idim<AMREX_SPACEDIM; idim++) {
 
-        MultiFab dcoefs(castro->getEdgeBoxArray(idim), dm, 1, 0);
+        MultiFab dcoefs(furnace->getEdgeBoxArray(idim), dm, 1, 0);
 
 #ifdef _OPENMP
 #pragma omp parallel
@@ -825,11 +825,11 @@ void RadSolve::levelDterm(int level, MultiFab& Dterm, MultiFab& Er, int igroup)
   const DistributionMapping& dmap = parent->DistributionMap(level);
   const Geometry& geom = parent->Geom(level);
   auto dx = parent->Geom(level).CellSizeArray();
-  const Castro *castro = dynamic_cast<Castro*>(&parent->getLevel(level));
+  const Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
 
   Array<MultiFab, AMREX_SPACEDIM> Dterm_face;
   for (int idim=0; idim<AMREX_SPACEDIM; idim++) {
-      Dterm_face[idim].define(castro->getEdgeBoxArray(idim), dmap, 1, 0);
+      Dterm_face[idim].define(furnace->getEdgeBoxArray(idim), dmap, 1, 0);
   }
 
   // grow a larger MultiFab to hold Er so we can difference across faces
@@ -1075,8 +1075,8 @@ void RadSolve::levelRhs(int level, MultiFab& rhs, const MultiFab& jg,
                         Real delta_t, int igroup, int it, Real ptc_tau)
 {
   BL_PROFILE("RadSolve::levelRhs (MGFLD version)");
-  Castro *castro = dynamic_cast<Castro*>(&parent->getLevel(level));
-  Real time = castro->get_state_data(Rad_Type).curTime();
+  Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
+  Real time = furnace->get_state_data(Rad_Type).curTime();
   const Real* dx = parent->Geom(level).CellSize();
   auto geomdata = parent->Geom(level).data();
 

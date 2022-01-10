@@ -1,4 +1,4 @@
-CASTRO_HOME := ../../..
+FURNACE_HOME := ../../..
 
 PRECISION        = DOUBLE
 PROFILE          = FALSE
@@ -24,4 +24,4 @@ NETWORK_DIR := nova2
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

@@ -4,7 +4,7 @@
 #include <RadSolve.H>
 #include <rad_util.H>
 #include <filt_prim.H>
-#include <Castro_F.H>
+#include <Furnace_F.H>
 
 #include <RAD_F.H>
 #include <AMReX_PROB_AMR_F.H>
@@ -73,7 +73,7 @@ std::string Radiation::current_group_name = "Radiation";
 
 int Radiation::pure_hydro = 0;
 
-// static initialization, must be called before Castro::variableSetUp
+// static initialization, must be called before Furnace::variableSetUp
 
 void Radiation::read_static_params()
 {
@@ -293,10 +293,10 @@ void Radiation::read_static_params()
 
 }
 
-Radiation::Radiation(Amr* Parent, Castro* castro, int restart)
+Radiation::Radiation(Amr* Parent, Furnace* furnace, int restart)
   : parent(Parent)
 {
-  // castro is passed in, rather than obtained from parent, because this
+  // furnace is passed in, rather than obtained from parent, because this
   // routine will be called in some cases before any AmrLevels have
   // been installed into the parent's array of levels.
 
@@ -1264,9 +1264,9 @@ void Radiation::getBndryData(RadBndry& bd, MultiFab& Er,
                              Real time, int level)
 {
   BL_PROFILE("Radiation::getBndryData");
-  Castro      *castro = (Castro*)&parent->getLevel(level);
-  const BoxArray& grids = castro->boxArray();
-  const DistributionMapping& dmap = castro->DistributionMap();
+  Furnace      *furnace = (Furnace*)&parent->getLevel(level);
+  const BoxArray& grids = furnace->boxArray();
+  const DistributionMapping& dmap = furnace->DistributionMap();
 
   if (level == 0) {
     bd.setBndryValues(Er, Rad, 0, 1, rad_bc); // Rad=0
@@ -1294,9 +1294,9 @@ void Radiation::getBndryDataMG(MGRadBndry& mgbd, MultiFab& Er,
                                Real time, int level)
 {
   BL_PROFILE("Radiation::getBndryDataMG");
-  Castro *castro = dynamic_cast<Castro*>(&parent->getLevel(level));
-  const BoxArray& grids = castro->boxArray();
-  const DistributionMapping& dmap = castro->DistributionMap();
+  Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
+  const BoxArray& grids = furnace->boxArray();
+  const DistributionMapping& dmap = furnace->DistributionMap();
 
   if(level == 0) {
     mgbd.setBndryValues(Er, 0, 0, Radiation::nGroups, rad_bc);
@@ -1320,9 +1320,9 @@ void Radiation::getBndryDataMG(MGRadBndry& mgbd, MultiFab& Er,
 void Radiation::getBndryDataMG_ga(MGRadBndry& mgbd, MultiFab& Er, int level)
 {
   BL_PROFILE("Radiation::getBndryDataMG_ga");
-  Castro *castro = dynamic_cast<Castro*>(&parent->getLevel(level));
-  const BoxArray& grids = castro->boxArray();
-  const DistributionMapping& dmap = castro->DistributionMap();
+  Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
+  const BoxArray& grids = furnace->boxArray();
+  const DistributionMapping& dmap = furnace->DistributionMap();
 
   if(level == 0) {
     mgbd.setBndryValues(Er, 0, 0, 1, rad_bc);
@@ -1346,20 +1346,20 @@ void Radiation::filBndry(BndryRegister& bdry, int level, Real time)
   BL_PROFILE("Radiation::filBndry");
   // in this routine "level" is the coarse level
 
-  Castro      *castro = (Castro*)&parent->getLevel(level);
-  const BoxArray& grids = castro->boxArray();
-  const DistributionMapping& dmap = castro->DistributionMap();
+  Furnace      *furnace = (Furnace*)&parent->getLevel(level);
+  const BoxArray& grids = furnace->boxArray();
+  const DistributionMapping& dmap = furnace->DistributionMap();
   const Geometry& geom  = parent->Geom(level);
 
-  Real old_time = castro->get_state_data(Rad_Type).prevTime();
-  Real new_time = castro->get_state_data(Rad_Type).curTime();
+  Real old_time = furnace->get_state_data(Rad_Type).prevTime();
+  Real new_time = furnace->get_state_data(Rad_Type).curTime();
   Real eps = (new_time > old_time) ? 0.001*(new_time - old_time) : 1.0;
 
   BL_ASSERT( (time > old_time-eps) && (time < new_time + eps));
 
-  MultiFab& S_new = castro->get_new_data(Rad_Type);
+  MultiFab& S_new = furnace->get_new_data(Rad_Type);
   // the next line is OK even if S_old is not defined yet
-  MultiFab& S_old = castro->get_old_data(Rad_Type);
+  MultiFab& S_old = furnace->get_old_data(Rad_Type);
 
   if (!geom.isAnyPeriodic()) {
     int n_ghost = 0;
@@ -1572,7 +1572,7 @@ void Radiation::get_planck_and_temp(MultiFab& fkp,
 // physical boundaries will not be used, however.
 
 void Radiation::get_rosseland(MultiFab& kappa_r,
-                              AmrLevel* castro,
+                              AmrLevel* furnace,
                               int igroup)
 {
   BL_PROFILE("Radiation::get_rosseland");
@@ -1584,11 +1584,11 @@ void Radiation::get_rosseland(MultiFab& kappa_r,
       return;
   }
 
-  Real time = castro->get_state_data(State_Type).curTime();
-  MultiFab& S_new = castro->get_new_data(State_Type);
+  Real time = furnace->get_state_data(State_Type).curTime();
+  MultiFab& S_new = furnace->get_new_data(State_Type);
   int nstate = S_new.nComp();
 
-  FillPatchIterator fpi(*castro, S_new, 1, time, State_Type, 0, nstate);
+  FillPatchIterator fpi(*furnace, S_new, 1, time, State_Type, 0, nstate);
   MultiFab& state = fpi.get_mf();
 
   const Real nu = nugroup[igroup];
@@ -1835,9 +1835,9 @@ void Radiation::deferred_sync_setup(int crse_level)
 void Radiation::deferred_sync(int level, MultiFab& rhs, int indx)
 {
   int fine_level = parent->finestLevel();
-  Castro *castro = dynamic_cast<Castro*>(&parent->getLevel(level));
-  const BoxArray& grids = castro->boxArray();
-  const DistributionMapping& dmap = castro->DistributionMap();
+  Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
+  const BoxArray& grids = furnace->boxArray();
+  const DistributionMapping& dmap = furnace->DistributionMap();
   Real delta_t = parent->dtLevel(level);
 
   if (level < parent->maxLevel() &&
@@ -1847,13 +1847,13 @@ void Radiation::deferred_sync(int level, MultiFab& rhs, int indx)
 
     if (indx == 0) {
       // clean up fine-fine interfaces (does all groups at once)
-        sync_flux.ClearInternalBorders(castro->Geom());
+        sync_flux.ClearInternalBorders(furnace->Geom());
     }
 
     Real scale = delta_t_old[level] / delta_t;
     if (!do_sync) scale = 0.0;
 
-    sync_flux.Reflux(rhs, scale, indx, 0, 1, castro->Geom());
+    sync_flux.Reflux(rhs, scale, indx, 0, 1, furnace->Geom());
 
     // If there is a sync source from a still finer level,
     // test for an intersection that will not be caught by
@@ -2131,7 +2131,7 @@ void Radiation::deferred_sync(int level, MultiFab& rhs, int indx)
         Real scale = delta_t_old[flev-1] / delta_t;
         if (!do_sync) scale = 0.0;
 
-        ref_sync_flux.Reflux(rhs, scale, 0, 0, 1, castro->Geom());
+        ref_sync_flux.Reflux(rhs, scale, 0, 0, 1, furnace->Geom());
 
       } // end if "this register may overlap current level"
 
@@ -2511,19 +2511,19 @@ void Radiation::fluxLimiter(int level,
 
 void Radiation::get_rosseland_v_dcf(MultiFab& kappa_r, MultiFab& v, MultiFab& dcf,
                                     Real delta_t, Real c,
-                                    AmrLevel* castro, int igroup)
+                                    AmrLevel* furnace, int igroup)
 {
     BL_ASSERT(kappa_r.nGrow() == 1);
     BL_ASSERT(      v.nGrow() == 1);
     BL_ASSERT(    dcf.nGrow() == 1);
 
-    int nstate = castro->get_new_data(State_Type).nComp();
-    Real time = castro->get_state_data(State_Type).curTime();
+    int nstate = furnace->get_new_data(State_Type).nComp();
+    Real time = furnace->get_state_data(State_Type).curTime();
 
-    FillPatchIterator fpi_r(*castro, kappa_r, 1, time, Rad_Type, 0, 1);
+    FillPatchIterator fpi_r(*furnace, kappa_r, 1, time, Rad_Type, 0, 1);
     MultiFab& Er = fpi_r.get_mf();
 
-    FillPatchIterator fpi_s(*castro, kappa_r, 1, time, State_Type, 0, nstate);
+    FillPatchIterator fpi_s(*furnace, kappa_r, 1, time, State_Type, 0, nstate);
     MultiFab& S = fpi_s.get_mf();
 
     Real sigma_loc = sigma;
@@ -2680,9 +2680,9 @@ void Radiation::update_dcf(MultiFab& dcf, MultiFab& etainv, MultiFab& kp, MultiF
 
 void Radiation::EstTimeStep(Real & estdt, int level)
 {
-  Castro *castro        = dynamic_cast<Castro*>(&parent->getLevel(level));
+  Furnace *furnace        = dynamic_cast<Furnace*>(&parent->getLevel(level));
   const Geometry& geom = parent->Geom(level);
-  Real time = castro->get_state_data(Rad_Type).curTime();
+  Real time = furnace->get_state_data(Rad_Type).curTime();
 }
 
 void Radiation::set_current_group(int igroup)
@@ -2693,15 +2693,15 @@ void Radiation::set_current_group(int igroup)
 
 void Radiation::filter_prim(int level, MultiFab& State)
 {
-  Castro *castro = dynamic_cast<Castro*>(&parent->getLevel(level));
+  Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
   const Geometry& geom = parent->Geom(level);
   auto geomdata = geom.data();
 
   int ngrow = filter_prim_T;
   int ncomp = State.nComp();
-  Real time = castro->get_state_data(Rad_Type).curTime();
+  Real time = furnace->get_state_data(Rad_Type).curTime();
 
-  FillPatchIterator fpi(*castro,State,ngrow,time,State_Type,0,ncomp);
+  FillPatchIterator fpi(*furnace,State,ngrow,time,State_Type,0,ncomp);
   MultiFab& S_fp = fpi.get_mf();
 
 #ifdef _OPENMP

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Castro documentation build configuration file, created by
+# Furnace documentation build configuration file, created by
 # sphinx-quickstart on Mon Dec 25 18:42:54 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -78,11 +78,11 @@ numpydoc_show_class_members = False
 main_doc = 'index'
 
 # General information about the project.
-project = 'Castro'
-copyright = '2018-2020, Castro development tem'
-author = 'Castro development team'
+project = 'Furnace'
+copyright = '2018-2020, Furnace development tem'
+author = 'Furnace development team'
 
-html_logo = "castro_logo_hot_200.png"
+html_logo = "furnace_logo_hot_200.png"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -172,7 +172,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Castrodoc'
+htmlhelp_basename = 'Furnacedoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -199,8 +199,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (main_doc, 'Castro.tex', 'Castro Documentation',
-     'Castro development team', 'manual'),
+    (main_doc, 'Furnace.tex', 'Furnace Documentation',
+     'Furnace development team', 'manual'),
 ]
 
 
@@ -209,7 +209,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (main_doc, 'Castro', 'Castro Documentation',
+    (main_doc, 'Furnace', 'Furnace Documentation',
      [author], 1)
 ]
 
@@ -220,18 +220,18 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (main_doc, 'Castro', 'Castro Documentation',
-     author, 'Castro', 'One line description of project.',
+    (main_doc, 'Furnace', 'Furnace Documentation',
+     author, 'Furnace', 'One line description of project.',
      'Miscellaneous'),
 ]
 
 # -- Options for breathe -------------------------------------------------
 
 breathe_projects = {
-    "castro": "../doxy_files/xml",
+    "furnace": "../doxy_files/xml",
 }
 
-breathe_default_project = "castro"
+breathe_default_project = "furnace"
 
 breathe_default_members = ('members', 'undoc-members', 'protected-members',
                            'private-members')

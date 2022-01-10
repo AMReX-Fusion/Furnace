@@ -4,7 +4,7 @@ EOS: /ccs/home/zingale/Microphysics/EOS/helmholtz
 NETWORK: /ccs/home/zingale/Microphysics/networks/iso7
 CONDUCTIVITY: /ccs/home/zingale/Microphysics/conductivity/stellar
 
-Castro       git describe: 20.02-113-g8da7f5bc6
+Furnace       git describe: 20.02-113-g8da7f5bc6
 AMReX        git describe: 20.02-296-g260ed2ea5
 Microphysics git describe: 20.02-38-g008e6491
 

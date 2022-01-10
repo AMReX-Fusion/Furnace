@@ -1,5 +1,5 @@
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 #include <Gravity.H>
 
@@ -13,7 +13,7 @@
 
 using namespace amrex;
 
-void Castro::problem_post_init()
+void Furnace::problem_post_init()
 {
     BL_ASSERT(level == 0);
 

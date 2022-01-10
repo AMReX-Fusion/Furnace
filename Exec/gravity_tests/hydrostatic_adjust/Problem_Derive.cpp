@@ -1,8 +1,8 @@
 #include <AMReX_REAL.H>
 
 #include <Derive.H>
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 #include <model_parser.H>
 
 using namespace amrex;

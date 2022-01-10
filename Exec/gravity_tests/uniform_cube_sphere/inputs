@@ -26,12 +26,12 @@ amr.refine.denerr.field_name = density
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
 
-castro.lo_bc       =  2   2   2
-castro.hi_bc       =  2   2   2
+furnace.lo_bc       =  2   2   2
+furnace.hi_bc       =  2   2   2
 
 # WHICH PHYSICS
-castro.do_hydro = 0
-castro.do_grav  = 1
+furnace.do_hydro = 0
+furnace.do_grav  = 1
 
 # GRAVITY
 gravity.gravity_type = PoissonGrav # Full self-gravity with the Poisson equation
@@ -40,7 +40,7 @@ gravity.rel_tol = 1.e-12           # Relative tolerance for multigrid solver
 gravity.direct_sum_bcs = 1         # Calculate boundary conditions exactly
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing integrals
+furnace.sum_interval   = 1       # timesteps between computing integrals
 amr.data_log          = grid_diag.out
 
 # CHECKPOINT FILES

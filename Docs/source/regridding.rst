@@ -94,7 +94,7 @@ Getting good performance
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 These parameters can have a large impact on the performance
-of Castro, so taking the time to experiment with is worth the effort.
+of Furnace, so taking the time to experiment with is worth the effort.
 Having grids that are large enough to coarsen multiple levels in a
 V-cycle is essential for good multigrid performance in simulations
 that use self-gravity.

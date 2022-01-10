@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import yt
-from yt.frontends.boxlib.api import CastroDataset
+from yt.frontends.boxlib.api import FurnaceDataset
 
 
 yt.funcs.mylog.setLevel(50)
@@ -16,7 +16,7 @@ class Profile:
     """read a plotfile using yt and store the 1d profile for T and enuc"""
 
     def __init__(self, plotfile):
-        ds = CastroDataset(plotfile)
+        ds = FurnaceDataset(plotfile)
 
         time = float(ds.current_time)
         ad = ds.all_data()

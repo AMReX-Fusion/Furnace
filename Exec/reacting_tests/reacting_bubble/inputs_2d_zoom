@@ -1,13 +1,13 @@
 # ------------------  INPUTS TO MAIN PROGRAM  -------------------
 
-castro.MAESTRO_plotfile = "MAESTRO_plt00000"
-castro.MAESTRO_modelfile = "./MAESTRO_plt00000/model_cc_00000"
-castro.MAESTRO_first_species = "X(C12)"
-castro.MAESTRO_npts_model = 128
+furnace.MAESTRO_plotfile = "MAESTRO_plt00000"
+furnace.MAESTRO_modelfile = "./MAESTRO_plt00000/model_cc_00000"
+furnace.MAESTRO_first_species = "X(C12)"
+furnace.MAESTRO_npts_model = 128
 
-castro.MAESTRO_cutoff_density = 3.e6
-castro.MAESTRO_init_type = 2
-castro.MAESTRO_spherical = 0
+furnace.MAESTRO_cutoff_density = 3.e6
+furnace.MAESTRO_init_type = 2
+furnace.MAESTRO_spherical = 0
 
 max_step = 100000
 stop_time =  0.8
@@ -24,38 +24,38 @@ amr.n_cell           = 128     128
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  0   1
-castro.hi_bc       =  0   1
+furnace.lo_bc       =  0   1
+furnace.hi_bc       =  0   1
 
-castro.yl_ext_bc_type = 1
-castro.yr_ext_bc_type = 1
+furnace.yl_ext_bc_type = 1
+furnace.yr_ext_bc_type = 1
 
-castro.hse_interp_temp = 1
+furnace.hse_interp_temp = 1
 
 # WHICH PHYSICS
-castro.do_hydro = 1
-castro.do_react = 0
-castro.do_grav = 1
-castro.do_sponge = 1
+furnace.do_hydro = 1
+furnace.do_react = 0
+furnace.do_grav = 1
+furnace.do_sponge = 1
 
-castro.ppm_type = 1
+furnace.ppm_type = 1
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.5e10
 
 # TIME STEP CONTROL
-castro.cfl            = 0.9     # cfl number for hyperbolic system
-castro.init_shrink    = 1.0     # scale back initial timestep
-castro.change_max     = 1.1     # max time step growth
+furnace.cfl            = 0.9     # cfl number for hyperbolic system
+furnace.init_shrink    = 1.0     # scale back initial timestep
+furnace.change_max     = 1.1     # max time step growth
 
 # SPONGE
-castro.sponge_upper_density = 1.e6
-castro.sponge_lower_density = 1.e4
-castro.sponge_timescale     = 1.e-5
+furnace.sponge_upper_density = 1.e6
+furnace.sponge_lower_density = 1.e4
+furnace.sponge_timescale     = 1.e-5
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing mass
-castro.v              = 1       # verbosity in Castro.cpp
+furnace.sum_interval   = 1       # timesteps between computing mass
+furnace.v              = 1       # verbosity in Furnace.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING

@@ -1,7 +1,7 @@
-#ifndef CASTRO_HYBRID_H
-#define CASTRO_HYBRID_H
+#ifndef FURNACE_HYBRID_H
+#define FURNACE_HYBRID_H
 
-#include <Castro_util.H>
+#include <Furnace_util.H>
 
 using namespace amrex;
 
@@ -96,7 +96,7 @@ void set_hybrid_momentum_source(const GpuArray<Real, 3>& loc,
 /// Compute and store the flux of the hybrid momentum components
 ///
 /// @param state          the Godunov state
-/// @param geomdata       the Castro geometry data object
+/// @param geomdata       the Furnace geometry data object
 /// @param idir           coordinate direction for flux computation (0 = x, 1 = y, 2 = z)
 /// @param i              x zone index
 /// @param j              y zone index

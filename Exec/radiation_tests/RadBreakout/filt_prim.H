@@ -80,8 +80,8 @@ void filt_prim (int i, int j, int k,
 
     if (filtered) {
 
-        Snew(i,j,k,URHO ) = amrex::max(Snew(i,j,k,URHO ), castro::small_dens);
-        Snew(i,j,k,UTEMP) = amrex::max(Snew(i,j,k,UTEMP), castro::small_temp);
+        Snew(i,j,k,URHO ) = amrex::max(Snew(i,j,k,URHO ), furnace::small_dens);
+        Snew(i,j,k,UTEMP) = amrex::max(Snew(i,j,k,UTEMP), furnace::small_temp);
 
         eos_t eos_state;
 

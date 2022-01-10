@@ -1,9 +1,9 @@
-#ifndef CASTRO_RADIATION_H
-#define CASTRO_RADIATION_H
+#ifndef FURNACE_RADIATION_H
+#define FURNACE_RADIATION_H
 
 #include <AMReX_AmrLevel.H>
 
-#include <Castro.H>
+#include <Furnace.H>
 #include <RadTypes.H>
 #include <RadBndry.H>
 #include <MGRadBndry.H>
@@ -116,10 +116,10 @@ public:
 
 ///
 /// @param Parent
-/// @param castro
+/// @param furnace
 /// @param restart
 ///
-  Radiation(amrex::Amr* Parent, class Castro* castro, int restart = 0);
+  Radiation(amrex::Amr* Parent, class Furnace* furnace, int restart = 0);
   ~Radiation() { }
 
 

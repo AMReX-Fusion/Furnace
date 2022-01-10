@@ -4,13 +4,13 @@
 Sponge
 ******
 
-Castro uses a sponge source term to damp velocities in regions where
+Furnace uses a sponge source term to damp velocities in regions where
 we are not interested in the dynamics, to prevent them from
 dominating the timestep constraint.  Often these are buffer regions
 between the domain of interest and the boundary conditions.
 
 The sponge parameters are set in the inputs file. The timescale of the
-damping is set through ``castro.sponge_timescale``, while factors such as
+damping is set through ``furnace.sponge_timescale``, while factors such as
 the radius/density/pressure at which the sponge starts to begin being applied
 are described below.
 

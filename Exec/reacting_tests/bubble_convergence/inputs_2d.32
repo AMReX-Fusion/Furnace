@@ -14,42 +14,42 @@ amr.n_cell           = 32      32
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  0   3
-castro.hi_bc       =  0   3
+furnace.lo_bc       =  0   3
+furnace.hi_bc       =  0   3
 
 # WHICH PHYSICS
-castro.do_hydro = 1
-castro.do_react = 1
-castro.do_grav = 1
-castro.do_sponge = 0
+furnace.do_hydro = 1
+furnace.do_react = 1
+furnace.do_grav = 1
+furnace.do_sponge = 0
 
-castro.small_temp = 1.e6
+furnace.small_temp = 1.e6
 
-castro.sdc_order=4
-castro.time_integration_method=2
-castro.limit_fourth_order=1
-castro.use_reconstructed_gamma1=1
-castro.sdc_solve_for_rhoe=1
-castro.sdc_solver_tol_spec=1.e-10
-castro.sdc_solver_tol_dens=1.e-10
-castro.sdc_solver_tol_ener=1.e-5
-castro.sdc_solver_atol=1.e-10
-castro.sdc_solver=1
+furnace.sdc_order=4
+furnace.time_integration_method=2
+furnace.limit_fourth_order=1
+furnace.use_reconstructed_gamma1=1
+furnace.sdc_solve_for_rhoe=1
+furnace.sdc_solver_tol_spec=1.e-10
+furnace.sdc_solver_tol_dens=1.e-10
+furnace.sdc_solver_tol_ener=1.e-5
+furnace.sdc_solver_atol=1.e-10
+furnace.sdc_solver=1
 
-castro.grav_source_type = 2
+furnace.grav_source_type = 2
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.e10
 
 # TIME STEP CONTROL
-castro.cfl            = 0.9     # cfl number for hyperbolic system
-castro.init_shrink    = 1.0     # scale back initial timestep
+furnace.cfl            = 0.9     # cfl number for hyperbolic system
+furnace.init_shrink    = 1.0     # scale back initial timestep
 
-castro.fixed_dt = 3e-4
+furnace.fixed_dt = 3e-4
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing mass
-castro.v              = 1       # verbosity in Castro.cpp
+furnace.sum_interval   = 1       # timesteps between computing mass
+furnace.v              = 1       # verbosity in Furnace.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING

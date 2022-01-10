@@ -266,7 +266,7 @@ void finalize_probdata ()
 
         problem::axis_1 = 2;
         problem::axis_2 = 3;
-        castro::rot_axis = 1;
+        furnace::rot_axis = 1;
 
     }
 
@@ -284,11 +284,11 @@ void finalize_probdata ()
 
     // Don't do a collision, free-fall, or TDE in a rotating reference frame.
 
-    if (problem::problem == 0 && castro::do_rotation == 1) {
+    if (problem::problem == 0 && furnace::do_rotation == 1) {
         amrex::Error("The free-fall/collision problem does not make sense in a rotating reference frame.");
     }
 
-    if (problem::problem == 2 && castro::do_rotation == 1) {
+    if (problem::problem == 2 && furnace::do_rotation == 1) {
         amrex::Error("The TDE problem does not make sense in a rotating reference frame.");
     }
 
@@ -319,7 +319,7 @@ void finalize_probdata ()
 
         // We must have a BH point mass defined.
 
-        if (castro::point_mass <= 0.0_rt) {
+        if (furnace::point_mass <= 0.0_rt) {
 
             amrex::Error("No point mass specified for the TDE problem.");
 
@@ -364,16 +364,16 @@ void set_small ()
 
     // Given the inputs of small_dens and small_temp, figure out small_pres.
 
-    eos_state.rho = castro::small_dens;
-    eos_state.T   = castro::small_temp;
+    eos_state.rho = furnace::small_dens;
+    eos_state.T   = furnace::small_temp;
     for (int n = 0; n < NumSpec; ++n) {
         eos_state.xn[n] = ambient::ambient_state[UFS+n] / ambient::ambient_state[URHO];
     }
 
     eos(eos_input_rt, eos_state);
 
-    castro::small_pres = eos_state.p;
-    castro::small_ener = eos_state.e;
+    furnace::small_pres = eos_state.p;
+    furnace::small_ener = eos_state.e;
 }
 
 
@@ -430,15 +430,15 @@ void binary_setup ()
     const Real* problo = DefaultGeometry().ProbLo();
     const Real* probhi = DefaultGeometry().ProbHi();
 
-    if (Castro::physbc().lo(0) == Symmetry && problem::center[0] != problo[0]) {
+    if (Furnace::physbc().lo(0) == Symmetry && problem::center[0] != problo[0]) {
         amrex::Error("Symmetric lower x-boundary but the center is not on this boundary.");
     }
 
-    if (Castro::physbc().lo(1) == Symmetry && problem::center[1] != problo[1]) {
+    if (Furnace::physbc().lo(1) == Symmetry && problem::center[1] != problo[1]) {
         amrex::Error("Symmetric lower y-boundary but the center is not on this boundary.");
     }
 
-    if (Castro::physbc().lo(2) == Symmetry && problem::center[2] != problo[2]) {
+    if (Furnace::physbc().lo(2) == Symmetry && problem::center[2] != problo[2]) {
         amrex::Error("Symmetric lower z-boundary but the center is not on this boundary.");
     }
 
@@ -612,21 +612,21 @@ void binary_setup ()
 
                 problem::a = problem::roche_radius_factor * (problem::radius_S / problem::roche_rad_S);
 
-                castro::rotational_period = -1.0_rt;
+                furnace::rotational_period = -1.0_rt;
 
             }
 
             Real v_P_r, v_S_r, v_P_phi, v_S_phi;
 
             kepler_third_law(problem::radius_P, problem::mass_P, problem::radius_S, problem::mass_S,
-                             castro::rotational_period, problem::orbital_eccentricity, problem::orbital_angle,
+                             furnace::rotational_period, problem::orbital_eccentricity, problem::orbital_angle,
                              problem::a, problem::r_P_initial, problem::r_S_initial, v_P_r, v_S_r, v_P_phi, v_S_phi);
 
             // Make sure the domain is big enough to hold stars in an orbit this size.
 
             Real length;
 
-            if (Castro::physbc().lo(problem::axis_1-1) == Symmetry) {
+            if (Furnace::physbc().lo(problem::axis_1-1) == Symmetry) {
 
                 // In this case we're only modelling the secondary.
                 length = problem::r_P_initial + problem::radius_P;
@@ -655,11 +655,11 @@ void binary_setup ()
             amrex::Print() << "The secondary orbits the center of mass at distance " << std::setprecision(3) << std::scientific
                            << problem::r_S_initial << " cm = " << problem::r_S_initial / C::AU << " AU." << std::endl;
             amrex::Print() << "The initial orbital period is " << std::setprecision(6) << std::fixed
-                           << castro::rotational_period << " s." << std::endl;
+                           << furnace::rotational_period << " s." << std::endl;
             amrex::Print() << "The initial orbital speed of the primary is " << std::setprecision(3) << std::scientific
-                           << 2.0_rt * M_PI * problem::r_P_initial / castro::rotational_period << " cm/s." << std::endl;
+                           << 2.0_rt * M_PI * problem::r_P_initial / furnace::rotational_period << " cm/s." << std::endl;
             amrex::Print() << "The initial orbital speed of the secondary is " << std::setprecision(3) << std::scientific
-                           << 2.0_rt * M_PI * problem::r_S_initial / castro::rotational_period << " cm/s." << std::endl;
+                           << 2.0_rt * M_PI * problem::r_S_initial / furnace::rotational_period << " cm/s." << std::endl;
             amrex::Print() << std::endl;
 
             // Star center positions -- we'll put them in the midplane, with the center of mass at the center of the domain.
@@ -697,12 +697,12 @@ void binary_setup ()
 
             // The tidal radius is given by (M_BH / M_WD)^(1/3) * R_WD.
 
-            problem::tde_tidal_radius = std::pow(castro::point_mass / problem::mass_P, 1.0_rt / 3.0_rt) *
+            problem::tde_tidal_radius = std::pow(furnace::point_mass / problem::mass_P, 1.0_rt / 3.0_rt) *
                                         problem::radius_P;
 
             // The usual definition for the Schwarzschild radius.
 
-            problem::tde_schwarzschild_radius = 2.0_rt * C::Gconst * castro::point_mass / (C::c_light * C::c_light);
+            problem::tde_schwarzschild_radius = 2.0_rt * C::Gconst * furnace::point_mass / (C::c_light * C::c_light);
 
             // The pericenter radius is the distance of closest approach,
             // for a point mass on a parabolic orbit.
@@ -716,7 +716,7 @@ void binary_setup ()
 
             problem::r_P_initial = problem::tde_separation * problem::tde_tidal_radius;
 
-            Real v_P = std::sqrt(2.0_rt * C::Gconst * castro::point_mass / problem::r_P_initial);
+            Real v_P = std::sqrt(2.0_rt * C::Gconst * furnace::point_mass / problem::r_P_initial);
 
             // Now we need to convert this into angular and radial components. To
             // do this, we need the orbital angle, which comes from the orbit equation,
@@ -757,7 +757,7 @@ void binary_setup ()
 
     // Safety check: make sure the stars are actually inside the computational domain.
 
-    if (!(AMREX_SPACEDIM == 2 && Castro::physbc().lo(1) == Symmetry)) {
+    if (!(AMREX_SPACEDIM == 2 && Furnace::physbc().lo(1) == Symmetry)) {
 
         if ((0.5_rt * (probhi[0] - problo[0]) < problem::radius_P) ||
             (0.5_rt * (probhi[1] - problo[1]) < problem::radius_P) ||

@@ -1,7 +1,7 @@
 #ifndef problem_bc_fill_H
 #define problem_bc_fill_H
 
-#include <Castro_util.H>
+#include <Furnace_util.H>
 #include <eos.H>
 
 AMREX_GPU_HOST_DEVICE AMREX_INLINE

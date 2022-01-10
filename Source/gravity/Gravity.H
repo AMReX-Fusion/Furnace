@@ -169,7 +169,7 @@ public:
 ///
 /// Calculate the maximum value of the RHS over all levels.
 /// This should only be called at a synchronization point where
-/// all Castro levels have valid new time data at the same simulation time.
+/// all Furnace levels have valid new time data at the same simulation time.
 /// The RHS we will use is the density multiplied by 4*pi*G and also
 /// multiplied by the metric terms, just as it would be in a real solve.
 ///

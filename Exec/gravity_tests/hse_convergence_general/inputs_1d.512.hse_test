@@ -14,47 +14,47 @@ amr.n_cell           = 512
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  1
-castro.hi_bc       =  2
+furnace.lo_bc       =  1
+furnace.hi_bc       =  2
 
-castro.xl_ext_bc_type = 1
-castro.hse_interp_temp = 1
-castro.hse_reflect_vels = 1
+furnace.xl_ext_bc_type = 1
+furnace.hse_interp_temp = 1
+furnace.hse_reflect_vels = 1
 
-castro.fill_ambient_bc = 1
-castro.ambient_fill_dir = 0
-castro.ambient_outflow_vel = 1
+furnace.fill_ambient_bc = 1
+furnace.ambient_fill_dir = 0
+furnace.ambient_outflow_vel = 1
 
 # WHICH PHYSICS
-castro.do_hydro = 1
-castro.do_react = 0
-castro.do_rotation = 0
-castro.do_grav = 1
-castro.do_sponge = 0
+furnace.do_hydro = 1
+furnace.do_react = 0
+furnace.do_rotation = 0
+furnace.do_grav = 1
+furnace.do_sponge = 0
 
-castro.small_temp = 1.e6
-castro.small_dens = 1.e-5
+furnace.small_temp = 1.e6
+furnace.small_dens = 1.e-5
 
-castro.ppm_type = 1
-castro.grav_source_type = 2
+furnace.ppm_type = 1
+furnace.grav_source_type = 2
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.5e14
 
-castro.diffuse_temp = 0
+furnace.diffuse_temp = 0
 
 
 # TIME STEP CONTROL
-castro.cfl            = 0.8     # cfl number for hyperbolic system
-castro.init_shrink    = 1.0     # scale back initial timestep
-castro.change_max     = 1.1     # max time step growth
-castro.use_retry      = 1
-castro.max_subcycles = 16
-castro.fixed_dt = 9.375e-9
+furnace.cfl            = 0.8     # cfl number for hyperbolic system
+furnace.init_shrink    = 1.0     # scale back initial timestep
+furnace.change_max     = 1.1     # max time step growth
+furnace.use_retry      = 1
+furnace.max_subcycles = 16
+furnace.fixed_dt = 9.375e-9
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing mass
-castro.v              = 1       # verbosity in Castro.cpp
+furnace.sum_interval   = 1       # timesteps between computing mass
+furnace.v              = 1       # verbosity in Furnace.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING

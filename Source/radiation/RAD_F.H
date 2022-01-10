@@ -1,5 +1,5 @@
-#ifndef CASTRO_RAD_F_H
-#define CASTRO_RAD_F_H
+#ifndef FURNACE_RAD_F_H
+#define FURNACE_RAD_F_H
 
 #include <AMReX_ArrayLim.H>
 

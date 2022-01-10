@@ -1,12 +1,12 @@
 /* Implementations of functions in Problem.H go here */
 
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 using namespace amrex;
 
 #ifdef DO_PROBLEM_POST_SIMULATION
-void Castro::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_level) {
+void Furnace::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_level) {
 
   // compute the norm of the solution vs. the analytic solution
 
@@ -17,18 +17,18 @@ void Castro::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_lev
 
   for (int n = 0; n < nlevels; ++n) {
 
-    // the Castro object for this level
-    Castro& castro = dynamic_cast<Castro&>(*amr_level[n]);
-    Real time = castro.get_state_data(State_Type).curTime();
+    // the Furnace object for this level
+    Furnace& furnace = dynamic_cast<Furnace&>(*amr_level[n]);
+    Real time = furnace.get_state_data(State_Type).curTime();
 
-    const int* domain_lo = castro.geom.Domain().loVect();
-    const int* domain_hi = castro.geom.Domain().hiVect();
+    const int* domain_lo = furnace.geom.Domain().loVect();
+    const int* domain_hi = furnace.geom.Domain().hiVect();
 
     // the state data
-    MultiFab& S = castro.get_new_data(State_Type);
+    MultiFab& S = furnace.get_new_data(State_Type);
 
     // derive the analytic solution
-    auto analytic = castro.derive("analytic", time, 1);
+    auto analytic = furnace.derive("analytic", time, 1);
 
 #ifdef TRUE_SDC
     // if we are fourth-order, we need to convert to averages

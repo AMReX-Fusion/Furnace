@@ -16,8 +16,8 @@ amr.n_cell         = 256 512
 
 amr.max_level      = 3       # maximum level number allowed
 
-castro.lo_bc       =  3 2
-castro.hi_bc       =  2 2
+furnace.lo_bc       =  3 2
+furnace.hi_bc       =  2 2
 
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
 # 0 = Interior           3 = Symmetry
@@ -25,33 +25,33 @@ castro.hi_bc       =  2 2
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
 
-castro.do_hydro = 1
-castro.do_grav  = 1
-castro.do_react = 1
-castro.do_sponge = 1
+furnace.do_hydro = 1
+furnace.do_grav  = 1
+furnace.do_react = 1
+furnace.do_sponge = 1
 
-castro.ppm_type = 1
-castro.ppm_temp_fix = 0
+furnace.ppm_type = 1
+furnace.ppm_temp_fix = 0
 
-castro.use_flattening = 1
+furnace.use_flattening = 1
 
-castro.riemann_solver = 1
+furnace.riemann_solver = 1
 
 gravity.gravity_type = MonopoleGrav
 gravity.drdxfac = 2
 
-castro.sponge_upper_density = 1.e4
-castro.sponge_lower_density = 1.e2
-castro.sponge_timescale     = 1.e-3
+furnace.sponge_upper_density = 1.e4
+furnace.sponge_lower_density = 1.e2
+furnace.sponge_timescale     = 1.e-3
 
-castro.cfl            = 0.7     # cfl number for hyperbolic system
-castro.init_shrink    = 0.05     # scale back initial timestep by this factor
-castro.change_max     = 1.025    # factor by which dt is allowed to change each timestep
-castro.sum_interval   = 0       # timesteps between computing and printing volume averages
-castro.update_sources_after_reflux = 0
+furnace.cfl            = 0.7     # cfl number for hyperbolic system
+furnace.init_shrink    = 0.05     # scale back initial timestep by this factor
+furnace.change_max     = 1.025    # factor by which dt is allowed to change each timestep
+furnace.sum_interval   = 0       # timesteps between computing and printing volume averages
+furnace.update_sources_after_reflux = 0
 
-#castro.dtnuc_e = 0.25
-#castro.dtnuc_X = 0.25
+#furnace.dtnuc_e = 0.25
+#furnace.dtnuc_X = 0.25
 
 amr.ref_ratio       = 2 2 2 2 # refinement ratio
 amr.regrid_int      = 2   # how often to regrid
@@ -68,13 +68,13 @@ amr.max_grid_size   = 128       # maximum grid size allowed -- used to control p
 amr.blocking_factor = 32       # block factor in grid generation
 
 amr.v               = 1       # control verbosity in Amr.cpp
-castro.v            = 1       # control verbosity in Castro.cpp
+furnace.v            = 1       # control verbosity in Furnace.cpp
 
 amr.derive_plot_vars = ALL
-castro.store_burn_weights = 1
+furnace.store_burn_weights = 1
 
-castro.small_dens   = 1.e-5
-castro.small_temp   = 1.e5
+furnace.small_dens   = 1.e-5
+furnace.small_temp   = 1.e5
 
 # problem parameters
 

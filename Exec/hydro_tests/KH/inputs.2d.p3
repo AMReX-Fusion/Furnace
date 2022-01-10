@@ -6,7 +6,7 @@ geometry.is_periodic = 1   1
 geometry.coord_sys   = 0        # 0 => cart, 1 => RZ  2=>spherical
 geometry.prob_lo     = 0.0 0.0
 geometry.prob_hi     = 1.0 2.0
-castro.center        = 0.5 1.0
+furnace.center        = 0.5 1.0
 
 amr.n_cell           = 256 512
 amr.max_level        = 0        # maximum level number allowed; base level is 0
@@ -20,23 +20,23 @@ amr.ref_ratio        = 2 2 2 2  # refinement ratio
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  0   0
-castro.hi_bc       =  0   0
+furnace.lo_bc       =  0   0
+furnace.hi_bc       =  0   0
 
 # WHICH PHYSICS
-castro.do_hydro = 1
-castro.ppm_type = 1
-castro.small_temp = 1.e-10
-castro.small_dens = 1.e-4
+furnace.do_hydro = 1
+furnace.ppm_type = 1
+furnace.small_temp = 1.e-10
+furnace.small_dens = 1.e-4
 
 # TIME STEP CONTROL
-castro.cfl            = 0.8     # cfl number for hyperbolic system
-castro.init_shrink    = 0.1     # scale back initial timestep
-castro.change_max     = 1.1     # scale back initial timestep
+furnace.cfl            = 0.8     # cfl number for hyperbolic system
+furnace.init_shrink    = 0.1     # scale back initial timestep
+furnace.change_max     = 1.1     # scale back initial timestep
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing mass
-castro.v              = 1       # verbosity in Castro.cpp
+furnace.sum_interval   = 1       # timesteps between computing mass
+furnace.v              = 1       # verbosity in Furnace.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 amr.grid_log          = grid_diag.out   # name of grid logging file
 

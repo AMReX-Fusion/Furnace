@@ -1,36 +1,36 @@
-# these are the files that should be needed for any Castro build
+# these are the files that should be needed for any Furnace build
 
-CEXE_sources += Castro.cpp
+CEXE_sources += Furnace.cpp
 CEXE_sources += runparams_defaults.cpp
-CEXE_sources += Castro_advance.cpp
-CEXE_sources += Castro_advance_ctu.cpp
+CEXE_sources += Furnace_advance.cpp
+CEXE_sources += Furnace_advance_ctu.cpp
 ifeq ($(USE_TRUE_SDC), TRUE)
 ifneq ($(USE_GPU), TRUE)
-  CEXE_sources += Castro_advance_sdc.cpp
+  CEXE_sources += Furnace_advance_sdc.cpp
 endif
 endif
-CEXE_sources += Castro_setup.cpp
-CEXE_sources += Castro_io.cpp
-CEXE_sources += CastroBld.cpp
+CEXE_sources += Furnace_setup.cpp
+CEXE_sources += Furnace_io.cpp
+CEXE_sources += FurnaceBld.cpp
 CEXE_sources += main.cpp
 
-CEXE_headers += Castro.H
-CEXE_headers += castro_limits.H
-CEXE_headers += Castro_io.H
+CEXE_headers += Furnace.H
+CEXE_headers += furnace_limits.H
+CEXE_headers += Furnace_io.H
 CEXE_headers += state_indices.H
 CEXE_headers += runtime_parameters.H
 CEXE_sources += sum_utils.cpp
 CEXE_sources += sum_integrated_quantities.cpp
 
-FEXE_headers += Castro_F.H
+FEXE_headers += Furnace_F.H
 
 CEXE_headers += Derive.H
 CEXE_sources += Derive.cpp
 
-CEXE_headers += Castro_generic_fill.H
-CEXE_sources += Castro_generic_fill.cpp
+CEXE_headers += Furnace_generic_fill.H
+CEXE_sources += Furnace_generic_fill.cpp
 
-CEXE_headers      += Castro_util.H
+CEXE_headers      += Furnace_util.H
 CEXE_headers      += math.H
 
 NEED_MGUTIL =

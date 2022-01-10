@@ -10,7 +10,7 @@ PROFILE    = FALSE
 USE_RAD = TRUE
 
 
-CASTRO_HOME = ../../..
+FURNACE_HOME = ../../..
 
 # has the f90 routine ca_initgroups and group structure in probdata_module
 #HAS_INITGROUPS = TRUE
@@ -28,4 +28,4 @@ RAD_INTERP = TRUE
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

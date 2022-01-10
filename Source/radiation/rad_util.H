@@ -1,9 +1,9 @@
-#ifndef CASTRO_RAD_UTIL_H
-#define CASTRO_RAD_UTIL_H
+#ifndef FURNACE_RAD_UTIL_H
+#define FURNACE_RAD_UTIL_H
 
 #include <cmath>
 
-#include <Castro_util.H>
+#include <Furnace_util.H>
 
 #include <fluxlimiter.H>
 

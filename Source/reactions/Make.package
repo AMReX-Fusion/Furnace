@@ -1,7 +1,7 @@
 # sources used with reactions
 # this is included when USE_REACT = TRUE
 
-CEXE_headers += Castro_react.H
+CEXE_headers += Furnace_react.H
 
-CEXE_sources += Castro_react.cpp
-CEXE_headers += Castro_react_util.H
+CEXE_sources += Furnace_react.cpp
+CEXE_headers += Furnace_react_util.H

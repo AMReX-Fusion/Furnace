@@ -4,7 +4,7 @@
 Running Options: CPUs and GPUs
 ******************************
 
-Castro uses MPI for coarse parallelization, distributing boxs across
+Furnace uses MPI for coarse parallelization, distributing boxs across
 compute nodes.  For fine-grained parallelism, OpenMP is used for
 CPU-based computing and CUDA is used for GPUs.
 
@@ -16,7 +16,7 @@ The preferred was of running on CPUs is to use MPI+OpenMP, compiling as::
   USE_MPI=TRUE
   USE_OMP=TRUE
 
-Castro uses tiling to divide boxes into smaller tiles and distributes
+Furnace uses tiling to divide boxes into smaller tiles and distributes
 these tiles to the OpenMP threads.  This is all managed at the MFIter
 level -- no OpenMP directives need to be present in the compute
 kernels themselves.  See `MFIter with Tiling
@@ -32,14 +32,14 @@ performance.
 Running on GPUs
 ===============
 
-Castro's compute kernels can run on GPUs and this is the preferred way
+Furnace's compute kernels can run on GPUs and this is the preferred way
 to run on supercomputers with GPUs.  At the moment, offloading is
 handled using CUDA and managed memory.  The exact same compute kernels
 are used on GPUs as on CPUs.
 
 .. note::
 
-   Almost all of Castro runs on GPUs, with the main exception being
+   Almost all of Furnace runs on GPUs, with the main exception being
    the true SDC solver (``USE_TRUE_SDC = TRUE``).
 
 To enable GPU computing, compile with::

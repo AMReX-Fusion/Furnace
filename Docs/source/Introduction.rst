@@ -1,12 +1,12 @@
 **********************
-Introduction to Castro
+Introduction to Furnace
 **********************
 
-Castro is a adaptive mesh, radiation/MHD hydrodynamics code that is
+Furnace is a adaptive mesh, radiation/MHD hydrodynamics code that is
 designed to model astrophysical reacting flows on massively parallel
 computers.
 
-Castro's major capabilities:
+Furnace's major capabilities:
 
   * 1-, 2-, and 3-dimensional unsplit, 2nd-order finite-volume
     hydrodynamics; 4th order hydro for uniform grids.
@@ -46,7 +46,7 @@ Castro's major capabilities:
 Development Model
 =================
 
-Castro is developed on github (https://github.com/amrex-astro/Castro
+Furnace is developed on github (https://github.com/amrex-astro/Furnace
 ). The ``main`` branch is stable and can be used for day-to-day
 science.  New changes are made via pull requests to the
 ``development`` branch.  This is where the ongoing regression testing
@@ -57,17 +57,17 @@ apply a tag of the form ``YY.MM`` (e.g. ``20.02`` for Feb. 2020).  We
 also create a github release and mint a Zenodo DOI using the
 information in the ``.zenodo.json`` file at the root level.
 
-Castro "core developers" are those who have made substantial code
+Furnace "core developers" are those who have made substantial code
 contributions (details are in the main ``README.md``).  These
 developers are coauthors on the Zenodo DOI and of any papers
-describing Castro generally (science papers coauthors are decided by
+describing Furnace generally (science papers coauthors are decided by
 the science paper lead).
 
 
 Units and Conventions
 =====================
 
-Castro works in CGS units unless otherwise specified.
+Furnace works in CGS units unless otherwise specified.
 :numref:`table:units` shows some of the common symbols / names used
 throughout the code documentation and papers.
 

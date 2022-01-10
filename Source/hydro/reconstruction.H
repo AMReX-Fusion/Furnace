@@ -1,5 +1,5 @@
-#ifndef CASTRO_RECONSTRUCTION_H
-#define CASTRO_RECONSTRUCTION_H
+#ifndef FURNACE_RECONSTRUCTION_H
+#define FURNACE_RECONSTRUCTION_H
 
 constexpr int im2 = 0;
 constexpr int im1 = 1;

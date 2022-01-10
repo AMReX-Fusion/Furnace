@@ -1,7 +1,7 @@
 Distributed Problem Setups
 ==========================
 
-There are a number of standard problem setups that come with Castro.
+There are a number of standard problem setups that come with Furnace.
 These can be used as a starting point toward writing your own setup.
 We organize these into subdirectories by broad type (radiation, hydro,
 gravity, etc.): The standard categories and *some* of the included
@@ -50,12 +50,12 @@ problems are:
 
    * ``acoustic_pulse``: The acoustic pulse problem from
      :cite:`mccorquodalecolella` used to measure convergence of pure
-     hydrodynamics problems (as used for Castro in
-     :cite:`castro-sdc`).
+     hydrodynamics problems (as used for Furnace in
+     :cite:`furnace-sdc`).
 
    * ``acoustic_pulse_general``: a general equation of state version
      of ``acoustic_pulse`` used for measuring convergence in
-     :cite:`castro-sdc`.
+     :cite:`furnace-sdc`.
 
    * ``double_bubble``: Initialize 1 or 2 bubbles in a stratified
      atmosphere (isothermal or isentropic) and allow for the bubbles
@@ -68,15 +68,15 @@ problems are:
    * ``oddeven``: A grid-aligned shock hitting a very small density
      perturbation.  This demonstrates the odd-even decoupling problem
      discussed in :cite:`quirk1997`. This setup serves to test the
-     castro.hybrid_riemann option to hydrodynamics.
+     furnace.hybrid_riemann option to hydrodynamics.
 
    * ``RT``: A single-model Rayleigh-Taylor instability problem.
 
    * ``Sedov``: The standard Sedov-Taylor blast wave problem. This
-     setup was used in the first Castro paper :cite:`castro_I`.
+     setup was used in the first Furnace paper :cite:`furnace_I`.
 
    * ``Sod``: A one-dimensional shock tube setup, including the
-     classic Sod problem. This setup was used in the original Castro
+     classic Sod problem. This setup was used in the original Furnace
      paper.
 
    * ``Sod_stellar``: A version of the Sod shock tube for the general
@@ -85,7 +85,7 @@ problems are:
 
    * ``toy_convect``: A simple nova-like convection problem with an
      external heating source. This problem shows how to use the model
-     parser to initialize a 1-d atmosphere on the Castro grid,
+     parser to initialize a 1-d atmosphere on the Furnace grid,
      incorporate a custom tagging routine, sponge the fluid above the
      atmosphere, and write a custom diagnostics routine.
      A MAESTROeX version of this problem setup also exists.
@@ -116,38 +116,38 @@ problems are:
      compared to a semi-analytic solution described in :cite:`lowrieedwards`.
    
    * ``RadFront``: This is the optically-thin streaming of a radiation front problem
-     demonstrated originally in Castro in :cite:`CastroII`.
+     demonstrated originally in Furnace in :cite:`FurnaceII`.
 
    * ``RadShestakovBolstad``: This is a linear multigroup diffusion test problem first described
-     by :cite:`SHESTAKOV2005` and demonstrated in Castro in :cite:`CastroIII`.
+     by :cite:`SHESTAKOV2005` and demonstrated in Furnace in :cite:`FurnaceIII`.
 
    * ``RadSourceTest``: Test the implementation of the source terms in the gray radiation
      solver.  This does the "relaxation to thermal equilibrium" test as
      described in :cite:`swestymyra:2009`  (originally described in :cite:`turnerstone2001`).
 
    * ``RadSphere``: This is a multigroup radiating sphere test problem with an analytic solution,
-     described in :cite:`graziani:2008` and :cite:`swestymyra:2009` and shown in Castro in :cite:`CastroIII`.
+     described in :cite:`graziani:2008` and :cite:`swestymyra:2009` and shown in Furnace in :cite:`FurnaceIII`.
  
    * ``RadSuOlson``: This is a non-equlibrium Marshak wave test described in :cite:`suolson:1996` and shown
-     in Castro in :cite:`CastroII`.
+     in Furnace in :cite:`FurnaceII`.
 
    * ``RadSuOlsonMG``: This is a multigroup version of ``RadSuOlson`` described in :cite:`suolson:1999`
-     and shown in Castro in :cite:`CastroIII`.
+     and shown in Furnace in :cite:`FurnaceIII`.
 
-   * ``RadThermalWave``: A thermal wave test adapted from :cite:`howellgreenough:2003` and shown in Castro
-     in :cite:`CastroII`.
+   * ``RadThermalWave``: A thermal wave test adapted from :cite:`howellgreenough:2003` and shown in Furnace
+     in :cite:`FurnaceII`.
  
 * ``reacting_tests``:
 
    * ``bubble_convergence``: a reacting bubble problem designed for measuring the convergence of
-     the reactive hydro algorithms in Castro.  This was used in :cite:`castro-sdc`.
+     the reactive hydro algorithms in Furnace.  This was used in :cite:`furnace-sdc`.
 
    * ``reacting_bubble``: A reacting bubble in a stratified white
      dwarf atmosphere. This problem was featured in the
      Maestro reaction paper :cite:`maestro:III`.
 
    * ``reacting_convergence``: a simple reacting hydrodynamics problem for measuring convergence,
-     used in :cite:`castro-sdc`.
+     used in :cite:`furnace-sdc`.
 
 * ``science``:
 
@@ -179,7 +179,7 @@ problems are:
 * ``unit_tests``:
 
    * ``diffusion_test``: a test of thermal diffusion (without hydro).  This was used to demonstrate convergence
-     in both :cite:`castro-sdc` and :cite:`eiden:2020`.
+     in both :cite:`furnace-sdc` and :cite:`eiden:2020`.
 
    * ``particles_test``: a test of passive particles.
 

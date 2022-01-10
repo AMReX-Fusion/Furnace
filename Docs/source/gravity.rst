@@ -11,14 +11,14 @@ Introduction
 Gravity Types
 --------------------
 
-Castro can incorporate gravity as a constant, monopole approximation,
+Furnace can incorporate gravity as a constant, monopole approximation,
 or a full Poisson solve. To enable gravity in the code, set::
 
     USE_GRAV = TRUE
 
 in the ``GNUmakefile``, and then turn it on in the inputs file
-via ``castro.do_grav`` = 1. If you want to incorporate a point mass
-(through ``castro.point_mass``), you must have::
+via ``furnace.do_grav`` = 1. If you want to incorporate a point mass
+(through ``furnace.point_mass``), you must have::
 
     USE_POINTMASS = TRUE
 
@@ -28,7 +28,7 @@ There are currently three options for how gravity is calculated,
 controlled by setting ``gravity.gravity_type``. The options are
 ``ConstantGrav``, ``PoissonGrav``, or ``MonopoleGrav``.
 Again, these are only relevant if ``USE_GRAV =
-TRUE`` in the ``GNUmakefile`` and ``castro.do_grav`` = 1 in the inputs
+TRUE`` in the ``GNUmakefile`` and ``furnace.do_grav`` = 1 in the inputs
 file. If both of these are set then the user is required to specify
 the gravity type in the inputs file or the program will abort.
 
@@ -40,7 +40,7 @@ the gravity type in the inputs file or the program will abort.
 Integration Strategy
 --------------------
 
-Castro uses subcycling to integrate levels at different timesteps.
+Furnace uses subcycling to integrate levels at different timesteps.
 The gravity algorithm needs to respect this to obtain full accuracy.
 When self-gravity is computed via a multigrid solve
 (``gravity.gravity_type = PoissonGrav``), we correct for this (though
@@ -60,7 +60,7 @@ There are two types of solves that we discuss with AMR:
    boundary conditions for the current-level-solve.
 
 The overall integration strategy is as follows, and is similar to
-the discussion in :cite:`castro_I`. Briefly:
+the discussion in :cite:`furnace_I`. Briefly:
 
 -  At the beginning of a simulation, we do a multilevel composite
    solve (if ``gravity.no_composite`` = 0).
@@ -171,12 +171,12 @@ solves:
 
 The follow parameters affect the coupling of hydro and gravity:
 
--  ``castro.do_grav`` : turn on/off gravity
+-  ``furnace.do_grav`` : turn on/off gravity
 
--  ``castro.moving_center`` : do we recompute the center
+-  ``furnace.moving_center`` : do we recompute the center
    used for the multipole gravity solver each step?
 
--  ``castro.point_mass`` : point mass at the center of the star
+-  ``furnace.point_mass`` : point mass at the center of the star
    (must be :math:`\geq 0`; default: 0.0)
 
 Note that in the following, ``MAX_LEV`` is a hard-coded parameter
@@ -311,7 +311,7 @@ Poisson Boundary Conditions: 3D
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following describes methods for doing isolated boundary
-conditions. The best reference for Castro’s implementation of this
+conditions. The best reference for Furnace’s implementation of this
 is :cite:`katz:2016`.
 
 -  **Multipole Expansion**
@@ -440,7 +440,7 @@ occur after a hydro update in those zones are reset, and the mass
 deleted is added to the pointmass. (If there is expansion, and the
 density lowers, then the point mass is reduced and the mass is added
 back to the grid). This calculation is done in
-``pointmass_update()`` in ``Castro_pointmass.cpp``.
+``pointmass_update()`` in ``Furnace_pointmass.cpp``.
 
 GR correction
 =============
@@ -570,9 +570,9 @@ Hydrodynamics Source Terms
 
 There are several options to incorporate the effects of gravity into
 the hydrodynamics system. The main parameter here is
-``castro.grav_source_type``.
+``furnace.grav_source_type``.
 
-- ``castro.grav_source_type`` = 1 : we use a standard
+- ``furnace.grav_source_type`` = 1 : we use a standard
   predictor-corrector formalism for updating the momentum and
   energy. Specifically, our first update is equal to :math:`\Delta t
   \times \mathbf{S}^n` , where :math:`\mathbf{S}^n` is the value of
@@ -582,7 +582,7 @@ the hydrodynamics system. The main parameter here is
   :math:`\Delta t / 2 \times \mathbf{S}^{n+1}`, so that at the end of
   the timestep the source term is properly time centered.
 
-- ``castro.grav_source_type`` = 2 : we do something very similar
+- ``furnace.grav_source_type`` = 2 : we do something very similar
   to 1. The major difference is that when evaluating the energy source
   term at the new time (which is equal to :math:`\mathbf{u} \cdot
   \mathbf{S}^{n+1}_{\rho \mathbf{u}}`, where the latter is the
@@ -592,7 +592,7 @@ the hydrodynamics system. The main parameter here is
   between the momentum and energy update and we have seen that it
   usually results in a more accurate evolution.
 
-- ``castro.grav_source_type`` = 3 : we do the same momentum update as
+- ``furnace.grav_source_type`` = 3 : we do the same momentum update as
   the previous two, but for the energy update, we put all of the work
   into updating the kinetic energy alone. In particular, we explicitly
   ensure that :math:`(\rho e)` remains the same, and update
@@ -602,7 +602,7 @@ the hydrodynamics system. The main parameter here is
   velocity, and should not directly update the temperature—only
   indirectly through things like shocks.
 
-- ``castro.grav_source_type`` = 4 : the energy update is done in a
+- ``furnace.grav_source_type`` = 4 : the energy update is done in a
   “conservative” fashion. The previous methods all evaluate the value
   of the source term at the cell center, but this method evaluates the
   change in energy at cell edges, using the hydrodynamical mass

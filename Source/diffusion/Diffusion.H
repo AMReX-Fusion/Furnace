@@ -1,5 +1,5 @@
-#ifndef CASTRO_DIFFUSION_H
-#define CASTRO_DIFFUSION_H
+#ifndef FURNACE_DIFFUSION_H
+#define FURNACE_DIFFUSION_H
 
 #include <AMReX_AmrLevel.H>
 #include <AMReX_MLLinOp.H>

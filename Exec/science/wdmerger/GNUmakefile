@@ -47,9 +47,9 @@ endif
 
 # Location where the source files are coming from.
 
-PROBLEM_DIR ?= $(CASTRO_HOME)/Exec/science/wdmerger
+PROBLEM_DIR ?= $(FURNACE_HOME)/Exec/science/wdmerger
 
 Blocs = $(PROBLEM_DIR)
 Bpack = $(PROBLEM_DIR)/Make.package
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

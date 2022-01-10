@@ -1,4 +1,4 @@
-Treatment of gas pressure interface state in Castro + radiation
+Treatment of gas pressure interface state in Furnace + radiation
 
 Background
 ----------
@@ -87,11 +87,11 @@ The gas pressure update in these terms is:
 
 .. math:: p_\mathrm{int} = p_\mathrm{ref} - (\beta^{(+)}+ \beta^{(-)}) c_g^2 + \lambda_f \beta^{(0)}_{E_r}
 
-This matches the expression in Castro. Notice that this expression is
+This matches the expression in Furnace. Notice that this expression is
 unusual for pressure, since it jumps across the :math:`{(0)}`-wave, whereas
 the total pressure would not.
 
-Castro computes the edge state of the radiation energy density as:
+Furnace computes the edge state of the radiation energy density as:
 
 .. math:: {E_r}_\mathrm{int} = {E_r}_\mathrm{ref} - (\beta^{(+)}+ \beta^{(-)}) h_r - \beta^{(0)}_{E_r}
 
@@ -118,7 +118,7 @@ the contributions of all waves, then:
 and :math:`q_\mathrm{ref}` cancels out. However, when we do characteristic
 tracing, this is not guaranteed.
 
-In Castro, the quantity :math:`\Delta p^{(0)}_\mathrm{tot}` is defined as:
+In Furnace, the quantity :math:`\Delta p^{(0)}_\mathrm{tot}` is defined as:
 
 .. math::
 
@@ -193,7 +193,7 @@ summing up the independent :math:`E_r`.
 :math:`\gamma_e` system
 -----------------------
 
-The alternate approach that Castro takes to incorporate auxiliary
+The alternate approach that Furnace takes to incorporate auxiliary
 thermodynamic information into the system is to evolve an equation for
 :math:`\gamma_e`. We use the primitive variable system, :math:`q = (\tau, u, p,
 \gamma_e, E_r)^\intercal`, where :math:`\tau = 1/\rho`. The matrix :math:`A` now

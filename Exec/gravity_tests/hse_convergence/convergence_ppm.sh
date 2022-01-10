@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-EXEC=./Castro1d.gnu.MPI.ex
+EXEC=./Furnace1d.gnu.MPI.ex
 
 ## ppm
 
@@ -29,8 +29,8 @@ fextrema.gnu.ex -v magvel ${pfile} | grep -i magvel >> ${ofile}
 ofile=ppm-hsereflect.converge.out
 
 RUNPARAMS="
-castro.hse_interp_temp=1
-castro.hse_reflect_vels=1
+furnace.hse_interp_temp=1
+furnace.hse_reflect_vels=1
 """
 
 ${EXEC} inputs.ppm.64 ${RUNPARAMS} >& 64.out
@@ -55,7 +55,7 @@ fextrema.gnu.ex -v magvel ${pfile} | grep -i magvel >> ${ofile}
 ofile=ppm-grav4.converge.out
 
 RUNPARAMS="
-castro.grav_source_type=4
+furnace.grav_source_type=4
 """
 
 ${EXEC} inputs.ppm.64 ${RUNPARAMS} >& 64.out
@@ -80,8 +80,8 @@ fextrema.gnu.ex -v magvel ${pfile} | grep -i magvel >> ${ofile}
 ofile=ppm-reflect.converge.out
 
 RUNPARAMS="
-castro.lo_bc=3
-castro.hi_bc=3
+furnace.lo_bc=3
+furnace.hi_bc=3
 """
 
 ${EXEC} inputs.ppm.64 ${RUNPARAMS} >& 64.out

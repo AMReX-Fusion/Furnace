@@ -1,13 +1,13 @@
-#include <Castro.H>
-#include <Castro_F.H>
-#include <Castro_util.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
+#include <Furnace_util.H>
 #include <Rotation.H>
 #ifdef HYBRID_MOMENTUM
 #include <hybrid.H>
 #endif
 
 void
-Castro::rsrc(const Box& bx,
+Furnace::rsrc(const Box& bx,
              Array4<Real const> const& uold,
              Array4<Real> const& source, 
              const Real dt) {
@@ -138,7 +138,7 @@ Castro::rsrc(const Box& bx,
 
 
 void
-Castro::corrrsrc(const Box& bx,
+Furnace::corrrsrc(const Box& bx,
                  Array4<Real const> const& uold,
                  Array4<Real const> const& unew,
                  Array4<Real> const& source,

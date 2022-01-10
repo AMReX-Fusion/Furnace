@@ -1,11 +1,11 @@
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 #ifdef ROTATION
 #include <Rotation.H>
 #endif
 
-#include <Castro_util.H>
+#include <Furnace_util.H>
 #include <advection_util.H>
 
 #ifdef HYBRID_MOMENTUM
@@ -24,7 +24,7 @@ using namespace amrex;
 
 
 void
-Castro::ctoprim(const Box& bx,
+Furnace::ctoprim(const Box& bx,
                 const Real time,
                 Array4<Real const> const& uin,
 #ifdef MHD
@@ -59,7 +59,7 @@ Castro::ctoprim(const Box& bx,
       std::cout << ">>> Error: advection_util_nd.F90::ctoprim " << i << " " << j << " " << k << std::endl;
       std::cout << ">>> ... negative density " << uin(i,j,k,URHO) << std::endl;
       amrex::Error("Error:: advection_util_nd.f90 :: ctoprim");
-    } else if (uin(i,j,k,URHO) < castro::small_dens) {
+    } else if (uin(i,j,k,URHO) < furnace::small_dens) {
       std::cout << std::endl;
       std::cout << ">>> Error: advection_util_nd.F90::ctoprim " << i << " " << j << " " << k << std::endl;
       std::cout << ">>> ... small density " << uin(i,j,k,URHO) << std::endl;
@@ -92,7 +92,7 @@ Castro::ctoprim(const Box& bx,
                                                 q_arr(i,j,k,QV)*q_arr(i,j,k,QV) +
                                                 q_arr(i,j,k,QW)*q_arr(i,j,k,QW));
 
-    if ((uin(i,j,k,UEDEN) - kineng) > castro::dual_energy_eta1*uin(i,j,k,UEDEN)) {
+    if ((uin(i,j,k,UEDEN) - kineng) > furnace::dual_energy_eta1*uin(i,j,k,UEDEN)) {
       q_arr(i,j,k,QREINT) = (uin(i,j,k,UEDEN) - kineng) * rhoinv;
     } else {
       q_arr(i,j,k,QREINT) = uin(i,j,k,UEINT) * rhoinv;
@@ -102,7 +102,7 @@ Castro::ctoprim(const Box& bx,
     // then subtract off the rotation component here.
 
 #ifdef ROTATION
-    if (castro::do_rotation == 1 && castro::state_in_rotating_frame != 1) {
+    if (furnace::do_rotation == 1 && furnace::state_in_rotating_frame != 1) {
       GpuArray<Real, 3> vel;
       for (int n = 0; n < 3; n++) {
         vel[n] = uin(i,j,k,UMX+n) * rhoinv;
@@ -201,7 +201,7 @@ Castro::ctoprim(const Box& bx,
 
 
 void
-Castro::shock(const Box& bx,
+Furnace::shock(const Box& bx,
               Array4<Real const> const& q_arr,
               Array4<Real> const& shk) {
 
@@ -364,7 +364,7 @@ Castro::shock(const Box& bx,
 
 
 void
-Castro::divu(const Box& bx,
+Furnace::divu(const Box& bx,
              Array4<Real const> const& q_arr,
              Array4<Real> const& div) {
   // this computes the *node-centered* divergence
@@ -480,7 +480,7 @@ Castro::divu(const Box& bx,
 
 
 void
-Castro::apply_av(const Box& bx,
+Furnace::apply_av(const Box& bx,
                  const int idir,
                  Array4<Real const> const& div,
                  Array4<Real const> const& uin,
@@ -530,7 +530,7 @@ Castro::apply_av(const Box& bx,
 
 #ifdef RADIATION
 void
-Castro::apply_av_rad(const Box& bx,
+Furnace::apply_av_rad(const Box& bx,
                      const int idir,
                      Array4<Real const> const& div,
                      Array4<Real const> const& Erin,
@@ -575,7 +575,7 @@ Castro::apply_av_rad(const Box& bx,
 
 
 void
-Castro::normalize_species_fluxes(const Box& bx,
+Furnace::normalize_species_fluxes(const Box& bx,
                                  Array4<Real> const& flux) {
 
   // Normalize the fluxes of the mass fractions so that
@@ -614,7 +614,7 @@ Castro::normalize_species_fluxes(const Box& bx,
 
 
 void
-Castro::scale_flux(const Box& bx,
+Furnace::scale_flux(const Box& bx,
 #if AMREX_SPACEDIM == 1
                    Array4<Real const> const& qint,
 #endif
@@ -643,7 +643,7 @@ Castro::scale_flux(const Box& bx,
 
 #ifdef RADIATION
 void
-Castro::scale_rad_flux(const Box& bx,
+Furnace::scale_rad_flux(const Box& bx,
                        Array4<Real> const& rflux,
                        Array4<Real const> const& area_arr,
                        const Real dt) {
@@ -659,7 +659,7 @@ Castro::scale_rad_flux(const Box& bx,
 
 
 void
-Castro::limit_hydro_fluxes_on_small_dens(const Box& bx,
+Furnace::limit_hydro_fluxes_on_small_dens(const Box& bx,
                                          int idir,
                                          Array4<Real const> const& u,
                                          Array4<Real const> const& q,
@@ -894,7 +894,7 @@ Castro::limit_hydro_fluxes_on_small_dens(const Box& bx,
 
 
 void
-Castro::limit_hydro_fluxes_on_large_vel(const Box& bx,
+Furnace::limit_hydro_fluxes_on_large_vel(const Box& bx,
                                         int idir,
                                         Array4<Real const> const& u,
                                         Array4<Real const> const& q,
@@ -908,7 +908,7 @@ Castro::limit_hydro_fluxes_on_large_vel(const Box& bx,
     // on velocities that are too large instead. The comments are minimal since
     // the algorithm is effectively the same.
 
-    if (castro::speed_limit <= 0.0_rt) return;
+    if (furnace::speed_limit <= 0.0_rt) return;
 
     const Real* dx = geom.CellSize();
 
@@ -1078,7 +1078,7 @@ Castro::limit_hydro_fluxes_on_large_vel(const Box& bx,
 
 
 void
-Castro::do_enforce_minimum_density(const Box& bx,
+Furnace::do_enforce_minimum_density(const Box& bx,
                                    Array4<Real> const& state_arr,
                                    const int verbose) {
 
@@ -1094,7 +1094,7 @@ Castro::do_enforce_minimum_density(const Box& bx,
 
 #ifndef AMREX_USE_GPU
       if (verbose > 1 ||
-          (verbose > 0 && state_arr(i,j,k,URHO) > castro::retry_small_density_cutoff)) {
+          (verbose > 0 && state_arr(i,j,k,URHO) > furnace::retry_small_density_cutoff)) {
         std::cout << " " << std::endl;
         if (state_arr(i,j,k,URHO) < 0.0_rt) {
           std::cout << ">>> RESETTING NEG.  DENSITY AT " << i << ", " << j << ", " << k << std::endl;

@@ -1,5 +1,5 @@
-#ifndef CASTRO_MHD_EIGEN_H
-#define CASTRO_MHD_EIGEN_H
+#ifndef FURNACE_MHD_EIGEN_H
+#define FURNACE_MHD_EIGEN_H
 
 #include <mhd_util.H>
 

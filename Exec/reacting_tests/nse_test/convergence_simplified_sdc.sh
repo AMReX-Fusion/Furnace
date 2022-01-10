@@ -3,9 +3,9 @@
 # echo the commands
 set -x
 
-EXEC=./Castro2d.gnu.MPI.SMPLSDC.ex
+EXEC=./Furnace2d.gnu.MPI.SMPLSDC.ex
 RUNPARAMS="
-castro.time_integration_method=3
+furnace.time_integration_method=3
 "
 
 mpiexec -n 8 ${EXEC} inputs.64 ${RUNPARAMS} >& /dev/null

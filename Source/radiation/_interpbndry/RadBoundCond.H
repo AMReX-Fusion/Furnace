@@ -1,5 +1,5 @@
-#ifndef CASTRO_RAD_BOUNDCOND_H
-#define CASTRO_RAD_BOUNDCOND_H
+#ifndef FURNACE_RAD_BOUNDCOND_H
+#define FURNACE_RAD_BOUNDCOND_H
 
 #include <AMReX_BLassert.H>
 

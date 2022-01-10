@@ -1,8 +1,8 @@
 #include <iomanip>
 
-#include <Castro.H>
-#include <Castro_F.H>
-#include <Castro_util.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
+#include <Furnace_util.H>
 
 #ifdef GRAVITY
 #include <Gravity.H>
@@ -15,12 +15,12 @@
 using namespace amrex;
 
 Real
-Castro::volWgtSum (const std::string& name,
+Furnace::volWgtSum (const std::string& name,
                    Real               time,
                    bool               local,
                    bool               finemask)
 {
-    BL_PROFILE("Castro::volWgtSum()");
+    BL_PROFILE("Furnace::volWgtSum()");
 
     auto mf = derive(name, time, 0);
 
@@ -69,11 +69,11 @@ Castro::volWgtSum (const std::string& name,
 }
 
 Real
-Castro::volWgtSquaredSum (const std::string& name,
+Furnace::volWgtSquaredSum (const std::string& name,
                           Real               time,
                           bool               local)
 {
-    BL_PROFILE("Castro::volWgtSquaredSum()");
+    BL_PROFILE("Furnace::volWgtSquaredSum()");
 
     auto mf = derive(name, time, 0);
 
@@ -122,12 +122,12 @@ Castro::volWgtSquaredSum (const std::string& name,
 }
 
 Real
-Castro::locWgtSum (const std::string& name,
+Furnace::locWgtSum (const std::string& name,
                    Real               time,
                    int                idir,
                    bool               local)
 {
-    BL_PROFILE("Castro::locWgtSum()");
+    BL_PROFILE("Furnace::locWgtSum()");
 
     auto mf = derive(name, time, 0);
 
@@ -205,11 +205,11 @@ Castro::locWgtSum (const std::string& name,
 }
 
 Real
-Castro::volProductSum (const std::string& name1, 
+Furnace::volProductSum (const std::string& name1, 
                        const std::string& name2,
                        Real time, bool local)
 {
-    BL_PROFILE("Castro::volProductSum()");
+    BL_PROFILE("Furnace::volProductSum()");
 
     auto mf1 = derive(name1, time, 0);
     auto mf2 = derive(name2, time, 0);
@@ -256,12 +256,12 @@ Castro::volProductSum (const std::string& name1,
 }
 
 Real
-Castro::locSquaredSum (const std::string& name,
+Furnace::locSquaredSum (const std::string& name,
                        Real               time,
                        int                idir,
                        bool               local)
 {
-    BL_PROFILE("Castro::locSquaredSum()");
+    BL_PROFILE("Furnace::locSquaredSum()");
 
     auto mf = derive(name, time, 0);
 
@@ -340,17 +340,17 @@ Castro::locSquaredSum (const std::string& name,
 
 #ifdef GRAVITY
 void
-Castro::gwstrain (Real time,
+Furnace::gwstrain (Real time,
 		  Real& h_plus_1, Real& h_cross_1,
 		  Real& h_plus_2, Real& h_cross_2,
 		  Real& h_plus_3, Real& h_cross_3,
 		  bool local) {
 
-    BL_PROFILE("Castro::gwstrain()");
+    BL_PROFILE("Furnace::gwstrain()");
 
     // We have nothing to do if the user did not request the gravitational wave
     // strain (inferred from whether the observation distance is positive).
-    if (castro::gw_dist <= 0.0_rt) {
+    if (furnace::gw_dist <= 0.0_rt) {
         return;
     }
 
@@ -593,7 +593,7 @@ Castro::gwstrain (Real time,
     for (int dir = 0; dir < 3; ++dir) {
 
         Real dist[3] = {0.0};
-        dist[dir] = castro::gw_dist;
+        dist[dir] = furnace::gw_dist;
 
         Real r = std::sqrt(dist[0] * dist[0] + dist[1] * dist[1] + dist[2] * dist[2]);
 

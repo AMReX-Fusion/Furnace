@@ -1,5 +1,5 @@
-#ifndef CASTRO_RIEMANN_H
-#define CASTRO_RIEMANN_H
+#ifndef FURNACE_RIEMANN_H
+#define FURNACE_RIEMANN_H
 
 using namespace amrex;
 

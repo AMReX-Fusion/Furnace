@@ -15,10 +15,10 @@ def process_analysis(filename):
         n_warnings = len(bugs)
 
         if n_warnings == 0:
-            # no warnings were found in Castro
-            print("Static analysis found no warnings in Castro")
+            # no warnings were found in Furnace
+            print("Static analysis found no warnings in Furnace")
         else:
-            print('Static analysis warnings from Castro:\n-------------------------------------\n')
+            print('Static analysis warnings from Furnace:\n-------------------------------------\n')
             print('\n'.join(bugs))
             print(f'{n_warnings} bugs found')
             sys.exit(1)

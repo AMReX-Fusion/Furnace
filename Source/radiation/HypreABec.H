@@ -1,5 +1,5 @@
-#ifndef CASTRO_HYPREABEC_H
-#define CASTRO_HYPREABEC_H
+#ifndef FURNACE_HYPREABEC_H
+#define FURNACE_HYPREABEC_H
 
 #include <AMReX_Array.H>
 #include <AMReX_MultiFab.H>

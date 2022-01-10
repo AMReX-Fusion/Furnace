@@ -1,5 +1,5 @@
-#ifndef CASTRO_RADBNDRY_H
-#define CASTRO_RADBNDRY_H
+#ifndef FURNACE_RADBNDRY_H
+#define FURNACE_RADBNDRY_H
 
 #include <NGBndry.H>
 

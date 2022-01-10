@@ -1,8 +1,8 @@
 #include <AMReX_Geometry.H>
 #include <AMReX_FArrayBox.H>
 
-#ifndef CASTRO_MGUTILS_H
-#define CASTRO_MGUTILS_H
+#ifndef FURNACE_MGUTILS_H
+#define FURNACE_MGUTILS_H
 
 using namespace amrex;
 

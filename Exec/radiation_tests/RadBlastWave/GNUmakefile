@@ -8,7 +8,7 @@ USE_MPI    = TRUE
 
 USE_RAD    = TRUE
 
-CASTRO_HOME = ../../..
+FURNACE_HOME = ../../..
 
 EOS_DIR     := gamma_law
 
@@ -20,4 +20,4 @@ Opacity_dir := rad_power_law
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

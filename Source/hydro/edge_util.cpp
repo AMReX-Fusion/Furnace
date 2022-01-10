@@ -1,10 +1,10 @@
-#include <Castro.H>
-#include <Castro_hydro.H>
+#include <Furnace.H>
+#include <Furnace_hydro.H>
 
 using namespace amrex;
 
 void
-Castro::reset_edge_state_thermo(const Box& bx,
+Furnace::reset_edge_state_thermo(const Box& bx,
                                 Array4<Real> const& qedge)
 {
 
@@ -78,7 +78,7 @@ Castro::reset_edge_state_thermo(const Box& bx,
 
 
 void
-Castro::edge_state_temp_to_pres(const Box& bx,
+Furnace::edge_state_temp_to_pres(const Box& bx,
                                 Array4<Real> const& qm,
                                 Array4<Real> const& qp)
 {

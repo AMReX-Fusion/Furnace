@@ -2,7 +2,7 @@
 Debugging
 *********
 
-There are several methods we typically use to debug issues in Castro.
+There are several methods we typically use to debug issues in Furnace.
 Some descriptions are given below.
 
 Using the compiler and other tools
@@ -43,14 +43,14 @@ pushing it to the backtrace stack as described here:
 Make sure your runtime options are valid
 ----------------------------------------
 
-Castro can validate the runtime options specified in the inputs file
-by running with ``castro.abort_on_invalid_params = 1``.
+Furnace can validate the runtime options specified in the inputs file
+by running with ``furnace.abort_on_invalid_params = 1``.
 
 
 Valgrind
 --------
 
-We frequently run Castro with valgrind to find illegal memory
+We frequently run Furnace with valgrind to find illegal memory
 accesses.  The valgrind documentation can give details on how to use
 it.
 
@@ -78,7 +78,7 @@ files. From within a problem directory, run
 
     bear make COMP=llvm -j 20 USE_OMP=FALSE USE_MPI=FALSE DEBUG=TRUE 
 
-    python3 run-clang-tidy.py -header-filter='Castro' -ignore-files='amrex|Microphysics' -j 20 > clang-tidy-report.txt
+    python3 run-clang-tidy.py -header-filter='Furnace' -ignore-files='amrex|Microphysics' -j 20 > clang-tidy-report.txt
 
 The compiler flags can be modified to suit the problem to be analyzed, but the ``DEBUG`` flag must be set to ``TRUE``. The ``header-filter`` option for the python script tells the script to only analyze header files containing the given regex pattern, and the ``ignore-files`` flag tells it to ignore any source files containing the given regex pattern. The ``-j`` option tells the script to run a given number of processes in parallel. The output is then redirected to a text file. 
 

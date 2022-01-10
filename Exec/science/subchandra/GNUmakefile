@@ -1,4 +1,4 @@
-CASTRO_HOME := ../../..
+FURNACE_HOME := ../../..
 
 PRECISION  = DOUBLE
 PROFILE    = FALSE
@@ -27,4 +27,4 @@ INTEGRATOR_DIR := VODE
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

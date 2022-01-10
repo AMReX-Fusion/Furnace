@@ -3,7 +3,7 @@
 
 #include <state_indices.H>
 
-#include <castro_params.H>
+#include <furnace_params.H>
 #include <eos.H>
 #include <conductivity.H>
 
@@ -34,25 +34,25 @@ fill_temp_cond(const Box& bx,
 #endif
 
     if (eos_state.e < 0.0_rt) {
-      eos_state.T = castro::small_temp;
+      eos_state.T = furnace::small_temp;
       eos(eos_input_rt, eos_state);
     } else {
       eos(eos_input_re, eos_state);
     }
 
 
-    if (eos_state.rho > castro::diffuse_cutoff_density) {
+    if (eos_state.rho > furnace::diffuse_cutoff_density) {
       conductivity(eos_state);
 
-      if (eos_state.rho < castro::diffuse_cutoff_density_hi) {
-        Real multiplier = (eos_state.rho - castro::diffuse_cutoff_density) /
-          (castro::diffuse_cutoff_density_hi - castro::diffuse_cutoff_density);
+      if (eos_state.rho < furnace::diffuse_cutoff_density_hi) {
+        Real multiplier = (eos_state.rho - furnace::diffuse_cutoff_density) /
+          (furnace::diffuse_cutoff_density_hi - furnace::diffuse_cutoff_density);
         eos_state.conductivity = eos_state.conductivity * multiplier;
       }
     } else {
       eos_state.conductivity = 0.0_rt;
     }
-    coeff_arr(i,j,k) = castro::diffuse_cond_scale_fac * eos_state.conductivity;
+    coeff_arr(i,j,k) = furnace::diffuse_cond_scale_fac * eos_state.conductivity;
 
   });
 }
@@ -83,25 +83,25 @@ fill_temp_diff_coeff(const Box& bx,
 #endif
 
     if (eos_state.e < 0.0_rt) {
-      eos_state.T = castro::small_temp;
+      eos_state.T = furnace::small_temp;
       eos(eos_input_rt, eos_state);
     } else {
       eos(eos_input_re, eos_state);
     }
 
 
-    if (eos_state.rho > castro::diffuse_cutoff_density) {
+    if (eos_state.rho > furnace::diffuse_cutoff_density) {
       conductivity(eos_state);
 
-      if (eos_state.rho < castro::diffuse_cutoff_density_hi) {
-        Real multiplier = (eos_state.rho - castro::diffuse_cutoff_density) /
-          (castro::diffuse_cutoff_density_hi - castro::diffuse_cutoff_density);
+      if (eos_state.rho < furnace::diffuse_cutoff_density_hi) {
+        Real multiplier = (eos_state.rho - furnace::diffuse_cutoff_density) /
+          (furnace::diffuse_cutoff_density_hi - furnace::diffuse_cutoff_density);
         eos_state.conductivity = eos_state.conductivity * multiplier;
       }
     } else {
       eos_state.conductivity = 0.0_rt;
     }
-    coeff_arr(i,j,k) = castro::diffuse_cond_scale_fac * eos_state.conductivity *
+    coeff_arr(i,j,k) = furnace::diffuse_cond_scale_fac * eos_state.conductivity *
       rhoinv / eos_state.cv;
 
   });

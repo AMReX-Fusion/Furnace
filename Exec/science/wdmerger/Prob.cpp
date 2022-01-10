@@ -1,6 +1,6 @@
-#include <Castro.H>
-#include <Castro_F.H>
-#include <Castro_util.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
+#include <Furnace_util.H>
 
 #include <Gravity.H>
 
@@ -16,9 +16,9 @@
 using namespace amrex;
 
 void
-Castro::problem_post_timestep()
+Furnace::problem_post_timestep()
 {
-    BL_PROFILE("Castro::problem_post_timestep()");
+    BL_PROFILE("Furnace::problem_post_timestep()");
 
     using namespace wdmerger;
     using namespace problem;
@@ -64,9 +64,9 @@ Castro::problem_post_timestep()
 //
 
 void
-Castro::wd_update (Real time, Real dt)
+Furnace::wd_update (Real time, Real dt)
 {
-    BL_PROFILE("Castro::wd_update()");
+    BL_PROFILE("Furnace::wd_update()");
 
     using namespace wdmerger;
     using namespace problem;
@@ -102,7 +102,7 @@ Castro::wd_update (Real time, Real dt)
 
     for (int lev = 0; lev <= parent->finestLevel(); lev++) {
 
-      Castro& c_lev = getLevel(lev);
+      Furnace& c_lev = getLevel(lev);
 
       GeometryData geomdata = c_lev.geom.data();
 
@@ -282,7 +282,7 @@ Castro::wd_update (Real time, Real dt)
     bool local_flag = true;
 
     for (int i = 0; i <= 6; ++i)
-        Castro::volInBoundary(time, vol_P[i], vol_S[i], pow(10.0,i), local_flag);
+        Furnace::volInBoundary(time, vol_P[i], vol_S[i], pow(10.0,i), local_flag);
 
     // Do all of the reductions.
 
@@ -406,9 +406,9 @@ Castro::wd_update (Real time, Real dt)
 // We also impose a distance requirement so that we only look
 // at zones that are within twice the original radius of the white dwarf.
 
-void Castro::volInBoundary (Real time, Real& vol_P, Real& vol_S, Real rho_cutoff, bool local)
+void Furnace::volInBoundary (Real time, Real& vol_P, Real& vol_S, Real rho_cutoff, bool local)
 {
-    BL_PROFILE("Castro::volInBoundary()");
+    BL_PROFILE("Furnace::volInBoundary()");
 
     using namespace wdmerger;
     using namespace problem;
@@ -420,7 +420,7 @@ void Castro::volInBoundary (Real time, Real& vol_P, Real& vol_S, Real rho_cutoff
 
     for (int lev = 0; lev <= parent->finestLevel(); lev++) {
 
-      Castro& c_lev = getLevel(lev);
+      Furnace& c_lev = getLevel(lev);
 
       const auto dx = c_lev.geom.CellSizeArray();
       auto mf = c_lev.derive("density",time,0);
@@ -505,7 +505,7 @@ void Castro::volInBoundary (Real time, Real& vol_P, Real& vol_S, Real rho_cutoff
 
 // Computes standard dot-product of two three-vectors.
 
-Real Castro::dot_product(const Real a[], const Real b[]) {
+Real Furnace::dot_product(const Real a[], const Real b[]) {
 
   Real c = 0.0;
 
@@ -520,7 +520,7 @@ Real Castro::dot_product(const Real a[], const Real b[]) {
 
 // Computes norm of a three-vector.
 
-Real Castro::norm(const Real a[]) {
+Real Furnace::norm(const Real a[]) {
 
   Real n = 0.0;
 
@@ -532,14 +532,14 @@ Real Castro::norm(const Real a[]) {
 
 
 
-void Castro::problem_post_init() {
+void Furnace::problem_post_init() {
 
   using namespace wdmerger;
   using namespace problem;
 
   // Read in inputs.
 
-  ParmParse pp("castro");
+  ParmParse pp("furnace");
 
   pp.query("use_stopping_criterion", use_stopping_criterion);
   pp.query("use_energy_stopping_criterion", use_energy_stopping_criterion);
@@ -557,14 +557,14 @@ void Castro::problem_post_init() {
 
 
 
-void Castro::problem_post_restart() {
+void Furnace::problem_post_restart() {
 
   using namespace wdmerger;
   using namespace problem;
 
   // Read in inputs.
 
-  ParmParse pp("castro");
+  ParmParse pp("furnace");
 
   pp.query("use_stopping_criterion", use_stopping_criterion);
   pp.query("use_energy_stopping_criterion", use_energy_stopping_criterion);
@@ -619,13 +619,13 @@ void Castro::problem_post_restart() {
 
 
 
-void Castro::writeGitHashes(std::ostream& log) {
+void Furnace::writeGitHashes(std::ostream& log) {
 
-  const char* castro_hash       = buildInfoGetGitHash(1);
+  const char* furnace_hash       = buildInfoGetGitHash(1);
   const char* amrex_hash        = buildInfoGetGitHash(2);
   const char* microphysics_hash = buildInfoGetGitHash(3);
 
-  log << "# Castro       git hash: " << castro_hash       << std::endl;
+  log << "# Furnace       git hash: " << furnace_hash       << std::endl;
   log << "# AMReX        git hash: " << amrex_hash        << std::endl;
   log << "# Microphysics git hash: " << microphysics_hash << std::endl;
 
@@ -633,7 +633,7 @@ void Castro::writeGitHashes(std::ostream& log) {
 
 
 
-void Castro::check_to_stop(Real time, bool dump) {
+void Furnace::check_to_stop(Real time, bool dump) {
 
     using namespace wdmerger;
     using namespace problem;
@@ -771,7 +771,7 @@ void Castro::check_to_stop(Real time, bool dump) {
 
 
 
-void Castro::update_extrema(Real time) {
+void Furnace::update_extrema(Real time) {
 
     using namespace wdmerger;
     using namespace problem;
@@ -837,7 +837,7 @@ void Castro::update_extrema(Real time) {
 
 
 void
-Castro::update_relaxation(Real time, Real dt) {
+Furnace::update_relaxation(Real time, Real dt) {
 
     using namespace wdmerger;
     using namespace problem;
@@ -1189,7 +1189,7 @@ Castro::update_relaxation(Real time, Real dt) {
 
 
 void
-Castro::problem_sums ()
+Furnace::problem_sums ()
 {
     using namespace wdmerger;
     using namespace problem;
@@ -1272,9 +1272,9 @@ Castro::problem_sums ()
     for (int lev = 0; lev <= finest_level; lev++)
     {
 
-      // Get the current level from Castro
+      // Get the current level from Furnace
 
-      Castro& ca_lev = getLevel(lev);
+      Furnace& ca_lev = getLevel(lev);
 
       for ( int i = 0; i < 3; i++ ) {
         com[i] += ca_lev.locWgtSum("density", time, i, local_flag);

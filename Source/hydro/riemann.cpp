@@ -1,5 +1,5 @@
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 #include <riemann_solvers.H>
 
@@ -13,7 +13,7 @@
 using namespace amrex;
 
 void
-Castro::cmpflx_plus_godunov(const Box& bx,
+Furnace::cmpflx_plus_godunov(const Box& bx,
                             Array4<Real> const& qm,
                             Array4<Real> const& qp,
                             Array4<Real> const& flx,

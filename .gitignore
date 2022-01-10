@@ -20,8 +20,8 @@ Docs/*/*.pdf
 \#*
 
 
-# Castro executables
-Castro*.ex
+# Furnace executables
+Furnace*.ex
 *.exe
 
 # plt and chk files

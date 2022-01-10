@@ -14,8 +14,8 @@ USE_MPI    = FALSE
 USE_OMP    = FALSE
 
 
-# define the location of the CASTRO top directory
-CASTRO_HOME  := ../../..
+# define the location of the FURNACE top directory
+FURNACE_HOME  := ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/EOS
 EOS_DIR     := gamma_law
@@ -27,4 +27,4 @@ NETWORK_INPUTS = gammalaw.net
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

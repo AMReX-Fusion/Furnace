@@ -1,5 +1,5 @@
-#ifndef CASTRO_RADTYPES_H
-#define CASTRO_RADTYPES_H
+#ifndef FURNACE_RADTYPES_H
+#define FURNACE_RADTYPES_H
 
 enum RadNames  { Rad  = 0 };
 

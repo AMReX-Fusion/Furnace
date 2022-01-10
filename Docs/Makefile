@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    = -E -a
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = castro
+SPHINXPROJ    = furnace
 SOURCEDIR     = source
 BUILDDIR      = build
 

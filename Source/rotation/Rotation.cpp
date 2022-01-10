@@ -1,10 +1,10 @@
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 #include <math.H>
 #include <Rotation.H>
 
 void
-Castro::fill_rotational_psi(const Box& bx,
+Furnace::fill_rotational_psi(const Box& bx,
                             Array4<Real> const& psi,
                             const Real time) {
 

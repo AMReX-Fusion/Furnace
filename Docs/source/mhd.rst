@@ -7,7 +7,7 @@ MHD
 Introduction
 ============
 
-Castro implements a constrained transport (CT) corner transport upwind
+Furnace implements a constrained transport (CT) corner transport upwind
 (CTU) ideal MHD scheme based on the work of Miniati & Martin
 :cite:`miniati_martin`.  MHD is enabled by compiling with ``USE_MHD =
 TRUE``.  This replaces the pure hydrodynamics solver, but uses the
@@ -53,7 +53,7 @@ default).
    why the magnetic pressure has the form :math:`\frac{1}{2} B^2` instead of :math:`\frac{1}{8\pi} B^2`.  In
    effect, we are carrying our magnetic field as :math:`{\bf B}^\prime = {\bf B}/\sqrt{4\pi}`.
 
-   If you wish to express the magnetic field in Gauss, then you will need to multiply the value Castro carries
+   If you wish to express the magnetic field in Gauss, then you will need to multiply the value Furnace carries
    by :math:`\sqrt{4\pi}`.
 
 
@@ -107,7 +107,7 @@ as defined in :ref:`table:primlist`, with the additions of ``QMAGX``,
 components and ``QPTOT`` for the total pressure (gas + magnetic).
 
 Just like with pure hydrodynamics, the reconstruction type is
-controlled by ``castro.ppm_type``, with ``0`` selecting piecewise
+controlled by ``furnace.ppm_type``, with ``0`` selecting piecewise
 linear and ``1`` selecting piecewise parabolic.
 
 For the piecewise linear method, the slope limiting is controlled by

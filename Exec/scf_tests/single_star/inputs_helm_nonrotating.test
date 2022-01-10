@@ -20,30 +20,30 @@ amr.max_grid_size    = 32
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
 
-castro.lo_bc       =  2   2   2
-castro.hi_bc       =  2   2   2
+furnace.lo_bc       =  2   2   2
+furnace.hi_bc       =  2   2   2
 
 # WHICH PHYSICS
-castro.do_hydro = 1
-castro.do_grav  = 1
-castro.do_rotation = 1
-castro.rotational_period = 100.0
+furnace.do_hydro = 1
+furnace.do_grav  = 1
+furnace.do_rotation = 1
+furnace.rotational_period = 100.0
 
-castro.do_scf_initial_model = 1
-castro.scf_maximum_density = 1.3519e6
-castro.scf_equatorial_radius = 1.0e9
-castro.scf_polar_radius = 1.0e9
-castro.scf_relax_tol = 1.e-4
+furnace.do_scf_initial_model = 1
+furnace.scf_maximum_density = 1.3519e6
+furnace.scf_equatorial_radius = 1.0e9
+furnace.scf_polar_radius = 1.0e9
+furnace.scf_relax_tol = 1.e-4
 
 # GRAVITY
 gravity.gravity_type = PoissonGrav # Full self-gravity with the Poisson equation
 gravity.max_multipole_order = 6    # Multipole expansion includes terms up to r**(-max_multipole_order)
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing integrals
+furnace.sum_interval   = 1       # timesteps between computing integrals
 amr.data_log          = grid_diag.out
 
-castro.v = 1
+furnace.v = 1
 amr.v = 1
 
 # CHECKPOINT FILES

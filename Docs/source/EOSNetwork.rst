@@ -5,22 +5,22 @@ Microphysics
 Equation of State
 =================
 
-Standard Castro EOSes
+Standard Furnace EOSes
 ---------------------
 
-Castro is written in a modular fashion so that the EOS and network
+Furnace is written in a modular fashion so that the EOS and network
 burning routines can be supplied by the user. However, for the
 examples presented later we use several EOS and network routines
 that come with the Microphysics distribution.
 
-Castro relies on routines to calculate the equation of state (EOS)
+Furnace relies on routines to calculate the equation of state (EOS)
 of a fluid, as well as a species network to define the components of
 the fluid. The network optionally has the ability to do nuclear burning,
 but for this section its main purpose is in defining the species so that
 the EOS can calculate fluid properties that depend on composition, such
 as electron fraction.
 
-Most of the standard problem setups in Castro (such as the Sedov blast wave)
+Most of the standard problem setups in Furnace (such as the Sedov blast wave)
 use the ``gamma_law`` EOS. This represents a gamma law gas, with equation of state:
 
 .. math:: p = (\gamma - 1) \rho e.
@@ -32,7 +32,7 @@ Runtime Parameters
 
 When inverting the EOS (e.g. by using ``eos_input_re``), an initial guess for
 the temperature is required. This guess is provided by the runtime parameter
-``castro.T_guess``, and should be set to a sensible value for each problem
+``furnace.T_guess``, and should be set to a sensible value for each problem
 (it will vary depending on which EOS is used).
 
 EOS Interfaces and Parameters
@@ -41,7 +41,7 @@ EOS Interfaces and Parameters
 .. index:: eos_t
 
 Each EOS should have two main routines by which it interfaces to the
-rest of Castro. At the beginning of the simulation, ``eos_init``
+rest of Furnace. At the beginning of the simulation, ``eos_init``
 will perform any initialization steps and save EOS variables (mainly
 ``smallt``, the temperature floor, and ``smalld``, the
 density floor). Then, whenever you want to call the EOS, use::
@@ -114,7 +114,7 @@ Three input quantities are required of any EOS:
 
 The ``eos_t`` derived type holds a large number of thermodynamics
 quantities, but not all of these are needed for basic
-Castro operation. The main quantities that any EOS in any mode needs to
+Furnace operation. The main quantities that any EOS in any mode needs to
 supply, if they are not input, are:
 
 -  ``eos_state.T``: the temperature
@@ -197,7 +197,7 @@ Nuclear Network
 
 The nuclear network serves two purposes: it defines the fluid components used
 in both the equation of state and the hydrodynamics, and it evolves those
-components through a nuclear burning step. Castro comes with a ``general_null``
+components through a nuclear burning step. Furnace comes with a ``general_null``
 network (which lives in the ``networks/`` directory). This is a bare interface for a
 nuclear reaction network. No reactions are enabled, and no auxiliary variables
 are accepted.  It contains several sets of isotopes; for example,
@@ -231,7 +231,7 @@ It takes in an input ``burn_t`` and returns an output ``burn_t`` after
 the burning has completed. The nuclear energy release can be computed by
 taking the difference of ``burn_state_out % e`` and
 ``burn_state_in % e``. The species change can be computed analogously.
-In normal operation in Castro  the integration occurs over a time interval
+In normal operation in Furnace  the integration occurs over a time interval
 of :math:`\Delta t/2`, where :math:`\Delta t` is the hydrodynamics timestep.
 
 If you are interested in using actual nuclear burning networks,
@@ -249,12 +249,12 @@ Controlling burning
 There are a number of reactions-related parameters that can be set at runtime
 in the inputs file. Reactions are enabled by setting::
 
-    castro.do_react = 1
+    furnace.do_react = 1
 
 (Note: turning reactions off for problems where they're not required can help improve
 the efficiency).
 
 It is possible to set the maximum and minimum temperature and density for allowing
-reactions to occur in a zone using the parameters ``castro.react_T_min``,
-``castro.react_T_max``, ``castro.react_rho_min`` and ``castro.react_rho_max``.
+reactions to occur in a zone using the parameters ``furnace.react_T_min``,
+``furnace.react_T_max``, ``furnace.react_rho_min`` and ``furnace.react_rho_max``.
 

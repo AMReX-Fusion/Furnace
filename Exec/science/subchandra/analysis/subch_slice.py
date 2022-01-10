@@ -14,10 +14,10 @@ from mpl_toolkits.axes_grid1 import ImageGrid
 
 # assume that our data is in CGS
 from yt.units import cm, amu
-from yt.frontends.boxlib.api import CastroDataset
+from yt.frontends.boxlib.api import FurnaceDataset
 
 plotfile = sys.argv[1]
-ds = CastroDataset(plotfile)
+ds = FurnaceDataset(plotfile)
 
 xmin = ds.domain_left_edge[0]
 xmax = ds.domain_right_edge[0]

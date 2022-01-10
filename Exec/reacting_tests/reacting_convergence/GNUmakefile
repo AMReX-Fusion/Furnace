@@ -13,16 +13,16 @@ USE_OMP    = FALSE
 
 USE_REACT = TRUE
 
-# define the location of the CASTRO top directory
-CASTRO_HOME  := ../../..
+# define the location of the FURNACE top directory
+FURNACE_HOME  := ../../..
 
-# This sets the EOS directory in Castro/EOS
+# This sets the EOS directory in Furnace/EOS
 EOS_DIR     := helmholtz
 
-# This sets the network directory in Castro/Networks
+# This sets the network directory in Furnace/Networks
 NETWORK_DIR := triple_alpha_plus_cago
 
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

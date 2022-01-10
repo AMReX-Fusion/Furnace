@@ -8,7 +8,7 @@ Diffusion
 Thermal Diffusion
 =================
 
-Castro incorporates explicit thermal diffusion into the energy equation.
+Furnace incorporates explicit thermal diffusion into the energy equation.
 In terms of the specific internal energy, :math:`e`, this appears as:
 
 .. math:: \rho \frac{De}{Dt} + p \nabla \cdot \ub = \nabla \cdot \kth \nabla T
@@ -30,7 +30,7 @@ explicitly requires a timestep limiter of
 .. math:: \Delta t_\mathrm{diff} \le \frac{1}{2} \frac{\Delta x^2}{D}
 
 (this is implemented in ``ca_estdt_temp_diffusion`` in
-``Castro/Source/driver/timestep.F90``).
+``Furnace/Source/driver/timestep.F90``).
 
 Support for diffusion must be compiled into the code by setting
 ``USE_DIFFUSION = TRUE`` in your ``GNUmakefile``. It is treated
@@ -40,12 +40,12 @@ in time.
 
 The following parameter affects diffusion:
 
--  ``castro.diffuse_temp``: enable thermal diffusion (0 or 1; default 0)
+-  ``furnace.diffuse_temp``: enable thermal diffusion (0 or 1; default 0)
 
 A pure diffusion problem (with no hydrodynamics) can be run by setting::
 
-    castro.diffuse_temp = 1
-    castro.do_hydro = 0
+    furnace.diffuse_temp = 1
+    furnace.do_hydro = 0
 
 To complete the setup, a thermal conductivity must be specified. The
 interface for the conductivity is::
@@ -55,13 +55,13 @@ interface for the conductivity is::
         type (eos_t), intent(inout) :: eos_state
 
 The density, temperature, and mass fractions come in through the
-``eos_state`` type. An EOS call is done in Castro just before the call to
+``eos_state`` type. An EOS call is done in Furnace just before the call to
 ``thermal_conductivity``, so you can assume that the entire state is
 consistent.  The conductivity is filled in ``eos_state % conductivity``.
 
 .. index:: CONDUCTIVITY_DIR
 
-There are two conductivity routines provided with Castro by default:
+There are two conductivity routines provided with Furnace by default:
 
 -  ``constant`` : A simple constant thermal conductivity. This can be
    selected by setting::
@@ -90,18 +90,18 @@ There are two conductivity routines provided with Castro by default:
 
    in the inputs file.
 
-.. index:: castro.diffusion_cutoff_density, castro.diffusion_cutoff_density_hi
+.. index:: furnace.diffusion_cutoff_density, furnace.diffusion_cutoff_density_hi
 
 The diffusion approximation breaks down at the surface of stars,
 where the density rapidly drops and the mean free path becomes
 large. In those instances, you should use the flux limited diffusion
-module in Castro to evolve a radiation field. However, if your
+module in Furnace to evolve a radiation field. However, if your
 interest is only on the diffusion in the interior, you can use
 the parameters:
 
- * ``castro.diffuse_cutoff_density``
+ * ``furnace.diffuse_cutoff_density``
 
- * ``castro.diffuse_cutoff_density_hi``
+ * ``furnace.diffuse_cutoff_density_hi``
 
 to specify a density,
 below which, diffusion is not modeled. This is implemented in the
@@ -109,7 +109,7 @@ code by linearly scaling the conductivity to zero between these limits, e.g.,
 
 .. math::
 
-   \kth = \kth \cdot \frac{\rho - \mathtt{castro.diffuse\_cutoff\_density}}{\mathtt{castro.diffuse\_cutoff\_density\_hi} - \mathtt{castro.diffuse\_cutoff\_density}}
+   \kth = \kth \cdot \frac{\rho - \mathtt{furnace.diffuse\_cutoff\_density}}{\mathtt{furnace.diffuse\_cutoff\_density\_hi} - \mathtt{furnace.diffuse\_cutoff\_density}}
 
 
 A simple test problem that sets up a Gaussian temperature profile

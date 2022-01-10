@@ -1,5 +1,5 @@
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 #ifdef DIFFUSION
 #include <conductivity.H>
@@ -28,7 +28,7 @@
 using namespace amrex;
 
 Real
-Castro::estdt_cfl(const Real time)
+Furnace::estdt_cfl(const Real time)
 {
 
   // Courant-condition limited timestep
@@ -81,7 +81,7 @@ Castro::estdt_cfl(const Real time)
       Real uz = u(i,j,k,UMZ) * rhoInv;
 
 #ifdef ROTATION
-      if (castro::do_rotation == 1 && castro::state_in_rotating_frame != 1) {
+      if (furnace::do_rotation == 1 && furnace::state_in_rotating_frame != 1) {
         GpuArray<Real, 3> vel;
         vel[0] = ux;
         vel[1] = uy;
@@ -116,7 +116,7 @@ Castro::estdt_cfl(const Real time)
       // The CTU method has a less restrictive timestep than MOL-based
       // schemes (including the true SDC).  Since the simplified SDC
       // solver is based on CTU, we can use its timestep.
-      if (castro::time_integration_method == 0 || castro::time_integration_method == 3) {
+      if (furnace::time_integration_method == 0 || furnace::time_integration_method == 3) {
         return {amrex::min(dt1, dt2, dt3)};
 
       } else {
@@ -145,7 +145,7 @@ Castro::estdt_cfl(const Real time)
 
 #ifdef MHD
 Real
-Castro::estdt_mhd()
+Furnace::estdt_mhd()
 {
 
   // MHD timestep limiter
@@ -259,7 +259,7 @@ Castro::estdt_mhd()
 #ifdef DIFFUSION
 
 Real
-Castro::estdt_temp_diffusion(void)
+Furnace::estdt_temp_diffusion(void)
 {
 
   // Diffusion-limited timestep
@@ -351,10 +351,10 @@ Castro::estdt_temp_diffusion(void)
 
 #ifdef REACTIONS
 Real
-Castro::estdt_burning()
+Furnace::estdt_burning()
 {
 
-    if (castro::dtnuc_e > 1.e199_rt && castro::dtnuc_X > 1.e199_rt) return 1.e200_rt;
+    if (furnace::dtnuc_e > 1.e199_rt && furnace::dtnuc_X > 1.e199_rt) return 1.e200_rt;
 
     ReduceOps<ReduceOpMin> reduce_op;
     ReduceData<Real> reduce_data(reduce_op);
@@ -420,13 +420,13 @@ Castro::estdt_burning()
             }
 #endif
 
-            if (state.T < castro::react_T_min || state.T > castro::react_T_max ||
-                state.rho < castro::react_rho_min || state.rho > castro::react_rho_max) {
+            if (state.T < furnace::react_T_min || state.T > furnace::react_T_max ||
+                state.rho < furnace::react_rho_min || state.rho > furnace::react_rho_max) {
                 return {1.e200_rt};
             }
 
             Real e    = state.e;
-            Real T    = amrex::max(state.T, castro::small_temp);
+            Real T    = amrex::max(state.T, furnace::small_temp);
             Real X[NumSpec];
             for (int n = 0; n < NumSpec; ++n) {
                 X[n] = amrex::max(state.xn[n], small_x);
@@ -455,7 +455,7 @@ Castro::estdt_burning()
             dedt = amrex::max(std::abs(dedt), derivative_floor);
 
             for (int n = 0; n < NumSpec; ++n) {
-                if (X[n] >= castro::dtnuc_X_threshold) {
+                if (X[n] >= furnace::dtnuc_X_threshold) {
                     dXdt[n] = amrex::max(std::abs(dXdt[n]), derivative_floor);
                 } else {
                     dXdt[n] = derivative_floor;
@@ -496,7 +496,7 @@ Castro::estdt_burning()
 
 #ifdef RADIATION
 Real
-Castro::estdt_rad ()
+Furnace::estdt_rad ()
 {
     auto dx = geom.CellSizeArray();
 

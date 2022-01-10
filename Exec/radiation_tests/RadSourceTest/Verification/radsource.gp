@@ -13,7 +13,7 @@ set yrange [30:3.e9]
 set key left center
 
 plot 'analytic_heating.out' using 1:2 title 'analytic heating solution' w l, \
-     'castro_heating.out' using 1:2 title 'Castro heating solution', \
+     'furnace_heating.out' using 1:2 title 'Furnace heating solution', \
      'analytic_cooling.out' using 1:2 title 'analytic cooling solution' w l, \
-     'castro_cooling.out' using 1:2 title 'Castro cooling solution'
+     'furnace_cooling.out' using 1:2 title 'Furnace cooling solution'
 

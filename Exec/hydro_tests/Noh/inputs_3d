@@ -6,7 +6,7 @@ geometry.coord_sys   =  0
 geometry.is_periodic =  0      0      0
 geometry.prob_lo     =  0.0    0.0    0.0
 geometry.prob_hi     =  1.0    1.0    1.0
-castro.center        =  0.0    0.0    0.0
+furnace.center        =  0.0    0.0    0.0
 amr.n_cell           =  200    200    200
 
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
@@ -15,24 +15,24 @@ amr.n_cell           =  200    200    200
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
 
-castro.lo_bc       =  3   3   3
-castro.hi_bc       =  2   2   2
+furnace.lo_bc       =  3   3   3
+furnace.hi_bc       =  2   2   2
 
 # WHICH PHYSICS
-castro.do_hydro = 1
-castro.ppm_type = 1
+furnace.do_hydro = 1
+furnace.ppm_type = 1
 
-castro.small_dens = 1.0e-6
-castro.small_temp = 1.0e-16
+furnace.small_dens = 1.0e-6
+furnace.small_temp = 1.0e-16
 
 # TIME STEP CONTROL
-castro.cfl            = 0.5     # cfl number for hyperbolic system
-castro.init_shrink    = 0.1     # scale back initial timestep
-castro.change_max     = 1.1     # maximum increase in dt over successive steps
+furnace.cfl            = 0.5     # cfl number for hyperbolic system
+furnace.init_shrink    = 0.1     # scale back initial timestep
+furnace.change_max     = 1.1     # maximum increase in dt over successive steps
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing integrals
-castro.v              = 1       # verbosity in Castro.cpp
+furnace.sum_interval   = 1       # timesteps between computing integrals
+furnace.v              = 1       # verbosity in Furnace.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 gravity.v             = 1       # verbosity in Gravity.cpp
 

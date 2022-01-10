@@ -2,20 +2,20 @@
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02513/status.svg)](https://doi.org/10.21105/joss.02513)
 [![AMReX](https://amrex-codes.github.io/badges/powered%20by-AMReX-red.svg)](https://amrex-codes.github.io)
 [![yt-project](https://img.shields.io/static/v1?label="works%20with"&message="yt"&color="blueviolet")](https://yt-project.org)
-[![github pages](https://github.com/AMReX-Astro/Castro/workflows/github%20pages/badge.svg)](https://github.com/AMReX-Astro/Castro/actions?query=workflow%3A%22github+pages%22)
+[![github pages](https://github.com/AMReX-Astro/Furnace/workflows/github%20pages/badge.svg)](https://github.com/AMReX-Astro/Furnace/actions?query=workflow%3A%22github+pages%22)
 
-![Castro](https://github.com/AMReX-Astro/Castro/blob/development/Util/logo/castro_logo_hot_200.png)
+![Furnace](https://github.com/AMReX-Astro/Furnace/blob/development/Util/logo/furnace_logo_hot_200.png)
 
 *an adaptive mesh, astrophysical radiation hydrodynamics simulation code*
 
-`Castro` is an adaptive-mesh compressible radiation / MHD / hydrodynamics
-code for astrophysical flows.  `Castro` supports a general equation of
+`Furnace` is an adaptive-mesh compressible radiation / MHD / hydrodynamics
+code for astrophysical flows.  `Furnace` supports a general equation of
 state, full Poisson gravity, and reactive flows, and is parallelized
 with MPI + OpenMP for CPUs and MPI + CUDA for GPUs.
 
-More information on Castro can be found here:
+More information on Furnace can be found here:
 
-http://amrex-astro.github.io/Castro/
+http://amrex-astro.github.io/Furnace/
 
 
 ## Getting Started
@@ -23,13 +23,13 @@ http://amrex-astro.github.io/Castro/
 The "Getting Started" section of the User's Guide walks you
 through running your first problem:
 
-https://amrex-astro.github.io/Castro/docs/getting_started.html
+https://amrex-astro.github.io/Furnace/docs/getting_started.html
 
-This will have you clone Castro and its dependencies (AMReX and
+This will have you clone Furnace and its dependencies (AMReX and
 StarKiller Microphysics),
 
 The User's Guide in written in re-structured text using Sphinx, with
-the source in `Castro/Docs/`, and is built automatically
+the source in `Furnace/Docs/`, and is built automatically
 from the `development` branch.
 
 ## Running at Supercomputer Centers
@@ -40,9 +40,9 @@ https://amrex-astro.github.io/workflow/
 
 ## Call Graph
 
-A doxygen-generated call graph for `Castro` is available here:
+A doxygen-generated call graph for `Furnace` is available here:
 
-http://bender.astro.sunysb.edu/Castro/staging/Castro/html/
+http://bender.astro.sunysb.edu/Furnace/staging/Furnace/html/
 
 
 ## Development Model:
@@ -58,7 +58,7 @@ Development generally follows the following ideas:
     `development` to `main`.
 
   * Contributions are welcomed from anyone in the form of a pull
-    request from your fork of Castro, targeting the `development`
+    request from your fork of Furnace, targeting the `development`
     branch. (If you mistakenly target `main`, we can change it
     for you.)
 
@@ -91,10 +91,10 @@ Development generally follows the following ideas:
 ## Core Developers
 
 People who make a number of substantive contributions will be named
-"core developers" of Castro.  The criteria for becoming a core
+"core developers" of Furnace.  The criteria for becoming a core
 developer are flexible, but generally involve one of the following:
 
-  * 10 non-merge commits to `Castro/Source/` or `Castro/Docs/`
+  * 10 non-merge commits to `Furnace/Source/` or `Furnace/Docs/`
     or one of the problems that is not your own science problem *or*
 
   * addition of a new algorithm / module  *or*
@@ -111,7 +111,7 @@ Core developers will be recognized in the following ways:
     (as given in the .zenodo.json file)
 
   * invited to co-author general code papers / proceedings describing
-    Castro, its performance, etc.  (Note: science papers will always
+    Furnace, its performance, etc.  (Note: science papers will always
     be left to the science leads to determine authorship).
 
 If a core developer is inactive for 3 years, we may reassess their
@@ -123,4 +123,4 @@ status as a core developer.
 
 We use Github discussions for asking general questions about the code:
 
-https://github.com/AMReX-Astro/Castro/discussions
+https://github.com/AMReX-Astro/Furnace/discussions

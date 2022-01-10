@@ -7,7 +7,7 @@ built using iso7 network
 average time calculated using avg_time script and is the average of 20 timesteps
 
 Run on summit with the following git hashes:
-Castro: 8ea11a4a426755758859df3622aa97e09f57e5dd
+Furnace: 8ea11a4a426755758859df3622aa97e09f57e5dd
 amrex: 21788f7d96b3bbe3e0ff96dd083142b09ea03b51
 Microphysics: 76950944767c87a1124b4b0e1b65bae735f254b2
 

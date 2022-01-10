@@ -1,5 +1,5 @@
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 #include <cmath>
 
@@ -10,7 +10,7 @@
 using namespace amrex;
 
 void
-Castro::uflatten(const Box& bx,
+Furnace::uflatten(const Box& bx,
                  Array4<Real const> const& q_arr,
                  Array4<Real> const& flatn, const int pres_comp) {
 

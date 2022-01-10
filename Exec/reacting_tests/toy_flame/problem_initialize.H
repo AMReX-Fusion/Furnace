@@ -33,15 +33,15 @@ void problem_initialize ()
     std::cout << "flame width = " << lambda_f << std::endl;
     std::cout << "flame speed = " << v_f << std::endl;
 
-    // Set up Castro data logs for this problem
+    // Set up Furnace data logs for this problem
 
-    if (castro::sum_interval > 0 && amrex::ParallelDescriptor::IOProcessor()) {
+    if (furnace::sum_interval > 0 && amrex::ParallelDescriptor::IOProcessor()) {
 
-        Castro::problem_data_logs.resize(1);
+        Furnace::problem_data_logs.resize(1);
 
-        Castro::problem_data_logs[0].reset(new std::fstream);
-        Castro::problem_data_logs[0]->open("toy_flame.log", std::ios::out | std::ios::app);
-        if (!Castro::problem_data_logs[0]->good()) {
+        Furnace::problem_data_logs[0].reset(new std::fstream);
+        Furnace::problem_data_logs[0]->open("toy_flame.log", std::ios::out | std::ios::app);
+        if (!Furnace::problem_data_logs[0]->good()) {
             amrex::FileOpenFailed("toy_flame.log");
         }
 

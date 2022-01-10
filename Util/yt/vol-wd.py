@@ -76,7 +76,7 @@ def doit(plotfile):
                                       "t = {:.3f} s".format(float(ds.current_time.d)),
                                       dict(horizontalalignment="left")],
                                      [(0.5,0.95),
-                                      "Castro simulation of merging white dwarfs (0.6 $M_\odot$ + 0.9 $M_\odot$)",
+                                      "Furnace simulation of merging white dwarfs (0.6 $M_\odot$ + 0.9 $M_\odot$)",
                                       dict(color="y", fontsize="22",
                                            horizontalalignment="center")],
                                      [(0.95,0.05),

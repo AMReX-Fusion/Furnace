@@ -1,9 +1,9 @@
 # source term sources -- this is always included
 
-CEXE_headers += Castro_sources.H
+CEXE_headers += Furnace_sources.H
 
-CEXE_sources += Castro_sources.cpp
-CEXE_sources += Castro_sponge.cpp
-CEXE_sources += Castro_thermo.cpp
-CEXE_sources += Castro_geom.cpp
+CEXE_sources += Furnace_sources.cpp
+CEXE_sources += Furnace_sponge.cpp
+CEXE_sources += Furnace_thermo.cpp
+CEXE_sources += Furnace_geom.cpp
 

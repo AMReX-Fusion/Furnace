@@ -2,7 +2,7 @@
 #define problem_tagging_H
 #include <AMReX_TagBox.H>
 #include <prob_parameters.H>
-#include <Castro_util.H>
+#include <Furnace_util.H>
 
 ///
 /// Define problem-specific tagging criteria

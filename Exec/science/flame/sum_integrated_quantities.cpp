@@ -1,12 +1,12 @@
 #include <iomanip>
 
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 using namespace amrex;
 
 void
-Castro::sum_integrated_quantities ()
+Furnace::sum_integrated_quantities ()
 {
   if (verbose <= 0) return;
 
@@ -35,7 +35,7 @@ Castro::sum_integrated_quantities ()
 
   for (int lev = 0; lev <= finest_level; lev++)
     {
-      Castro& ca_lev = getLevel(lev);
+      Furnace& ca_lev = getLevel(lev);
 
       mass   += ca_lev.volWgtSum("density", time, local_flag);
       mom[0] += ca_lev.volWgtSum("xmom", time, local_flag);

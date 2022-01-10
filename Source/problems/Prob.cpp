@@ -1,12 +1,12 @@
 /* Implementations of functions in Problem.H go here */
 
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 using namespace amrex;
 
 #ifdef DO_PROBLEM_POST_SIMULATION
-void Castro::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_level) {
+void Furnace::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_level) {
 
   // this is a stub post_simulation() routine
 
@@ -19,18 +19,18 @@ void Castro::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_lev
 
   // int nlevels = amr_level.size();
 
-  // To access data, cast a level to a Castro object, e.g. for
+  // To access data, cast a level to a Furnace object, e.g. for
   // level 0:
 
-  // Castro* castro = dynamic_cast<Castro*>(&amr_level[0]);
+  // Furnace* furnace = dynamic_cast<Furnace*>(&amr_level[0]);
 
   // then you can get the data, e.g. for state data as:
   
-  // MultiFab& S = castro->get_new_data(State_Type);
+  // MultiFab& S = furnace->get_new_data(State_Type);
 
   // and if needed, the state descriptor:
 
-  // const StateDescriptor* desc = &castro->desc_lst[State_Type];
+  // const StateDescriptor* desc = &furnace->desc_lst[State_Type];
 
   // and then you can get the names of the state data as desc->name(comp)
 

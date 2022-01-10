@@ -1,7 +1,7 @@
 #ifndef problem_initialize_state_data_H
 #define problem_initialize_state_data_H
 
-#include <Castro_util.H>
+#include <Furnace_util.H>
 #include <eos.H>
 
 AMREX_GPU_HOST_DEVICE AMREX_INLINE

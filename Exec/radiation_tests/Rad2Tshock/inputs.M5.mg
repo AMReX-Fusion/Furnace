@@ -69,33 +69,33 @@ amr.grid_log        = grdlog  # name of grid logging file
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  2    4    4
-castro.hi_bc       =  2    4    4
+furnace.lo_bc       =  2    4    4
+furnace.hi_bc       =  2    4    4
 
 # WHICH PHYSICS
-castro.do_grav        = 0
-castro.do_hydro       = 1
-castro.do_radiation   = 1
-castro.do_reflux      = 1       # 1 => do refluxing
-castro.do_react       = 0       # reactions?
+furnace.do_grav        = 0
+furnace.do_hydro       = 1
+furnace.do_radiation   = 1
+furnace.do_reflux      = 1       # 1 => do refluxing
+furnace.do_react       = 0       # reactions?
 
 # hydro cutoff parameters
-castro.small_dens     = 1.e-20
+furnace.small_dens     = 1.e-20
 
 # External source terms
-castro.add_ext_src=0            #  Add external source terms
+furnace.add_ext_src=0            #  Add external source terms
 
 # TIME STEP CONTROL
-castro.cfl            = 0.8     # cfl number for hyperbolic system
-castro.init_shrink    = 0.1     # scale back initial timestep
-castro.change_max     = 1.1 
-#castro.initial_dt     = 0.01
+furnace.cfl            = 0.8     # cfl number for hyperbolic system
+furnace.init_shrink    = 0.1     # scale back initial timestep
+furnace.change_max     = 1.1 
+#furnace.initial_dt     = 0.01
 
-#castro.fixed_dt       = 1.e-15
+#furnace.fixed_dt       = 1.e-15
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing mass
-castro.v = 1
+furnace.sum_interval   = 1       # timesteps between computing mass
+furnace.v = 1
 
 # ------------------  INPUTS TO RADIATION CLASS  -------------------
 

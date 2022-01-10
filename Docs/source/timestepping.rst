@@ -36,7 +36,7 @@ Time Step Constraints
 Hydrodynamics
 ^^^^^^^^^^^^^
 
-If ``castro.do_hydro = 1``, then typically
+If ``furnace.do_hydro = 1``, then typically
 the code chooses a time step based on the CFL number:
 
 .. math::
@@ -60,30 +60,30 @@ Additional Controls
 
 The following parameters affect the timestep choice:
 
-  * ``castro.cfl``: CFL number (Real :math:`> 0` and :math:`\leq 1`;
+  * ``furnace.cfl``: CFL number (Real :math:`> 0` and :math:`\leq 1`;
     default: 0.8)
 
-  * ``castro.init_shrink``: factor by which to shrink the initial
+  * ``furnace.init_shrink``: factor by which to shrink the initial
     time step (Real :math:`> 0` and :math:`\leq 1`; default: 1.0)
 
-  * ``castro.change_max``: factor by which the time step can
+  * ``furnace.change_max``: factor by which the time step can
     grow in subsequent steps (Real :math:`\geq 1`; default: 1.1)
 
-  * ``castro.fixed_dt``: level 0 time step regardless of cfl
+  * ``furnace.fixed_dt``: level 0 time step regardless of cfl
     or other settings (Real :math:`> 0`; unused if not set)
 
-  * ``castro.initial_dt``: initial level 0 time
+  * ``furnace.initial_dt``: initial level 0 time
     step regardless of other settings (Real :math:`> 0`; unused if not set)
 
-  * ``castro.dt_cutoff``: as a fraction of the current simulation time,
+  * ``furnace.dt_cutoff``: as a fraction of the current simulation time,
     the time step below which the calculation will abort (Real
     :math:`> 0`; default: 1.e-12); typically not user-defined
 
 As an example, consider::
 
-    castro.cfl = 0.9
-    castro.init_shrink = 0.01
-    castro.change_max = 1.1
+    furnace.cfl = 0.9
+    furnace.init_shrink = 0.01
+    furnace.change_max = 1.1
 
 This defines the :math:`\mathtt{cfl}` parameter in :eq:`eq:cfl` to be
 0.9, but sets (via ``init_shrink``) the first timestep we take to
@@ -100,20 +100,20 @@ your entire allocation before noticing that there is an issue.
 
 If we know what we are doing, then we can force a particular timestep::
 
-    castro.fixed_dt = 1.e-4
+    furnace.fixed_dt = 1.e-4
 
 This sets the level 0 time step to be 1.e-4 for the entire simulation,
 ignoring the other timestep controls. Note that if
-``castro.init_shrink`` :math:`\neq 1` then the first time step will in fact
-be ``castro.init_shrink`` :math:`\cdot` ``castro.fixed_dt``.
+``furnace.init_shrink`` :math:`\neq 1` then the first time step will in fact
+be ``furnace.init_shrink`` :math:`\cdot` ``furnace.fixed_dt``.
 
 ::
 
-    castro.initial_dt = 1.e-4
+    furnace.initial_dt = 1.e-4
 
 sets the *initial* level 0 time step to be :math:`10^{-4}` regardless of
-``castro.cfl`` or ``castro.fixed_dt``. The time step can
-grow in subsequent steps by a factor of castro.change_max each step.
+``furnace.cfl`` or ``furnace.fixed_dt``. The time step can
+grow in subsequent steps by a factor of furnace.change_max each step.
 
 
 Diffusion
@@ -144,7 +144,7 @@ be limited by two constraints:
 
 where :math:`e` is the internal energy, and :math:`X^n` is the mass fraction of
 the :math:`n`\ th species. The safety factors correspond to the runtime parameters
-``castro.dtnuc_e`` and ``castro.dtnuc_X``. These limiters
+``furnace.dtnuc_e`` and ``furnace.dtnuc_X``. These limiters
 say that the timestep must be small enough so that no zone can change
 its internal energy by more than the fraction in one
 step, and so that no zone can change the abundance of any isotope by
@@ -153,7 +153,7 @@ more than the fraction in one step. The time derivatives
 of the nuclear network given the state at the time the timestep limiter
 is being calculated. (We use a small number floor to prevent division by zero.)
 To prevent the timestep from being dominated by trace species, there is
-an additional option ``castro.dtnuc_X_threshold`` which is the
+an additional option ``furnace.dtnuc_X_threshold`` which is the
 mass fraction threshold below which a species will not be considered in
 the timestep constraint. and are set to
 a large number by default, effectively disabling them. Typical choices
@@ -164,7 +164,7 @@ Subcycling
 
 Subcycling with AMR means that coarser grids can take a larger timestep
 than finer grids.  
-Castro supports a number of different modes for subcycling in time,
+Furnace supports a number of different modes for subcycling in time,
 set via ``amr.subcycling_mode``.
 
   * ``amr.subcycling_mode`` = ``Auto`` (default): the code will run with
@@ -205,20 +205,20 @@ which will subcycle twice at every level (except level 0).
 Retry Mechanism
 ---------------
 
-Castro's Strang CTU solver has a retry mechanism that can discard a
+Furnace's Strang CTU solver has a retry mechanism that can discard a
 time step on a level and restart with a smaller timestep, subcycling
 within the level to make up the full time step needed for that level.
 It is enabled by setting::
 
-   castro.use_retry = 1
+   furnace.use_retry = 1
 
 .. note::
 
-   The Castro retry mechanism is enabled by default for CTU + Strang
+   The Furnace retry mechanism is enabled by default for CTU + Strang
    and Simplified SDC integration.
 
 The number of subcycles to try in the level is controlled via the
-``castro.max_subcycles`` parameter.  It is not really suggested to go
+``furnace.max_subcycles`` parameter.  It is not really suggested to go
 beyond ``16``---any more is usually an indication of a bigger problem.
 
 A retry can be triggered by a number of conditions:
@@ -237,7 +237,7 @@ A retry can be triggered by a number of conditions:
 
     This instructs the integration routine in Microphysics to not
     abort when the integration fails, but instead to tell the calling
-    Castro routine that the integration failed so Castro can handle
+    Furnace routine that the integration failed so Furnace can handle
     the retry itself.
 
     .. note::

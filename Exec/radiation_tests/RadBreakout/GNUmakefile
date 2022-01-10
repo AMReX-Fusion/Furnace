@@ -13,7 +13,7 @@ USE_RAD = TRUE
 
 USE_CXX_MODEL_PARSER = TRUE
 
-CASTRO_HOME = ../../..
+FURNACE_HOME = ../../..
 
 EOS_DIR     = breakout
 NETWORK_DIR := general_null
@@ -23,4 +23,4 @@ Opacity_dir = breakout
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

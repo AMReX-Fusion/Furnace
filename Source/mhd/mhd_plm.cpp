@@ -1,12 +1,12 @@
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 using namespace amrex;
 
 #include <mhd_eigen.H>
 #include <slope.H>
 void
-Castro::plm(const Box& bx,
+Furnace::plm(const Box& bx,
             const int idir,
             Array4<Real const> const& s,
             Array4<Real const> const& qaux,

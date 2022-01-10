@@ -5,7 +5,7 @@
 #include <eos.H>
 #include <math.H>
 #include <Rotation.H>
-#include <Castro_util.H>
+#include <Furnace_util.H>
 
 AMREX_GPU_HOST_DEVICE AMREX_INLINE
 void problem_initialize_state_data (int i, int j, int k,

@@ -1,5 +1,5 @@
-#ifndef CASTRO_RADSOLVE_H
-#define CASTRO_RADSOLVE_H
+#ifndef FURNACE_RADSOLVE_H
+#define FURNACE_RADSOLVE_H
 
 #include <AMReX_Amr.H>
 

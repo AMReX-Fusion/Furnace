@@ -2,7 +2,7 @@ FILE = ../../inputs
 
 stop_time = 12.0
 
-castro.init_shrink = 0.1
+furnace.init_shrink = 0.1
 
 amr.n_cell = 64 64 64
 
@@ -12,8 +12,8 @@ amr.max_grid_size = 128
 
 amr.blocking_factor = 16
 
-castro.do_rotation = 1
-castro.state_in_rotating_frame = 1
+furnace.do_rotation = 1
+furnace.state_in_rotating_frame = 1
 
 amr.check_int = -1
 amr.check_per = -1.0

@@ -15,8 +15,8 @@ USE_REACT  = TRUE
 USE_ROTATION  = TRUE
 USE_DIFFUSION = TRUE
 
-# define the location of the CASTRO top directory
-CASTRO_HOME  := ../../..
+# define the location of the FURNACE top directory
+FURNACE_HOME  := ../../..
 
 USE_JACOBIAN_CACHING = TRUE
 USE_CXX_MODEL_PARSER = TRUE
@@ -35,4 +35,4 @@ CONDUCTIVITY_DIR := stellar
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

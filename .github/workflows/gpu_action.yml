@@ -47,4 +47,4 @@ jobs:
       - name: Compile problems for GPU
         run: |
           export PATH=$PATH:/usr/local/cuda/bin
-          python3 external/cpp-linter-action/run_on_changed_files.py ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} -header-filter=Castro -ignore-files="amrex|Microphysics" -gpu
+          python3 external/cpp-linter-action/run_on_changed_files.py ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} -header-filter=Furnace -ignore-files="amrex|Microphysics" -gpu

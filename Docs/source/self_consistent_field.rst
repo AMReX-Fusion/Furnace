@@ -48,7 +48,7 @@ Usage and Code Parameters
 
 To use the SCF initialization technique, you must compile with
 ``USE_GRAV=TRUE`` and ``USE_ROTATION=TRUE``, and enable the method
-with ``castro.do_scf_initial_model`` = ``1``. You are responsible
+with ``furnace.do_scf_initial_model`` = ``1``. You are responsible
 for initializing the grid with an initial guess at the mass distribution.
 This guess does not need to be accurate -- for example, just initializing
 with a uniform spherical mass distribution should be sufficient.
@@ -59,10 +59,10 @@ and composition will be retained for the final equilibrium configuration.
 Several code parameters are available for controlling problem initialization
 with SCF:
 
-- ``castro.scf_maximum_density``: the target maximum density on the domain
-- ``castro.scf_equatorial_radius``: the target equatorial radius of the star
-- ``castro.scf_polar_radius``: the target polar radius of the star
-- ``castro.scf_relax_tol``: tolerance required for SCF convergence
+- ``furnace.scf_maximum_density``: the target maximum density on the domain
+- ``furnace.scf_equatorial_radius``: the target equatorial radius of the star
+- ``furnace.scf_polar_radius``: the target polar radius of the star
+- ``furnace.scf_relax_tol``: tolerance required for SCF convergence
 
 The first three options are required and must be set. One limitation of this
 method is that (to our knowledge) there is no known way to specify more natural
@@ -147,4 +147,4 @@ we can rescale all of the updated enthalpies such that the maximum is fixed:
 and then invert the EOS to obtain :math:`\rho^{n+1}`. Given the new density
 distribution, we can then update the gravitational potential, :math:`\Phi^{n+1}`,
 by solving the Poisson equation. This procedure is iterated until no zone
-changes its density by more than a factor of ``castro.scf_relax_tol``.
+changes its density by more than a factor of ``furnace.scf_relax_tol``.

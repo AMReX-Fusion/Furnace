@@ -1,6 +1,6 @@
-#include <Castro.H>
-#include <Castro_F.H>
-#include <Castro_util.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
+#include <Furnace_util.H>
 
 #ifdef RADIATION
 #include <Radiation.H>
@@ -13,7 +13,7 @@
 using namespace amrex;
 
 void
-Castro::trace_ppm_rad(const Box& bx,
+Furnace::trace_ppm_rad(const Box& bx,
                       const int idir,
                       Array4<Real const> const& q_arr,
                       Array4<Real const> const& qaux_arr,

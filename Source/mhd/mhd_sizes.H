@@ -1,5 +1,5 @@
-#ifndef CASTRO_MHD_SIZES_H
-#define CASTRO_MHD_SIZES_H
+#ifndef FURNACE_MHD_SIZES_H
+#define FURNACE_MHD_SIZES_H
 
 constexpr int UMAGX = NUM_STATE;
 constexpr int UMAGY = NUM_STATE+1;

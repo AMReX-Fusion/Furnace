@@ -1,5 +1,5 @@
 
-############################## CASTRO INPUTS ###############################################
+############################## FURNACE INPUTS ###############################################
 
 ############################################################################################
 # Problem setup
@@ -14,12 +14,12 @@ geometry.coord_sys = 0                             # Cartesian coordinate system
 
 geometry.prob_lo = -5.12e9 -5.12e9 -5.12e9         # Lower boundary limits in physical space
 geometry.prob_hi =  5.12e9  5.12e9  5.12e9         # Upper boundary limits in physical space
-castro.center =      0.0e0   0.0e0   0.0e0         # System center of mass
+furnace.center =      0.0e0   0.0e0   0.0e0         # System center of mass
 
 
-castro.cfl = 0.5                                   # CFL number for hyperbolic system
-castro.init_shrink = 0.1                           # Scale back initial timestep by this factor
-castro.change_max = 1.1                            # Factor by which dt is allowed to change each timestep
+furnace.cfl = 0.5                                   # CFL number for hyperbolic system
+furnace.init_shrink = 0.1                           # Scale back initial timestep by this factor
+furnace.change_max = 1.1                            # Factor by which dt is allowed to change each timestep
 
 ############################################################################################
 # Boundary conditions
@@ -28,8 +28,8 @@ castro.change_max = 1.1                            # Factor by which dt is allow
 # 2 = Outflow            5 = NoSlipWall
 ############################################################################################
 
-castro.lo_bc = 2 2 2                               # Boundary conditions on lo x, y, and z edges
-castro.hi_bc = 2 2 2                               # Boundary conditions on hi x, y, and z edges
+furnace.lo_bc = 2 2 2                               # Boundary conditions on lo x, y, and z edges
+furnace.hi_bc = 2 2 2                               # Boundary conditions on hi x, y, and z edges
 
 ############################################################################################ 
 # Resolution, gridding and AMR
@@ -54,40 +54,40 @@ amr.refine.temperr.value_greater = 2.e8
 # Physics to include
 ############################################################################################
 
-castro.do_hydro = 1                                # Whether or not to do hydrodynamics
-castro.do_grav = 1                                 # Whether or not to do gravity
-castro.do_react = 1                                # Whether or not to do reactions
-castro.do_sponge = 0                               # Whether or not to apply the sponge
-castro.add_ext_src = 1                             # Whether or not to apply external source terms
-castro.ext_src_implicit = 1
-castro.do_rotation = 0                             # Whether or not to include the rotation source term
-castro.rotational_period = 100.0                   # Rotational period of the rotating reference frame
-castro.implicit_rotation_update = 1                # Implicit rotation coupling
+furnace.do_hydro = 1                                # Whether or not to do hydrodynamics
+furnace.do_grav = 1                                 # Whether or not to do gravity
+furnace.do_react = 1                                # Whether or not to do reactions
+furnace.do_sponge = 0                               # Whether or not to apply the sponge
+furnace.add_ext_src = 1                             # Whether or not to apply external source terms
+furnace.ext_src_implicit = 1
+furnace.do_rotation = 0                             # Whether or not to include the rotation source term
+furnace.rotational_period = 100.0                   # Rotational period of the rotating reference frame
+furnace.implicit_rotation_update = 1                # Implicit rotation coupling
 
 ############################################################################################
 # PPM options
 ############################################################################################
 
-castro.ppm_type = 1                                # Piecewise parabolic with the original limiters (0 is piecewise linear; 2 is new limiters)
-castro.ppm_temp_fix = 0                            # Use the EOS in calculation of the edge states going into the Riemann solver
-castro.grav_source_type = 4                        # How to include the gravity source term in the hydro equations
-castro.rot_source_type = 4                         # How to include the rotation source term in the hydro equations
+furnace.ppm_type = 1                                # Piecewise parabolic with the original limiters (0 is piecewise linear; 2 is new limiters)
+furnace.ppm_temp_fix = 0                            # Use the EOS in calculation of the edge states going into the Riemann solver
+furnace.grav_source_type = 4                        # How to include the gravity source term in the hydro equations
+furnace.rot_source_type = 4                         # How to include the rotation source term in the hydro equations
 
 ############################################################################################
 # Thermodynamics
 ############################################################################################
 
-castro.small_temp = 1.e5                           # Minimum allowable temperature (K)
-castro.small_dens = 1.e-5                          # Minimum allowable density (g / cm**3)
+furnace.small_temp = 1.e5                           # Minimum allowable temperature (K)
+furnace.small_dens = 1.e-5                          # Minimum allowable density (g / cm**3)
 
-castro.dual_energy_eta1 = 1.0e-3                   # Threshold for when to use the internal energy in calculating pressure
-castro.dual_energy_eta2 = 1.0e-1                   # Threshold for when to use (E - K) in updating internal energy
+furnace.dual_energy_eta1 = 1.0e-3                   # Threshold for when to use the internal energy in calculating pressure
+furnace.dual_energy_eta2 = 1.0e-1                   # Threshold for when to use (E - K) in updating internal energy
 
 eos.use_eos_coulomb = 1
 eos.eos_input_is_constant = 1
 
-castro.ambient_temp = 1.0e7
-castro.ambient_density = 1.0e-4
+furnace.ambient_temp = 1.0e7
+furnace.ambient_density = 1.0e-4
 
 ############################################################################################
 # Gravity
@@ -102,9 +102,9 @@ gravity.no_sync = 1                                # Turn off sync solve for gra
 # Sponge
 ############################################################################################
 
-castro.sponge_lower_radius = 3.840e9
-castro.sponge_upper_radius = 4.352e9
-castro.sponge_timescale    = 0.01e0
+furnace.sponge_lower_radius = 3.840e9
+furnace.sponge_upper_radius = 4.352e9
+furnace.sponge_timescale    = 0.01e0
 
 ############################################################################################
 # Diagnostics and I/O
@@ -119,7 +119,7 @@ amr.plot_file = plt                                # Root name of plot file
 amr.plot_int = 10                                  # Number of timesteps between plotfiles
 
 amr.v = 1                                          # Control verbosity in Amr.cpp
-castro.v = 1                                       # Control verbosity in Castro.cpp
+furnace.v = 1                                       # Control verbosity in Furnace.cpp
 gravity.v = 1                                      # Control verbosity in Gravity.cpp
 mg.v = 2                                           # Control verbosity in the multigrid solver
 

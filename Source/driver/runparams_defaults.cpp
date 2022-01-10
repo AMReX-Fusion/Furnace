@@ -1,6 +1,6 @@
 #include <AMReX_BLFort.H>
 
-#include <castro_params.H>
+#include <furnace_params.H>
 
-#include <castro_declares.H>
+#include <furnace_declares.H>
 

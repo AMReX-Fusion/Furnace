@@ -6,14 +6,14 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#include <Castro.H>
+#include <Furnace.H>
 #include <Radiation.H>
-#include <Castro_F.H>
+#include <Furnace_F.H>
 
 using namespace amrex;
 
 void
-Castro::do_energy_diagnostics()
+Furnace::do_energy_diagnostics()
 {
   int finest_level = parent->finestLevel();
 

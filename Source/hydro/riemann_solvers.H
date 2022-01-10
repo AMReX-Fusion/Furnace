@@ -1,7 +1,7 @@
 #ifndef riemann_solvers_H
 #define riemann_solvers_H
 
-#include <Castro_util.H>
+#include <Furnace_util.H>
 #include <riemann.H>
 #ifdef HYBRID_MOMENTUM
 #include <hybrid.H>
@@ -249,7 +249,7 @@ riemanncg(const RiemannState& ql, const RiemannState& qr, const RiemannAux& raux
 
   // Note: in the original Colella & Glaz paper, they predicted
   // gamma_e to the interfaces using a special (non-hyperbolic)
-  // evolution equation.  In Castro, we instead bring (rho e)
+  // evolution equation.  In Furnace, we instead bring (rho e)
   // to the edges, so we construct the necessary gamma_e here from
   // what we have on the interfaces.
   Real gamel = ql.p / ql.rhoe + 1.0_rt;
@@ -611,7 +611,7 @@ riemannus(const RiemannState& ql, const RiemannState& qr, const RiemannAux& raux
 
   Real wsmall = small_dens * raux.csmall;
 
-  // this is Castro I: Eq. 33
+  // this is Furnace I: Eq. 33
 
   Real wl = amrex::max(wsmall, std::sqrt(std::abs(ql.gamc * ql.p * ql.rho)));
   Real wr = amrex::max(wsmall, std::sqrt(std::abs(qr.gamc * qr.p * qr.rho)));

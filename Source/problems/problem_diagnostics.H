@@ -3,6 +3,6 @@
 
 AMREX_INLINE
 void
-Castro::problem_diagnostics () {}
+Furnace::problem_diagnostics () {}
 
 #endif

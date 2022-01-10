@@ -5,7 +5,7 @@ and fill in the following fields as best you can. -->
 
     * Target the development branch
     * Follow the style conventions here:
-      https://amrex-astro.github.io/Castro/docs/coding_conventions.html  -->
+      https://amrex-astro.github.io/Furnace/docs/coding_conventions.html  -->
 
 ## PR summary
 

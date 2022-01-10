@@ -8,14 +8,14 @@ import os
 from pathlib import Path
 
 def find_fortran_files():
-    # find Castro Fortran source files 
+    # find Furnace Fortran source files 
     try:
-        castro_home = os.environ['CASTRO_HOME']
+        furnace_home = os.environ['FURNACE_HOME']
     except KeyError:
-        # this assumes this file is run from the Castro/Util/code_checker directory
-        castro_home = '../..'
+        # this assumes this file is run from the Furnace/Util/code_checker directory
+        furnace_home = '../..'
 
-    p = Path(castro_home + '/Source')
+    p = Path(furnace_home + '/Source')
     return p.glob(r'**/*.[fF]90')
 
 def idfunc(argvalue):

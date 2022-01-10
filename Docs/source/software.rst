@@ -5,7 +5,7 @@ Software Design
 Code structure
 ==============
 
-Castro is built upon the AMReX C++ framework. This provides
+Furnace is built upon the AMReX C++ framework. This provides
 high-level classes for managing an adaptive mesh refinement
 simulation, including the core data structures we will deal with. A
 key design pattern in AMReX is that the overall memory management
@@ -15,7 +15,7 @@ convenient data structures that allow for this workflow—high level
 objects in C++ that communicate with Fortran through pointers to
 data regions that appear as multidimensional arrays.
 
-Castro uses a structured-grid approach to hydrodynamics. We work
+Furnace uses a structured-grid approach to hydrodynamics. We work
 with square/cubic zones that hold state variables (density, momentum,
 etc.) and compute the fluxes of these quantities through the
 interfaces of the zones (this is a finite-volume approach).
@@ -30,12 +30,12 @@ into zones and boxes, we can refine rectangular regions by adding
 finer-gridded boxes on top of the coarser grid. We call the
 collection of boxes at the same resolution a *level*.
 
-Castro uses a hybrid MPI + OpenMP approach to parallelism. MPI is
+Furnace uses a hybrid MPI + OpenMP approach to parallelism. MPI is
 at used to communicate across nodes on a computer and OpenMP is used
 within a node, to loop over subregions of a box with different
 threads.
 
-The code structure in the Castro/ directory reflects the
+The code structure in the Furnace/ directory reflects the
 division between C++ and Fortran.
 
 -  ``Diagnostics/``: various analysis routines for specific problems
@@ -104,16 +104,16 @@ Major data structures
 =====================
 
 The following data structures are the most commonly encountered when
-working in the C++ portions of Castro. This are all
+working in the C++ portions of Furnace. This are all
 AMReX data-structures / classes.
 
 ``Amr``
 -------
 
 This is the main class that drives the whole simulation. This is
-the highest level in Castro.
+the highest level in Furnace.
 
-``AmrLevel`` and Castro classes
+``AmrLevel`` and Furnace classes
 -------------------------------
 
 An ``AmrLevel`` is a virtual base class provided by AMReX that
@@ -124,18 +124,18 @@ The most important data managed by the ``AmrLevel`` is an array of
 ``StateData``, which holds the fluid quantities, etc., in the boxes
 that together make up the level.
 
-The ``Castro`` class is derived from the ``AmrLevel``. It provides
-the Castro-specific routines to evolve our system of equations. Like
-the ``AmrLevel``, there is one ``Castro`` object for each level in the
+The ``Furnace`` class is derived from the ``AmrLevel``. It provides
+the Furnace-specific routines to evolve our system of equations. Like
+the ``AmrLevel``, there is one ``Furnace`` object for each level in the
 AMR hierarchry.
 
-A lot of the member data in the ``Castro`` class are static member
+A lot of the member data in the ``Furnace`` class are static member
 variables—this means that they are shared across all instances of
 the class. So, in this case, every level will have the same data.
 This is done, in particular, for the values of the runtime parameters,
 but also for the ``Gravity``, ``Diffusion``, and ``Radiation``
 objects. This means that those objects cover all levels and are the
-same object in each instantiation of the ``Castro`` class.
+same object in each instantiation of the ``Furnace`` class.
 
 Floating point data
 -------------------
@@ -155,7 +155,7 @@ parameter is::
 The ``amrex_constants_module`` provides common constants that can
 be used in the code, like ``ZERO``, ``THIRD``, ``ONE``, etc.
 
-.. note :: single precision support in Castro is not yet complete. In
+.. note :: single precision support in Furnace is not yet complete. In
    particular, a lot of the supporting microphysics has not been updated.
 
 ``Box`` and ``FArrayBox``
@@ -174,7 +174,7 @@ example of three boxes at the same level of refinement.
 AMReX provides other data structures that collect Boxes together,
 most importantly the ``BoxArray``. We generally do not use these
 directly, with the exception of the ``BoxArray`` ``grids``,
-which is defined as part of the ``AmrLevel`` class that ``Castro``
+which is defined as part of the ``AmrLevel`` class that ``Furnace``
 inherits. ``grids`` is used when building new ``MultiFabs`` to give
 the layout of the boxes at the current level.
 
@@ -196,7 +196,7 @@ structures is that this data buffer can be sent to Fortran, where it
 will appear as a DIM+1 dimensional array (DIM space + 1
 component).
 
-.. note:: Castro is complied for a specific dimensionality.
+.. note:: Furnace is complied for a specific dimensionality.
 
 ``MultiFab``
 ------------
@@ -225,7 +225,7 @@ High-level operations exist on ``MultiFab`` s to add, subtract, multiply,
 etc., them together or with scalars, so you don’t need to write out
 loops over the data directly.
 
-In Castro, ``MultiFab`` s are one of the main data structures you will
+In Furnace, ``MultiFab`` s are one of the main data structures you will
 interact with in the C++ portions of the code.
 
 .. _soft:sec:statedata:
@@ -237,15 +237,15 @@ interact with in the C++ portions of the code.
 ``MultiFab`` s: one at the old time and one at the new
 time. AMReX knows how to interpolate in time between these states to
 get data at any intermediate point in time. The main data that we care
-about in Castro (the fluid state, gravitational potential, etc.) will
+about in Furnace (the fluid state, gravitational potential, etc.) will
 be stored as ``StateData``. Essentially, data is made StateData in
-Castro if we need it to be stored in checkpoints / plotfiles, and/or
+Furnace if we need it to be stored in checkpoints / plotfiles, and/or
 we want it to be automatically interpolated when we refine.
 
 An ``AmrLevel`` stores an array of ``StateData`` (in a C++ array
 called ``state``). We index this array using integer keys (defined
-via an enum in ``Castro.H``). The state data is registered
-with AMReX in ``Castro_setup.cpp``.
+via an enum in ``Furnace.H``). The state data is registered
+with AMReX in ``Furnace_setup.cpp``.
 
 Note that each of the different ``StateData`` carried in the state
 array can have different numbers of components, ghost cells, boundary
@@ -253,7 +253,7 @@ conditions, etc. This is the main reason we separate all this data
 into separate StateData objects collected together in an indexable
 array.
 
-The current ``StateData`` names Castro carries are:
+The current ``StateData`` names Furnace carries are:
 
 -  ``State_Type`` : this is the ``NUM_STATE`` hydrodynamics
    components that make up the conserved hydrodynamics state (usually
@@ -274,7 +274,7 @@ The current ``StateData`` names Castro carries are:
    ``State_Type`` ``MultiFab`` s have no ghost cells by default for
    pure hydro and a single ghost cell by default when ``RADIATION``
    is enabled. There is an option to force them to have ghost cells by
-   setting the parameter ``castro.state_nghost`` at runtime.
+   setting the parameter ``furnace.state_nghost`` at runtime.
 
    Note that the prediction of the hydrodynamic state to the interface
    will require 4 ghost cells. This accomodated by creating a separate
@@ -343,8 +343,8 @@ at the new time.
 =======================================
 
 The process of looping over boxes at a given level of refinement and
-operating on their data is linked to how Castro achieves
-thread-level parallelism. The OpenMP approach in Castro has evolved
+operating on their data is linked to how Furnace achieves
+thread-level parallelism. The OpenMP approach in Furnace has evolved
 considerably since the original paper was written, with the modern
 approach, called *tiling*, gearing up to meet the demands of
 many-core processors in the next-generation of supercomputers.
@@ -430,7 +430,7 @@ fillpatch operation. Fine-fine fills are just a straight copy from
 because the ``StateData`` is not just arrays, they’re “State Data”,
 which means that the data knows how to interpolate itself (in an
 anthropomorphical sense). The type of interpolation to use is defined
-in ``Castro_setup.cpp``—search for
+in ``Furnace_setup.cpp``—search for
 ``cell_cons_interp``, for example—that’s “cell conservative
 interpolation”, i.e., the data is cell-based (as opposed to
 node-based or edge-based) and the interpolation is such that the
@@ -455,13 +455,13 @@ let’s consider the following scenarios:
    hydrodynamic state that we use to kick-off the hydrodynamics
    advance.
 
-   ``Sborder`` is declared in ``Castro.H`` simply as:
+   ``Sborder`` is declared in ``Furnace.H`` simply as:
 
    .. code:: c++
 
          Multifab Sborder;
 
-   It is then allocated in ``Castro::initialize_do_advance()``
+   It is then allocated in ``Furnace::initialize_do_advance()``
 
    .. code:: c++
 
@@ -474,7 +474,7 @@ let’s consider the following scenarios:
    ``Sborder``.
 
    The actually filling of the ghost cells is done by
-   ``Castro::expand_state()``:
+   ``Furnace::expand_state()``:
 
    .. code:: c++
 
@@ -483,7 +483,7 @@ let’s consider the following scenarios:
 
    Here, we are filling the ng ghost cells of ``MultiFab``
    ``Sborder`` at time prev_time. We are using the
-   ``StateData`` that is part of the current ``Castro`` object that we
+   ``StateData`` that is part of the current ``Furnace`` object that we
    are part of. Note: ``FillPatch`` takes an object reference as its
    first argument, which is the object that contains the relevant
    ``StateData`` —that is what the this pointer indicates.
@@ -509,10 +509,10 @@ let’s consider the following scenarios:
 
    .. code:: c++
 
-         Real time = castro->get_state_data(Rad_Type).curTime();
-         MultiFab& S_new = castro->get_new_data(State_Type);
+         Real time = furnace->get_state_data(Rad_Type).curTime();
+         MultiFab& S_new = furnace->get_new_data(State_Type);
 
-         AmrLevel::FillPatch(*castro, S_new, ngrow, time, State_Type,
+         AmrLevel::FillPatch(*furnace, S_new, ngrow, time, State_Type,
                              0, S_new.nComp(), 0);
 
    In this example, ``S_new`` is a pointer to the new-time-level
@@ -522,9 +522,9 @@ let’s consider the following scenarios:
    for all the components.
 
    Note that in this example, because the ``StateData`` lives in the
-   ``castro`` object and we are working from the ``Radiation`` object,
-   we need to make reference to the current ``castro`` object
-   pointer. If this were all done within the ``castro`` object, then
+   ``furnace`` object and we are working from the ``Radiation`` object,
+   we need to make reference to the current ``furnace`` object
+   pointer. If this were all done within the ``furnace`` object, then
    the pointer will simply be ``this``, as we saw above.
 
 -  *You have a* ``MultiFab`` *with some derived quantity. You want to
@@ -584,7 +584,7 @@ In this operation, state_old points to the internal
 Note that in the examples above, we see that only ``StateData`` can fill
 physical boundaries (because these register how to fill the boundaries
 when they are defined). There are some advanced operations in
-AMReX that can get around this, but we do not use them in Castro.
+AMReX that can get around this, but we do not use them in Furnace.
 
 .. _soft:phys_bcs:
 
@@ -594,11 +594,11 @@ Physical Boundaries
 .. index:: boundary conditions
 
 Physical boundary conditions are specified by an integer index [2]_ in
-the ``inputs`` file, using the ``castro.lo_bc`` and ``castro.hi_bc`` runtime
+the ``inputs`` file, using the ``furnace.lo_bc`` and ``furnace.hi_bc`` runtime
 parameters. The generally supported boundary conditions are, their
 corresponding integer key, and the action they take for the normal
 velocity, transverse velocity, and generic scalar are shown in 
-:numref:`table:castro:bcs`.
+:numref:`table:furnace:bcs`.
 
 The definition of the specific actions are:
 
@@ -615,7 +615,7 @@ The definition of the specific actions are:
 -  ``REFLECT_ODD``: :math:`F(-n) = -F(n)` true reflection from interior cells
 
 The actual registration of a boundary condition action to a particular
-variable is done in ``Castro_setup.cpp``. At the top we define arrays
+variable is done in ``Furnace_setup.cpp``. At the top we define arrays
 such as ``scalar_bc``, ``norm_vel_bc``, etc, which say which kind of
 bc to use on which kind of physical boundary.  Boundary conditions are
 set in functions like ``set_scalar_bc``, which uses the ``scalar_bc``
@@ -629,8 +629,8 @@ the domain. You then need to write the implementation code for this.
 There is a centralized hydrostatic boundary condition that is implemented
 this way—see :ref:`create:bcs`.
 
-.. _table:castro:bcs:
-.. table:: Physical boundary conditions supported in Castro.
+.. _table:furnace:bcs:
+.. table:: Physical boundary conditions supported in Furnace.
 
    +-------------+-------------+-------------+--------------+--------------+
    | **name**    | **integer** | **normal    | **transverse | **scalars**  |
@@ -669,7 +669,7 @@ get a sense of these is to look at the ``.H`` files in the
 ------------------
 
 There is a ``Geometry`` object, ``geom`` for each level as part of
-the ``Castro`` object (this is inhereted through ``AmrLevel``).
+the ``Furnace`` object (this is inhereted through ``AmrLevel``).
 
 ``ParmParse`` class
 -------------------
@@ -681,7 +681,7 @@ Error Estimators
 =================
 
 There is a single ``Gravity`` object, ``gravity``, that is a
-static class member of the ``Castro`` object. This means that all
+static class member of the ``Furnace`` object. This means that all
 levels refer to the same ``Gravity`` object.
 
 Within the ``Gravity`` object, there are pointers to the ``Amr``
@@ -698,7 +698,7 @@ Fortran Helper Modules
 ======================
 
 There are a number of modules that make data available to the Fortran
-side of Castroor perform other useful tasks.
+side of Furnaceor perform other useful tasks.
 
 ``amrex_constants_module``
 --------------------------
@@ -721,7 +721,7 @@ for both the conserved variables (``URHO``, ``UMX``, :math:`\ldots`)
 and primitive variables (``QRHO``, ``QU``, :math:`\ldots`), as well as
 the number of scalar variables.
 
-It also provides the values of most of the ``castro.*xxxx*``
+It also provides the values of most of the ``furnace.*xxxx*``
 runtime parameters.
 
 

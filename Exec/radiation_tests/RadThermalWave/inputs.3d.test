@@ -58,27 +58,27 @@ opacity.kappa_r_exp_p =  0.0e0
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  2    2    2
-castro.hi_bc       =  2    2    2
+furnace.lo_bc       =  2    2    2
+furnace.hi_bc       =  2    2    2
 
 
-castro.cfl            = 0.8     # cfl number for hyperbolic system
-castro.init_shrink    = 1.0     # scale back initial timestep
-castro.initial_dt     = 1.e-15
-#castro.fixed_dt       = 1.e-5
-castro.change_max     = 1.05
+furnace.cfl            = 0.8     # cfl number for hyperbolic system
+furnace.init_shrink    = 1.0     # scale back initial timestep
+furnace.initial_dt     = 1.e-15
+#furnace.fixed_dt       = 1.e-5
+furnace.change_max     = 1.05
 
-castro.sum_interval   = 1       # timesteps between computing mass
-castro.do_reflux      = 1       # 1 => do refluxing
-castro.gravity        = 0
+furnace.sum_interval   = 1       # timesteps between computing mass
+furnace.do_reflux      = 1       # 1 => do refluxing
+furnace.gravity        = 0
 
-castro.do_hydro       = 0
-castro.do_react       = 0
-castro.do_radiation   = 1
+furnace.do_hydro       = 0
+furnace.do_react       = 0
+furnace.do_radiation   = 1
 
 # hydro cutoff parameters
-castro.small_dens     = 1.e-20
-castro.small_temp = 0.0
+furnace.small_dens     = 1.e-20
+furnace.small_temp = 0.0
 
 # ------------------  INPUTS TO RADIATION CLASS  -------------------
 

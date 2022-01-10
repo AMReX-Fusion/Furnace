@@ -1,7 +1,7 @@
-#ifndef CASTRO_MHD_SOUND_SPEED_H
-#define CASTRO_MHD_SOUND_SPEED_H
+#ifndef FURNACE_MHD_SOUND_SPEED_H
+#define FURNACE_MHD_SOUND_SPEED_H
 
-#include <Castro_util.H>
+#include <Furnace_util.H>
 #include <mhd_sizes.H>
 
 using namespace amrex;

@@ -1,5 +1,5 @@
-#ifndef CASTRO_RADDERIVE_H
-#define CASTRO_RADDERIVE_H
+#ifndef FURNACE_RADDERIVE_H
+#define FURNACE_RADDERIVE_H
 
 #include <AMReX_BLFort.H>
 #include <AMReX_FArrayBox.H>

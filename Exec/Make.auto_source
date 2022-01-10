@@ -2,8 +2,8 @@
 #------------------------------------------------------------------------------
 # make generated source files location
 #------------------------------------------------------------------------------
-VPATH_LOCATIONS += $(CASTRO_AUTO_SOURCE_DIR)
-INCLUDE_LOCATIONS += $(CASTRO_AUTO_SOURCE_DIR)
+VPATH_LOCATIONS += $(FURNACE_AUTO_SOURCE_DIR)
+INCLUDE_LOCATIONS += $(FURNACE_AUTO_SOURCE_DIR)
 
 
 #------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ CEXE_sources += extern_parameters.cpp
 CEXE_headers += extern_parameters.H
 
 # for dependency resolution
-AUTO_BUILD_SOURCES += $(CASTRO_AUTO_SOURCE_DIR)/extern_parameters.H
+AUTO_BUILD_SOURCES += $(FURNACE_AUTO_SOURCE_DIR)/extern_parameters.H
 
 # these are for finding runtime parameters
 EXTERN_SEARCH += $(EXTERN_CORE)
@@ -22,12 +22,12 @@ EXTERN_SEARCH += $(MICROPHYSICS_HOME)/networks/
 
 EXTERN_PARAMETERS := $(foreach dir, $(EXTERN_SEARCH),$(realpath $(wildcard $(dir)/_parameters)))
 
-$(CASTRO_AUTO_SOURCE_DIR)/extern_parameters.cpp: $(CASTRO_AUTO_SOURCE_DIR)/extern_parameters.H
+$(FURNACE_AUTO_SOURCE_DIR)/extern_parameters.cpp: $(FURNACE_AUTO_SOURCE_DIR)/extern_parameters.H
 
-$(CASTRO_AUTO_SOURCE_DIR)/extern_parameters.H: $(EXTERN_PARAMETERS)
-	@if [ ! -d $(CASTRO_AUTO_SOURCE_DIR) ]; then mkdir -p $(CASTRO_AUTO_SOURCE_DIR); fi
+$(FURNACE_AUTO_SOURCE_DIR)/extern_parameters.H: $(EXTERN_PARAMETERS)
+	@if [ ! -d $(FURNACE_AUTO_SOURCE_DIR) ]; then mkdir -p $(FURNACE_AUTO_SOURCE_DIR); fi
 	$(MICROPHYSICS_HOME)/util/build_scripts/write_probin.py \
-           --cxx_prefix $(CASTRO_AUTO_SOURCE_DIR)/extern \
+           --cxx_prefix $(FURNACE_AUTO_SOURCE_DIR)/extern \
            --pa "$(EXTERN_PARAMETERS)"
 
 
@@ -45,43 +45,43 @@ PROB_PARAMETERS := $(foreach dir, $(Bdirs), $(wildcard $(TOP)/$(dir)/_prob_param
 # any others
 PROB_PARAMETERS += $(wildcard $(PROBLEM_DIR)/_prob_params)
 
-$(CASTRO_AUTO_SOURCE_DIR)/prob_parameters.cpp: $(CASTRO_AUTO_SOURCE_DIR)/prob_parameters.H
+$(FURNACE_AUTO_SOURCE_DIR)/prob_parameters.cpp: $(FURNACE_AUTO_SOURCE_DIR)/prob_parameters.H
 
 # for dependency resolution
-AUTO_BUILD_SOURCES += $(CASTRO_AUTO_SOURCE_DIR)/prob_parameters.H
+AUTO_BUILD_SOURCES += $(FURNACE_AUTO_SOURCE_DIR)/prob_parameters.H
 
 # Note that $(PROB_PARAMETERS) may not exist so we use wildcard to condition
 # on that; if it doesn't exist, it's ignored as a make target. The default
 # parameters file will always exist.
-$(CASTRO_AUTO_SOURCE_DIR)/prob_parameters.H: $(DEFAULT_PROB_PARAMETERS) $(wildcard $(PROB_PARAMETERS))
-	@if [ ! -d $(CASTRO_AUTO_SOURCE_DIR) ]; then mkdir -p $(CASTRO_AUTO_SOURCE_DIR); fi
+$(FURNACE_AUTO_SOURCE_DIR)/prob_parameters.H: $(DEFAULT_PROB_PARAMETERS) $(wildcard $(PROB_PARAMETERS))
+	@if [ ! -d $(FURNACE_AUTO_SOURCE_DIR) ]; then mkdir -p $(FURNACE_AUTO_SOURCE_DIR); fi
 	PYTHONPATH=$(MICROPHYSICS_HOME)/util/build_scripts $(TOP)/Util/scripts/write_probdata.py \
            -p "$(PROB_PARAMETERS)" \
-           --cxx_prefix $(CASTRO_AUTO_SOURCE_DIR)/prob \
+           --cxx_prefix $(FURNACE_AUTO_SOURCE_DIR)/prob \
 
 #------------------------------------------------------------------------------
-# Castro C++ parameters
+# Furnace C++ parameters
 #------------------------------------------------------------------------------
 
-CEXE_headers += castro_params.H
+CEXE_headers += furnace_params.H
 
 # for dependency resolution
-AUTO_BUILD_SOURCES += $(CASTRO_AUTO_SOURCE_DIR)/castro_params.H
+AUTO_BUILD_SOURCES += $(FURNACE_AUTO_SOURCE_DIR)/furnace_params.H
 
 CPP_PARAMETERS := $(TOP)/Source/driver/_cpp_parameters
 
-$(CASTRO_AUTO_SOURCE_DIR)/castro_params.H: $(CPP_PARAMETERS)
-	@if [ ! -d $(CASTRO_AUTO_SOURCE_DIR) ]; then mkdir -p $(CASTRO_AUTO_SOURCE_DIR); fi
-	PYTHONPATH=$(MICROPHYSICS_HOME)/util/build_scripts $(TOP)/Source/driver/parse_castro_params.py -o $(CASTRO_AUTO_SOURCE_DIR) $(CPP_PARAMETERS)
+$(FURNACE_AUTO_SOURCE_DIR)/furnace_params.H: $(CPP_PARAMETERS)
+	@if [ ! -d $(FURNACE_AUTO_SOURCE_DIR) ]; then mkdir -p $(FURNACE_AUTO_SOURCE_DIR); fi
+	PYTHONPATH=$(MICROPHYSICS_HOME)/util/build_scripts $(TOP)/Source/driver/parse_furnace_params.py -o $(FURNACE_AUTO_SOURCE_DIR) $(CPP_PARAMETERS)
 
 # for debugging
-test_cxx_params: $(CASTRO_AUTO_SOURCE_DIR)/castro_params.H
+test_cxx_params: $(FURNACE_AUTO_SOURCE_DIR)/furnace_params.H
 
 #------------------------------------------------------------------------------
 # state variable info
 #-------------------------------------------------------------------------------
 
-$(CASTRO_AUTO_SOURCE_DIR)/state_indices_nd.F90: $(CASTRO_AUTO_SOURCE_DIR)/state_indices.H
+$(FURNACE_AUTO_SOURCE_DIR)/state_indices_nd.F90: $(FURNACE_AUTO_SOURCE_DIR)/state_indices.H
 
 ifeq ($(USE_RAD), TRUE)
   state_fort_opts = --ngroups $(NGROUPS)
@@ -90,19 +90,19 @@ else
 endif
 
 # for dependency resolution
-AUTO_BUILD_SOURCES += $(CASTRO_AUTO_SOURCE_DIR)/state_indices.H
+AUTO_BUILD_SOURCES += $(FURNACE_AUTO_SOURCE_DIR)/state_indices.H
 
-$(CASTRO_AUTO_SOURCE_DIR)/state_indices.H:
-	@if [ ! -d $(CASTRO_AUTO_SOURCE_DIR) ]; then mkdir -p $(CASTRO_AUTO_SOURCE_DIR); fi
-	$(CASTRO_HOME)/Source/driver/set_variables.py $(state_fort_opts) \
+$(FURNACE_AUTO_SOURCE_DIR)/state_indices.H:
+	@if [ ! -d $(FURNACE_AUTO_SOURCE_DIR) ]; then mkdir -p $(FURNACE_AUTO_SOURCE_DIR); fi
+	$(FURNACE_HOME)/Source/driver/set_variables.py $(state_fort_opts) \
            --defines "$(DEFINES)" \
            --nadv $(NUMADV) \
            --ngroups $(NGROUPS) \
-           --odir $(CASTRO_AUTO_SOURCE_DIR) \
-           $(CASTRO_HOME)/Source/driver/_variables
+           --odir $(FURNACE_AUTO_SOURCE_DIR) \
+           $(FURNACE_HOME)/Source/driver/_variables
 
 # for debugging
-test_variables: $(CASTRO_AUTO_SOURCE_DIR)/state_indices.H
+test_variables: $(FURNACE_AUTO_SOURCE_DIR)/state_indices.H
 
 
 #------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ objForExecs += $(objEXETempDir)/AMReX_buildInfo.o
 .PHONE: .FORCE
 
 # set BUILD_GIT_NAME and BUILD_GIT_DIR if you are building in a
-# git-controlled dir not under Castro/
+# git-controlled dir not under Furnace/
 EXTRA_BUILD_INFO :=
 ifdef BUILD_GIT_NAME
    EXTRA_BUILD_INFO := --build_git_name "$(BUILD_GIT_NAME)" \

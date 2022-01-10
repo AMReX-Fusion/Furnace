@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXEC=./Castro2d.gnu.MPI.TRUESDC.ex
+EXEC=./Furnace2d.gnu.MPI.TRUESDC.ex
 
 CONV_TOOL=RichardsonConvergenceTest2d.gnu.ex 
 

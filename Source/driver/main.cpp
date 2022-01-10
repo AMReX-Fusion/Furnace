@@ -21,8 +21,8 @@
 
 #include <time.h>
 
-#include <Castro.H>
-#include <Castro_io.H>
+#include <Furnace.H>
+#include <Furnace_io.H>
 
 using namespace amrex;
 
@@ -39,7 +39,7 @@ main (int   argc,
     if (argc >= 2) {
         for (auto i = 1; i < argc; i++) {
             if (std::string(argv[i]) == "--describe") {
-                Castro::writeBuildInfo();
+                Furnace::writeBuildInfo();
                 return 0;
             }
         }
@@ -145,12 +145,12 @@ main (int   argc,
     }
 
 #ifdef DO_PROBLEM_POST_SIMULATION
-    Castro::problem_post_simulation(amrptr->getAmrLevels());
+    Furnace::problem_post_simulation(amrptr->getAmrLevels());
 #endif
 
     // Write final checkpoint and plotfile
 
-    if (Castro::get_output_at_completion() == 1) {
+    if (Furnace::get_output_at_completion() == 1) {
 
         if (amrptr->stepOfLastCheckPoint() < amrptr->levelSteps(0)) {
             amrptr->checkPoint();
@@ -171,7 +171,7 @@ main (int   argc,
     // object because we need to scale it by the number of zones on the coarse grid.
 
     long numPtsCoarseGrid = amrptr->getLevel(0).boxArray().numPts();
-    Real fom = Castro::num_zones_advanced * numPtsCoarseGrid;
+    Real fom = Furnace::num_zones_advanced * numPtsCoarseGrid;
 
     time(&time_type);
 

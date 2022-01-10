@@ -1,5 +1,5 @@
-#ifndef CASTRO_NGBNDRY_H
-#define CASTRO_NGBNDRY_H
+#ifndef FURNACE_NGBNDRY_H
+#define FURNACE_NGBNDRY_H
 
 #include <RadInterpBndryData.H>
 #include <AMReX_BC_TYPES.H>

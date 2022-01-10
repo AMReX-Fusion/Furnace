@@ -1,13 +1,13 @@
-#include <Castro.H>
-#include <Castro_F.H>
-#include <Castro_util.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
+#include <Furnace_util.H>
 
 #include <mhd_util.H>
 
 using namespace amrex;
 
 void
-Castro::check_for_mhd_cfl_violation(const Box& bx,
+Furnace::check_for_mhd_cfl_violation(const Box& bx,
                                     const Real dt,
                                     Array4<Real const> const& q_arr,
                                     Array4<Real const> const& qaux_arr) {
@@ -120,7 +120,7 @@ Castro::check_for_mhd_cfl_violation(const Box& bx,
 
 
 void
-Castro::consup_mhd(const Box& bx, const Real dt,
+Furnace::consup_mhd(const Box& bx, const Real dt,
                    Array4<Real> const& U_new,
                    Array4<Real const> const& flux0,
                    Array4<Real const> const& flux1,
@@ -166,7 +166,7 @@ Castro::consup_mhd(const Box& bx, const Real dt,
 
 
 void
-Castro::PrimToCons(const Box& bx,
+Furnace::PrimToCons(const Box& bx,
                    Array4<Real const> const& q_arr,
                    Array4<Real> const& u_arr) {
 
@@ -221,7 +221,7 @@ Castro::PrimToCons(const Box& bx,
 
 
 void
-Castro::prim_half(const Box& bx,
+Furnace::prim_half(const Box& bx,
                   Array4<Real> const& q2D,
                   Array4<Real const> const& q_arr,
                   Array4<Real const> const& flxx,

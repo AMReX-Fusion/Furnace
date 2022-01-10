@@ -15,44 +15,44 @@ amr.n_cell           = 512   16    16
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  3   4   4
-castro.hi_bc       =  2   4   4
+furnace.lo_bc       =  3   4   4
+furnace.hi_bc       =  2   4   4
 
 # WHICH PHYSICS
-castro.do_hydro = 1
-castro.do_react = 1
+furnace.do_hydro = 1
+furnace.do_react = 1
 
-castro.time_integration_method = 2
-castro.sdc_order = 2
-castro.sdc_quadrature = 0
-#castro.sdc_extra = 1
+furnace.time_integration_method = 2
+furnace.sdc_order = 2
+furnace.sdc_quadrature = 0
+#furnace.sdc_extra = 1
 
-castro.sdc_solve_for_rhoe  = 1
+furnace.sdc_solve_for_rhoe  = 1
 
-castro.sdc_solver = 1
-castro.sdc_solver_tol_dens = 1.e-5
-castro.sdc_solver_tol_spec = 1.e-5
-castro.sdc_solver_tol_ener = 1.e-5
-castro.sdc_newton_use_analytic_jac = 1
+furnace.sdc_solver = 1
+furnace.sdc_solver_tol_dens = 1.e-5
+furnace.sdc_solver_tol_spec = 1.e-5
+furnace.sdc_solver_tol_ener = 1.e-5
+furnace.sdc_newton_use_analytic_jac = 1
 
-castro.ppm_type = 0
+furnace.ppm_type = 0
 
-castro.use_flattening = 1
+furnace.use_flattening = 1
 
-castro.small_temp     = 1.e7
+furnace.small_temp     = 1.e7
 
-castro.riemann_solver = 0
+furnace.riemann_solver = 0
 
 # TIME STEP CONTROL
-castro.cfl            = 0.5     # cfl number for hyperbolic system
-castro.init_shrink    = 0.1     # scale back initial timestep
-castro.change_max     = 1.05    # scale back initial timestep
+furnace.cfl            = 0.5     # cfl number for hyperbolic system
+furnace.init_shrink    = 0.1     # scale back initial timestep
+furnace.change_max     = 1.05    # scale back initial timestep
 
-castro.dtnuc_e = 0.25
+furnace.dtnuc_e = 0.25
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing mass
-castro.v              = 1       # verbosity in Castro.cpp
+furnace.sum_interval   = 1       # timesteps between computing mass
+furnace.v              = 1       # verbosity in Furnace.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 #amr.grid_log        = grdlog  # name of grid logging file
 

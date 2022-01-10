@@ -2,11 +2,11 @@
 Checkpoint Embiggener
 *********************
 
-Within the Castro distribution, there is the capability to “grow” a
+Within the Furnace distribution, there is the capability to “grow” a
 checkpoint file so that a calculation can be restarted in a larger
 domain covered by grid cells a factor of two or four coarser than the
 existing coarsest level. Instructions for how to do so are in the
-``Castro/Util/ConvertCheckpoint/README`` file and are included here.
+``Furnace/Util/ConvertCheckpoint/README`` file and are included here.
 Upon restart the existing data in the checkpoint file will be used to
 fill the region of the previous computational domain, and the new
 regions will be filled by some other means, typically interpolation
@@ -58,7 +58,7 @@ coarser than the existing level 0 grids.
    domain.
 
    .. note:: ``ref_ratio`` must be 2 or 4, because those are the only
-      acceptable values in Castro.
+      acceptable values in Furnace.
 
    ``grown_factor`` can be any reasonable integer; but it’s only been
    tested with 2, 3, 4 and 8. It does not need to be a multiple of 2.
@@ -75,8 +75,8 @@ Your inputs file should now contain lines like::
    amr.n_cell = 4D 4D
    geometry.prob_lo = 0 0
    geometry.prob_hi = 8P 8P
-   castro.grown_factor = 8
-   castro.star_at_center = 0
+   furnace.grown_factor = 8
+   furnace.star_at_center = 0
    amr.ref_ratio = 2 4 4 4 4
 
 Important:
@@ -101,9 +101,9 @@ Important:
    that will now be the refinement ratio between the new level 0 and
    the new level 1.
 
- * You must set ``castro.grown_factor`` in your inputs file equal to
+ * You must set ``furnace.grown_factor`` in your inputs file equal to
    the value of ``grown_factor`` you used when you called Embiggen*ex
-   so that Castro knows how big the original domain was.
+   so that Furnace knows how big the original domain was.
 
  * Note that if you have run 100 steps at the original level 0, that
    would be equivalent to 50 steps at the new level 0 because you
@@ -159,8 +159,8 @@ Your inputs file for restarting would now look like::
    amr.n_cell = D D
    geometry.prob_lo = -P/2 -P/2
    geometry.prob_hi = 3P/2 3P/2
-   castro.grown_factor = 2
-   castro.star_at_center = 1
+   furnace.grown_factor = 2
+   furnace.star_at_center = 1
    amr.ref_ratio = 2 4 4 4 4
 
 Cylindrical Coordinates
@@ -187,8 +187,8 @@ then an inputs file for restart would look like::
    amr.n_cell = D 2D
    geometry.prob_lo = 0 -P
    geometry.prob_hi = 2P 3P
-   castro.grown_factor = 2
-   castro.star_at_center = 1
+   furnace.grown_factor = 2
+   furnace.star_at_center = 1
    amr.ref_ratio = 2 4 4 4 4
 
 

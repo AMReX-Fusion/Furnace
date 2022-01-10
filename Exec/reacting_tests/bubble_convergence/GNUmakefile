@@ -13,7 +13,7 @@ USE_CXX_MODEL_PARSER = TRUE
 
 USE_MAESTRO_INIT = FALSE
 
-CASTRO_HOME = ../../..
+FURNACE_HOME = ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/eos
 EOS_DIR     := helmholtz
@@ -24,4 +24,4 @@ NETWORK_DIR := triple_alpha_plus_cago
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

@@ -2,7 +2,7 @@
 #include <AMReX.H>
 
 #include <RadDerive.H>
-#include <Castro.H>
+#include <Furnace.H>
 
 #include <Radiation.H>
 

@@ -66,24 +66,24 @@ amr.grid_log        = grdlog  # name of grid logging file
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  2    2    2
-castro.hi_bc       =  2    2    2
+furnace.lo_bc       =  2    2    2
+furnace.hi_bc       =  2    2    2
 
 # WHICH PHYSICS
-castro.do_hydro       = 1
-castro.do_radiation   = 1
+furnace.do_hydro       = 1
+furnace.do_radiation   = 1
 
 # hydro cutoff parameters
-castro.small_dens     = 1.e-30
+furnace.small_dens     = 1.e-30
 
 # TIME STEP CONTROL
-castro.cfl            = 0.6     # cfl number for hyperbolic system
-castro.init_shrink    = 0.01     # scale back initial timestep
-castro.change_max     = 1.05
+furnace.cfl            = 0.6     # cfl number for hyperbolic system
+furnace.init_shrink    = 0.01     # scale back initial timestep
+furnace.change_max     = 1.05
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing mass
-castro.v = 1
+furnace.sum_interval   = 1       # timesteps between computing mass
+furnace.v = 1
 
 # ------------------  INPUTS TO RADIATION CLASS  -------------------
 

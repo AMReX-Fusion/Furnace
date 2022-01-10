@@ -1,7 +1,7 @@
 /* Implementations of functions in Problem.H go here */
 
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 #include <AMReX_TracerParticles.H>
 #include <AMReX_AmrParticles.H>
 
@@ -9,7 +9,7 @@ using namespace amrex;
 using ParticleType = Particle<1, 1>;
 
 #ifdef DO_PROBLEM_POST_SIMULATION
-void Castro::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_level) {
+void Furnace::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_level) {
 
 	int nlevels = amr_level.size();
 
@@ -18,12 +18,12 @@ void Castro::problem_post_simulation(Vector<std::unique_ptr<AmrLevel> >& amr_lev
 	auto lev = 0;
 	auto ipass = 0;
 
-	Castro& castro = dynamic_cast<Castro&>(*amr_level[lev]);
+	Furnace& furnace = dynamic_cast<Furnace&>(*amr_level[lev]);
 
 	const Real strttime = amrex::second();
-	const Real*     dx       = castro.geom.CellSize();
-	const Real*     plo      = castro.geom.ProbLo();
-	const Real*     phi      = castro.geom.ProbHi();
+	const Real*     dx       = furnace.geom.CellSize();
+	const Real*     plo      = furnace.geom.ProbLo();
+	const Real*     phi      = furnace.geom.ProbHi();
 
 	// read initial positions from Ascii file
 

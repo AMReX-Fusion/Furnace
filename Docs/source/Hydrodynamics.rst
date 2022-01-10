@@ -7,7 +7,7 @@ Hydrodynamics
 Introduction
 ============
 
-The hydrodynamics scheme in Castro implements an unsplit
+The hydrodynamics scheme in Furnace implements an unsplit
 second-order Godunov method. Characteristic tracing is used to
 time-center the input states to the Riemann solver. The same
 hydrodynamics routines are used for pure hydro and radiation
@@ -345,7 +345,7 @@ accounted for in **Steps 1** and **6**. The source terms are:
 Primitive Forms
 ===============
 
-Castro uses the primitive form of the fluid equations, defined in terms of
+Furnace uses the primitive form of the fluid equations, defined in terms of
 the state :math:`\Qb = (\rho, \ub, p, \rho e, A_k, X_k, Y_k)`, to construct the
 interface states that are input to the Riemann problem.
 
@@ -417,8 +417,8 @@ from ENZO :cite:`bryan:1995`, :cite:`bryan:2014`, where we switch
 between :math:`(\rho e)` and :math:`(\rho e_T)` depending on the local
 state of the fluid. To do so, we define parameters :math:`\eta_1`,
 :math:`\eta_2`, and :math:`\eta_3`, corresponding to the code
-parameters castro.dual_energy_eta1, castro.dual_energy_eta2, and
-castro.dual_energy_eta3. We then consider the ratio :math:`e_T / E`,
+parameters furnace.dual_energy_eta1, furnace.dual_energy_eta2, and
+furnace.dual_energy_eta3. We then consider the ratio :math:`e_T / E`,
 the ratio of the internal energy (derived from the total energy) to
 the total energy. These parameters are used as follows:
 
@@ -568,47 +568,47 @@ There are four major steps in the hydrodynamics update:
 
 #. Doing the conservative update
 
-.. index:: castro.do_hydro, castro.add_ext_src, castro.do_sponge, castro.normalize_species, castro.spherical_star, castro.show_center_of_mass
+.. index:: furnace.do_hydro, furnace.add_ext_src, furnace.do_sponge, furnace.normalize_species, furnace.spherical_star, furnace.show_center_of_mass
 
 Each of these steps has a variety of runtime parameters that
 affect their behavior. Additionally, there are some general
 runtime parameters for hydrodynamics:
 
--  ``castro.do_hydro``: time-advance the fluid dynamical
+-  ``furnace.do_hydro``: time-advance the fluid dynamical
    equations (0 or 1; must be set)
 
--  ``castro.add_ext_src``: include additional user-specified
+-  ``furnace.add_ext_src``: include additional user-specified
    source term (0 or 1; default 0)
 
--  ``castro.do_sponge``: call the sponge routine
+-  ``furnace.do_sponge``: call the sponge routine
    after the solution update (0 or 1; default: 0)
 
    See :ref:`sponge_section` for more details on the sponge.
 
--  ``castro.normalize_species``: enforce that :math:`\sum_i X_i = 1`
+-  ``furnace.normalize_species``: enforce that :math:`\sum_i X_i = 1`
    (0 or 1; default: 0)
 
--  ``castro.spherical_star``: this is used to set the boundary
+-  ``furnace.spherical_star``: this is used to set the boundary
    conditions by assuming the star is spherically symmetric in
    the outer regions (0 or 1; default: 0)
 
-   When used, Castro averages the values at a given radius over the
+   When used, Furnace averages the values at a given radius over the
    cells that are inside the domain to define a radial function. This
    function is then used to set the values outside the domain in
    implementing the boundary conditions.
 
--  ``castro.show_center_of_mass``: (0 or 1; default: 0)
+-  ``furnace.show_center_of_mass``: (0 or 1; default: 0)
 
-.. index:: castro.small_dens, castro.small_temp, castro.small_pres
+.. index:: furnace.small_dens, furnace.small_temp, furnace.small_pres
 
 Several floors are imposed on the thermodynamic quantities to prevet unphysical
 behavior:
 
--  ``castro.small_dens``: (Real; default: -1.e20)
+-  ``furnace.small_dens``: (Real; default: -1.e20)
 
--  ``castro.small_temp``: (Real; default: -1.e20)
+-  ``furnace.small_temp``: (Real; default: -1.e20)
 
--  ``castro.small_pres``: (Real; default: -1.e20)
+-  ``furnace.small_pres``: (Real; default: -1.e20)
 
 .. _Sec:Compute Primitive Variables:
 
@@ -669,7 +669,7 @@ flattening for the x-direction, here are the steps:
 
 The following runtime parameters affect the behavior here:
 
--  castro.use_flattening turns on/off the flattening of parabola
+-  furnace.use_flattening turns on/off the flattening of parabola
    near shocks (0 or 1; default 1)
 
 Edge State Prediction
@@ -681,7 +681,7 @@ are several reconstruction techniques, a piecewise
 linear method that follows the description in :cite:`colella:1990`,
 the classic PPM limiters :cite:`ppm`, and the new PPM limiters introduced
 in :cite:`colellasekora`. The choice of
-limiters is determined by castro.ppm_type.
+limiters is determined by furnace.ppm_type.
 
 For the new PPM limiters, we have further modified the method
 of :cite:`colellasekora` to eliminate sensitivity due to roundoff error
@@ -875,15 +875,15 @@ framework, the details follow exactly as given in Section 4.2.1 in
 Miller & Colella, except for the details of the Riemann solver,
 which are given below.
 
-.. index:: castro.ppm_type
+.. index:: furnace.ppm_type
 
 For the reconstruction of the interface states, the following apply:
 
--  ``castro.ppm_type`` : use piecewise linear vs PPM algorithm (0 or 1;
+-  ``furnace.ppm_type`` : use piecewise linear vs PPM algorithm (0 or 1;
    default: 1).  A value of 1 is the standard piecewise parabolic
    reconstruction.
 
--  ``castro.ppm_temp_fix`` does various attempts to use the
+-  ``furnace.ppm_temp_fix`` does various attempts to use the
    temperature in the reconstruction of the interface states.
    See :ref:`sec-ppm_temp_fix` for an explanation of the allowed options.
 
@@ -893,17 +893,17 @@ transverse directions involve separate Riemann solves. Sometimes, the
 update to the interface state from the transverse directions can make
 the state ill-posed. There are several parameters that help fix this:
 
--  ``castro.transverse_use_eos`` : If this is 1, then we call
+-  ``furnace.transverse_use_eos`` : If this is 1, then we call
    the equation of state on the interface, using :math:`\rho`, :math:`e`, and
    :math:`X_k`, to get the interface pressure. This should result in a
    thermodynamically consistent interface state.
 
--  ``castro.transverse_reset_density`` : If the transverse
+-  ``furnace.transverse_reset_density`` : If the transverse
    corrections result in a negative density on the interface, then we
    reset all of the interface states to their values before the
    transverse corrections.
 
--  ``castro.transverse_reset_rhoe`` : The transverse updates operate
+-  ``furnace.transverse_reset_rhoe`` : The transverse updates operate
    on the conserved state. Usually, we construct the interface
    :math:`(\rho e)` in the transverse update from total energy and the
    kinetic energy, however, if the interface :math:`(rho e)` is negative,
@@ -914,7 +914,7 @@ the state ill-posed. There are several parameters that help fix this:
 Riemann Problem
 ---------------
 
-Castro has three main options for the Riemann solver—the
+Furnace has three main options for the Riemann solver—the
 Colella & Glaz solver :cite:`colglaz` (the same solver used
 by Flash), a simpler solver described in an unpublished
 manuscript by Colella, Glaz, & Ferguson, and an HLLC
@@ -922,7 +922,7 @@ solver. The first two are both
 two-shock approximate solvers, but differ in how they approximate
 the thermodynamics in the “star” region.
 
-.. index:: castro.riemann_speed_limit
+.. index:: furnace.riemann_speed_limit
 
 .. note::
 
@@ -930,7 +930,7 @@ the thermodynamics in the “star” region.
    that the interface velocity cannot exceed the speed of light in both the
    Colella & Glaz and Colella, Glaz, & Ferguson solvers.  This excessive speed
    usually is a sign of low density regions and density resets or the flux limiter
-   kicking in.  This behavior can be changed with the ``castro.riemann_speed_limit``
+   kicking in.  This behavior can be changed with the ``furnace.riemann_speed_limit``
    parameter.
 
 Inputs from the edge state prediction are :math:`\rho_{L/R}, u_{L/R},
@@ -1025,7 +1025,7 @@ described in the original paper.
 For the construction of the fluxes in the Riemann solver, the following
 parameters apply:
 
--  ``castro.riemann_solver``: this can be one of the following values:
+-  ``furnace.riemann_solver``: this can be one of the following values:
 
    -  0: the Colella, Glaz, & Ferguson solver.
 
@@ -1037,18 +1037,18 @@ parameters apply:
 
    The default is to use the solver based on an unpublished Colella,
    Glaz, & Ferguson manuscript (it also appears in :cite:`pember:1996`),
-   as described in the original Castro paper :cite:`castro_I`.
+   as described in the original Furnace paper :cite:`furnace_I`.
 
    The Colella & Glaz solver is iterative, and two runtime parameters are used
    to control its behavior:
 
-   -  ``castro.cg_maxiter`` : number of iterations for CG algorithm
+   -  ``furnace.cg_maxiter`` : number of iterations for CG algorithm
       (Integer; default: 12)
 
-   -  ``castro.cg_tol`` : tolerance for CG solver when solving
+   -  ``furnace.cg_tol`` : tolerance for CG solver when solving
       for the “star” state (Real; default: 1.0e-5)
 
-   -  ``castro.cg_blend`` : this controls what happens if the root
+   -  ``furnace.cg_blend`` : this controls what happens if the root
       finding in the CG solver fails. There is a nonlinear equation to find
       the pressure in the *star* region from the jump conditions for a
       shock (this is the two-shock approximation—the left and right states
@@ -1068,7 +1068,7 @@ parameters apply:
          iterations to find the root. Sometimes this can work where the
          secant method fails.
 
--  ``castro.hybrid_riemann`` : switch to an HLL Riemann solver when we are
+-  ``furnace.hybrid_riemann`` : switch to an HLL Riemann solver when we are
    in a zone with a shock (0 or 1; default 0)
 
    This eliminates an odd-even decoupling issue (see the oddeven
@@ -1091,11 +1091,11 @@ solution, effectively time-centering the source term.
 Temperature Fixes
 =================
 
-.. index:: castro.ppm_temp_fix
+.. index:: furnace.ppm_temp_fix
 
 There are a number of experimental options for improving the behavior
 of the temperature in the reconstruction and interface state
-prediction. The options are controlled by ``castro.ppm_temp_fix``,
+prediction. The options are controlled by ``furnace.ppm_temp_fix``,
 which takes values:
 
   * 0: the default method—temperature is not considered, and we do
@@ -1138,7 +1138,7 @@ Flux Limiting
 Multi-dimensional hydrodynamic simulations often have numerical
 artifacts that result from the sharp density gradients. A somewhat
 common issue, especially at low resolution, is negative densities that
-occur as a result of a hydro update. Castro contains a prescription
+occur as a result of a hydro update. Furnace contains a prescription
 for dealing with negative densities, that resets the negative density
 to be similar to nearby zones. Various choices exist for how to do
 this, such as resetting it to the original zone density before the
@@ -1151,7 +1151,7 @@ limiting fluxes such that negative densities could not occur, so that
 such a reset would in practice always be avoided. Our solution
 implements the positivity-preserving method of :cite:`hu:2013`. This
 behavior is controlled by
-castro.limit_fluxes_on_small_dens.
+furnace.limit_fluxes_on_small_dens.
 
 A hydrodynamical update to a zone can be broken down into an update
 over every face of the zone where a flux crosses the face over the
@@ -1176,7 +1176,7 @@ guaranteed to preserve positivity as long as :math:`\text{CFL} < 1/2`), and
 :math:`\theta_{{\rm i}+1/2}` is chosen at every interface by calculating the
 update that would be obtained from , setting
 the density component equal to a value just larger than the density floor,
-castro.small_dens, and solving
+furnace.small_dens, and solving
 for the value of :math:`\theta` at the interface that makes the equality
 hold. In regions where the density is not at risk of going negative,
 :math:`\theta \approx 1` and the original hydrodynamic update is recovered.
@@ -1188,7 +1188,7 @@ found in :cite:`hu:2013`.
 Hybrid Momentum
 ===============
 
-Castro implements the hybrid momentum scheme of :cite:`byerly:2014`.
+Furnace implements the hybrid momentum scheme of :cite:`byerly:2014`.
 In particular, this switches from using the Cartesian momenta,
 :math:`(\rho u)`, :math:`(\rho v)`, and :math:`(\rho w)`, to a
 cylindrical momentum set, :math:`(\rho v_R)`, :math:`(\rho R v_\phi)`,

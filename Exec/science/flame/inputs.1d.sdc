@@ -15,48 +15,48 @@ amr.n_cell           = 1024
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-castro.lo_bc       =  2
-castro.hi_bc       =  2
+furnace.lo_bc       =  2
+furnace.hi_bc       =  2
 
 # WHICH PHYSICS
-castro.do_hydro = 1
-castro.do_react = 1
+furnace.do_hydro = 1
+furnace.do_react = 1
 
-castro.time_integration_method = 2
-castro.sdc_order = 4
+furnace.time_integration_method = 2
+furnace.sdc_order = 4
 
-castro.sdc_solve_for_rhoe = 1
-castro.sdc_solver_tol_dens = 1.e-10
-castro.sdc_solver_tol_spec = 1.e-10
-castro.sdc_solver_tol_ener = 1.e-6
-castro.sdc_solver_atol = 1.e-10
-castro.sdc_solver = 1
-castro.sdc_newton_use_analytic_jac = 1
-castro.sdc_solver_relax_factor = 1
+furnace.sdc_solve_for_rhoe = 1
+furnace.sdc_solver_tol_dens = 1.e-10
+furnace.sdc_solver_tol_spec = 1.e-10
+furnace.sdc_solver_tol_ener = 1.e-6
+furnace.sdc_solver_atol = 1.e-10
+furnace.sdc_solver = 1
+furnace.sdc_newton_use_analytic_jac = 1
+furnace.sdc_solver_relax_factor = 1
 
-castro.use_reconstructed_gamma1 = 1
+furnace.use_reconstructed_gamma1 = 1
 
-castro.small_temp = 1.e6
-castro.small_dens = 1.e-5
+furnace.small_temp = 1.e6
+furnace.small_dens = 1.e-5
 
-castro.ppm_type = 1
+furnace.ppm_type = 1
 
-castro.diffuse_temp = 1
-castro.diffuse_cutoff_density = 1.e-2
+furnace.diffuse_temp = 1
+furnace.diffuse_cutoff_density = 1.e-2
 
 
 # TIME STEP CONTROL
-castro.cfl            = 0.75    # cfl number for hyperbolic system
-castro.init_shrink    = 0.1     # scale back initial timestep
-castro.change_max     = 1.1     # max time step growth
+furnace.cfl            = 0.75    # cfl number for hyperbolic system
+furnace.init_shrink    = 0.1     # scale back initial timestep
+furnace.change_max     = 1.1     # max time step growth
 
-castro.dtnuc_e        = 0.25
+furnace.dtnuc_e        = 0.25
 
 
 # DIAGNOSTICS & VERBOSITY
-castro.sum_interval   = 1       # timesteps between computing mass
+furnace.sum_interval   = 1       # timesteps between computing mass
 amr.data_log          = "toy_flame.log"
-castro.v              = 1       # verbosity in Castro.cpp
+furnace.v              = 1       # verbosity in Furnace.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING
@@ -75,7 +75,7 @@ amr.check_int       = 10000       # number of timesteps between checkpoints
 # PLOTFILES
 amr.plot_file       = plt        # root name of plotfile
 amr.plot_per        = 5.e-7
-castro.plot_per_is_exact = 1
+furnace.plot_per_is_exact = 1
 amr.derive_plot_vars = ALL
 
 # problem initialization

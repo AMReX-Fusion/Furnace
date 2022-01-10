@@ -1,11 +1,11 @@
-#include <Castro.H>
+#include <Furnace.H>
 
 #ifdef DIFFUSION
 #include <conductivity.H>
 #endif
 
 void
-Castro::fourth_interfaces(const Box& bx,
+Furnace::fourth_interfaces(const Box& bx,
                           const int idir, const int ncomp,
                           Array4<Real const> const& a,
                           Array4<Real> const& a_int) {
@@ -222,7 +222,7 @@ Castro::fourth_interfaces(const Box& bx,
 
 
 void
-Castro::states(const Box& bx,
+Furnace::states(const Box& bx,
                const int idir, const int ncomp,
                Array4<Real const> const& a,
                Array4<Real const> const& a_int,
@@ -747,7 +747,7 @@ Castro::states(const Box& bx,
 
 
 void
-Castro::fourth_avisc(const Box& bx,
+Furnace::fourth_avisc(const Box& bx,
                      Array4<Real const> const& q,
                      Array4<Real const> const& qaux,
                      Array4<Real> const& avis,
@@ -846,7 +846,7 @@ Castro::fourth_avisc(const Box& bx,
 
 #ifdef DIFFUSION
 void
-Castro::fourth_add_diffusive_flux(const Box& bx,
+Furnace::fourth_add_diffusive_flux(const Box& bx,
                                   Array4<Real const> const& q,
                                   const int temp_comp,
                                   Array4<Real const> const& qint,

@@ -6,7 +6,7 @@ matplotlib.use('agg')
 import sys
 
 import yt
-from yt.frontends.boxlib.api import CastroDataset
+from yt.frontends.boxlib.api import FurnaceDataset
 import numpy as np
 #from yt.visualization.volume_rendering.render_source import VolumeSource
 from yt.visualization.volume_rendering.api import create_volume_source, Scene
@@ -16,7 +16,7 @@ from yt.units import cm
 
 def doit(plotfile):
 
-    ds = CastroDataset(plotfile)
+    ds = FurnaceDataset(plotfile)
     ds._periodicity = (True, True, True)
 
     field = ('boxlib', 'enuc')
@@ -82,7 +82,7 @@ def doit(plotfile):
                                       "t = {}".format(ds.current_time.d),
                                       dict(horizontalalignment="left")],
                                      [(0.5,0.95), 
-                                      "Castro simulation of XRB flame spreading",
+                                      "Furnace simulation of XRB flame spreading",
                                       dict(color="y", fontsize="24",
                                            horizontalalignment="center")]])
 
@@ -111,7 +111,7 @@ def doit(plotfile):
                                       "t = {}".format(ds.current_time.d),
                                       dict(horizontalalignment="left")],
                                      [(0.5,0.95), 
-                                      "Castro simulation of XRB flame spreading",
+                                      "Furnace simulation of XRB flame spreading",
                                       dict(color="y", fontsize="24",
                                            horizontalalignment="center")]])
 

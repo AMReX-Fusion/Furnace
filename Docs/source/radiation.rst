@@ -7,7 +7,7 @@ Radiation
 Introduction
 ============
 
-Castro has three radiation solvers:
+Furnace has three radiation solvers:
 
 -  SingleGroupSolver: this solver does not have radiation
    pressre. It is pure hydro plus radiation diffusion. This is only
@@ -27,7 +27,7 @@ Castro has three radiation solvers:
 The gray solver has a comoving frame mode and a mixed frame mode,
 whereas the MG solver uses the comoving frame approach. More details
 about the formulation and algorithm can be found in the series of
-Castro papers.
+Furnace papers.
 
 Getting Started
 ===============
@@ -35,8 +35,8 @@ Getting Started
 Getting the Code
 ----------------
 
-The Castro radiation solver is part of the main Castro git repo,
-so you already have all the Castro code and problem setups
+The Furnace radiation solver is part of the main Furnace git repo,
+so you already have all the Furnace code and problem setups
 to exercise radiation. The only other requirement is a copy
 of the Hypre library. Hypre provides the algebraic multigrid
 solvers used by the implicit radiation update. You can get
@@ -44,8 +44,8 @@ a copy at https://github.com/hypre-space/hypre (the minimum
 supported release version is 2.23.0). Their install
 instructions describe what to do; we recommend using the autotools
 and GNU Make build. On HPC clusters, you typically want to build
-with the same compiler you're using to build Castro, and you also
-want to make sure that the options you're using for Castro are
+with the same compiler you're using to build Furnace, and you also
+want to make sure that the options you're using for Furnace are
 compatible with the Hypre options, in particular when it comes to
 ``USE_MPI``, ``USE_OMP``, and ``USE_CUDA``.
 
@@ -59,10 +59,10 @@ where you want the Hypre files to be installed.
    HYPRE_CUDA_SM=70 CXX=mpicxx CC=mpicc FC=mpifort ./configure --prefix=/path/to/Hypre/install --with-MPI --with-cuda --enable-unified-memory
    make install
 
-Then, when you are building Castro, you would build with
+Then, when you are building Furnace, you would build with
 ``USE_MPI=TRUE`` and ``USE_CUDA=TRUE``.
 
-Castro looks for Hypre in the environment variable ``HYPRE_DIR``,
+Furnace looks for Hypre in the environment variable ``HYPRE_DIR``,
 which you should point to the install directory you chose above.
 Other than that, the only difference for builds with radiation
 is that you must set ``USE_RAD=TRUE``.
@@ -73,7 +73,7 @@ Microphysics: EOS, Network, and Opacity
 EOS
 ---
 
-Castro provides several types of equation of state (EOS), including
+Furnace provides several types of equation of state (EOS), including
 gamma-law and Helmholtz. To use the gamma-law EOS, set
 
 ::
@@ -98,7 +98,7 @@ There is also an artificial EOS that is used for several test cases called
    EOS_DIR := rad_power_law
 
 This EOS should only be used for pure radiation-diffusion tests (i.e.
-``castro.do_hydro = 0``). It defines the specific heat as a power law,
+``furnace.do_hydro = 0``). It defines the specific heat as a power law,
 
    .. math:: c_v = \mathrm{const}\ \rho^m T^{-n}
 
@@ -140,9 +140,9 @@ Some notes:
    texts may instead have an implicit density factor in :math:`\kappa`,
    yielding units :math:`\mathrm{cm}^2~\mathrm{g}^{-1}`.
 
--  Castro allows for two temperatures (different radiation and gas
+-  Furnace allows for two temperatures (different radiation and gas
    temperature, so :math:`E_\mathrm{r} \ne a T_\mathrm{gas}^4`).
-   Correspondingly, Castro cares about both the Planck mean,
+   Correspondingly, Furnace cares about both the Planck mean,
    :math:`\kappa_P`, and Rosseland mean, :math:`\kappa_R`, opacities—these have
    different weightings.
 
@@ -237,13 +237,13 @@ can set in an inputs file. Here are some important parameters:
 
    Set it to 5 for the gray solver, and 6 for the MG solver.
 
--  castro.do_hydro
+-  furnace.do_hydro
 
    Usually you want to set it to 1. If it is set to 0,
    hydro will be turned off, and the calculation will only solve
    radiation diffusion equation.
 
--  castro.do_radiation
+-  furnace.do_radiation
 
    If it is 0, the calculation will be pure hydro.
 
@@ -368,7 +368,7 @@ equation. They do not affect hydrodynamic boundaries.
       Specify the radiation energy density on the boundary.
       For gray radiation, this could be :math:`E_r = a T^4`.
 
-      For multigroup radiation, Castro stores the energy density as
+      For multigroup radiation, Furnace stores the energy density as
       :math:`\mathrm{erg}~\mathrm{cm}^{-3}`, so the total radiation energy
       can be found by simply summing over the groups. So if you want
       to set the radiation BCs using the Planck function, you simply
@@ -378,7 +378,7 @@ equation. They do not affect hydrodynamic boundaries.
    -  102 *Neumann*:
 
       Here, you specify the radiation flux on the boundary. For gray
-      radiation, this is the expression given in the gray Castro paper
+      radiation, this is the expression given in the gray Furnace paper
       (Eq. 7, 8),
 
       .. math:: F_r = - \frac{c\lambda}{\kappa_R} \nabla E_r

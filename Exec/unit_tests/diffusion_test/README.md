@@ -1,14 +1,14 @@
 # Problem Setup
 
 This is a pure diffusion problem (no hydro).  It uses the explicit
-diffusion solver in Castro to diffuse a Gaussian thermal pulse.
-Because diffusion in Castro is incorporated in the energy equation, we
+diffusion solver in Furnace to diffuse a Gaussian thermal pulse.
+Because diffusion in Furnace is incorporated in the energy equation, we
 are solving:
 
    d(ρe)/dt = ∇·(k ∇T)
 
 where L is the Laplacian and k is the thermal conductivity.  Here we
-assume that k is constant, but Castro does not require that
+assume that k is constant, but Furnace does not require that
 assumption.  For this problem, we take ρ = constant, and using a
 gamma-law EOS, we have e = c_v T, so this can take the form of a
 diffusion equation as:
@@ -34,7 +34,7 @@ analytic solution at the time of the plotfile output.  This allows you
 to compare the current solution to the analytic solution to assess the
 error.
 
-It also will use the Castro problem-specific post-simulation hooks (in
+It also will use the Furnace problem-specific post-simulation hooks (in
 `Prob.cpp`) to output the L-inf norm of the error (numerical vs
 analyic solution) at the end of the simulation.  This can be used
 for convergence testing.
@@ -48,9 +48,9 @@ the diffusion in 1-d spherical coordinates, with 2 levels of
 refinement can be run as:
 
 ```
-./Castro2d.gnu.ex inputs.2d.sph
-./Castro2d.gnu.ex inputs.2d.sph amr.n_cell=128 256
-./Castro2d.gnu.ex inputs.2d.sph amr.n_cell=256 512
+./Furnace2d.gnu.ex inputs.2d.sph
+./Furnace2d.gnu.ex inputs.2d.sph amr.n_cell=128 256
+./Furnace2d.gnu.ex inputs.2d.sph amr.n_cell=256 512
 ```
 
 At the end, each run will report the norm of the error against the
@@ -69,10 +69,10 @@ analytic solution, giving:
 A convergence test of the 4th-order SDC algorithm can be run as:
 
 ```
-./Castro1d.gnu.ex inputs.1d castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=64
-./Castro1d.gnu.ex inputs.1d castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=128
-./Castro1d.gnu.ex inputs.1d castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=256
-./Castro1d.gnu.ex inputs.1d castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=512
+./Furnace1d.gnu.ex inputs.1d furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=64
+./Furnace1d.gnu.ex inputs.1d furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=128
+./Furnace1d.gnu.ex inputs.1d furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=256
+./Furnace1d.gnu.ex inputs.1d furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=512
 ```
 
 Note: this is Cartesian, not spherical (since we don't have spherical
@@ -109,11 +109,11 @@ conductivity we do:
 Tests can be run as:
 
 ```
- ./Castro1d.gnu.ex inputs.1d.powerlaw amr.n_cell=64
+ ./Furnace1d.gnu.ex inputs.1d.powerlaw amr.n_cell=64
  mv diffuse_plt00048 diffuse_64
- ./Castro1d.gnu.ex inputs.1d.powerlaw
+ ./Furnace1d.gnu.ex inputs.1d.powerlaw
  mv diffuse_plt00191 diffuse_128
- ./Castro1d.gnu.ex inputs.1d.powerlaw amr.n_cell=256
+ ./Furnace1d.gnu.ex inputs.1d.powerlaw amr.n_cell=256
  mv diffuse_plt00761 diffuse_256
 ```
 
@@ -164,13 +164,13 @@ make DIM=1 CONDUCTIVITY_DIR=powerlaw -j 20
 and then run as:
 
 ```
-./Castro1d.gnu.ex inputs.1d.powerlaw castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=64
+./Furnace1d.gnu.ex inputs.1d.powerlaw furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=64
 mv diffuse_plt00048 diffuse_64
-./Castro1d.gnu.ex inputs.1d.powerlaw castro.time_integration_method=2 castro.sdc_order=4
+./Furnace1d.gnu.ex inputs.1d.powerlaw furnace.time_integration_method=2 furnace.sdc_order=4
 mv diffuse_plt00190 diffuse_128
-./Castro1d.gnu.ex inputs.1d.powerlaw castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=256
+./Furnace1d.gnu.ex inputs.1d.powerlaw furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=256
 mv diffuse_plt00760 diffuse_256
-./Castro1d.gnu.ex inputs.1d.powerlaw castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=512
+./Furnace1d.gnu.ex inputs.1d.powerlaw furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=512
 mv diffuse_plt03040 diffuse_512
 
 RichardsonConvergenceTest1d.gnu.ex coarFile=diffuse_64 mediFile=diffuse_128 fineFile=diffuse_256 > convergence_diffusion.1d.lo.sdc4.out
@@ -216,13 +216,13 @@ make DIM=2 CONDUCTIVITY_DIR=powerlaw -j 20 USE_MPI=TRUE
 and then run as:
 
 ```
-mpiexec -n 16 ./Castro2d.gnu.MPI.ex inputs.2d.powerlaw castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=64 64
+mpiexec -n 16 ./Furnace2d.gnu.MPI.ex inputs.2d.powerlaw furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=64 64
 mv diffuse_plt00039 diffuse_2d_64
-mpiexec -n 16 ./Castro2d.gnu.MPI.ex inputs.2d.powerlaw castro.time_integration_method=2 castro.sdc_order=4
+mpiexec -n 16 ./Furnace2d.gnu.MPI.ex inputs.2d.powerlaw furnace.time_integration_method=2 furnace.sdc_order=4
 mv diffuse_plt00157 diffuse_2d_128
-mpiexec -n 16 ./Castro2d.gnu.MPI.ex inputs.2d.powerlaw castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=256 256
+mpiexec -n 16 ./Furnace2d.gnu.MPI.ex inputs.2d.powerlaw furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=256 256
 mv diffuse_plt00626 diffuse_2d_256
-mpiexec -n 16 ./Castro2d.gnu.MPI.ex inputs.2d.powerlaw castro.time_integration_method=2 castro.sdc_order=4 amr.n_cell=512 512
+mpiexec -n 16 ./Furnace2d.gnu.MPI.ex inputs.2d.powerlaw furnace.time_integration_method=2 furnace.sdc_order=4 amr.n_cell=512 512
 mv diffuse_plt02504 diffuse_2d_512
 
 RichardsonConvergenceTest2d.gnu.ex coarFile=diffuse_2d_64 mediFile=diffuse_2d_128 fineFile=diffuse_2d_256 > convergence_diffusion.2d.lo.sdc4.out

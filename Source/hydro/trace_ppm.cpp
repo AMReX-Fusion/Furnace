@@ -1,6 +1,6 @@
-#include <Castro.H>
-#include <Castro_F.H>
-#include <Castro_util.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
+#include <Furnace_util.H>
 
 #ifdef RADIATION
 #include <Radiation.H>
@@ -13,7 +13,7 @@
 using namespace amrex;
 
 void
-Castro::trace_ppm(const Box& bx,
+Furnace::trace_ppm(const Box& bx,
                   const int idir,
                   Array4<Real const> const& q_arr,
                   Array4<Real const> const& qaux_arr,
@@ -474,7 +474,7 @@ Castro::trace_ppm(const Box& bx,
       // note that the a{mpz}right as defined above have the minus already
       qp(i,j,k,QRHO) = amrex::max(lsmall_dens, rho_ref +  alphap + alpham + alpha0r);
       qp(i,j,k,QUN) = un_ref + (alphap - alpham)*cc_ref*rho_ref_inv;
-      qp(i,j,k,QREINT) = amrex::max(castro::small_dens * castro::small_ener,
+      qp(i,j,k,QREINT) = amrex::max(furnace::small_dens * furnace::small_ener,
                                     rhoe_g_ref + (alphap + alpham)*h_g_ref + alpha0e_g);
       qp(i,j,k,QPRES) = amrex::max(lsmall_pres, p_ref + (alphap + alpham)*csq_ref);
 
@@ -551,7 +551,7 @@ Castro::trace_ppm(const Box& bx,
       if (idir == 0) {
         qm(i+1,j,k,QRHO) = amrex::max(lsmall_dens, rho_ref +  alphap + alpham + alpha0r);
         qm(i+1,j,k,QUN) = un_ref + (alphap - alpham)*cc_ref*rho_ref_inv;
-        qm(i+1,j,k,QREINT) = amrex::max(castro::small_dens * castro::small_ener,
+        qm(i+1,j,k,QREINT) = amrex::max(furnace::small_dens * furnace::small_ener,
                                         rhoe_g_ref + (alphap + alpham)*h_g_ref + alpha0e_g);
         qm(i+1,j,k,QPRES) = amrex::max(lsmall_pres, p_ref + (alphap + alpham)*csq_ref);
 
@@ -562,7 +562,7 @@ Castro::trace_ppm(const Box& bx,
       } else if (idir == 1) {
         qm(i,j+1,k,QRHO) = amrex::max(lsmall_dens, rho_ref +  alphap + alpham + alpha0r);
         qm(i,j+1,k,QUN) = un_ref + (alphap - alpham)*cc_ref*rho_ref_inv;
-        qm(i,j+1,k,QREINT) = amrex::max(castro::small_dens * castro::small_ener,
+        qm(i,j+1,k,QREINT) = amrex::max(furnace::small_dens * furnace::small_ener,
                                         rhoe_g_ref + (alphap + alpham)*h_g_ref + alpha0e_g);
         qm(i,j+1,k,QPRES) = amrex::max(lsmall_pres, p_ref + (alphap + alpham)*csq_ref);
 
@@ -573,7 +573,7 @@ Castro::trace_ppm(const Box& bx,
       } else if (idir == 2) {
         qm(i,j,k+1,QRHO) = amrex::max(lsmall_dens, rho_ref +  alphap + alpham + alpha0r);
         qm(i,j,k+1,QUN) = un_ref + (alphap - alpham)*cc_ref*rho_ref_inv;
-        qm(i,j,k+1,QREINT) = amrex::max(castro::small_dens * castro::small_ener,
+        qm(i,j,k+1,QREINT) = amrex::max(furnace::small_dens * furnace::small_ener,
                                         rhoe_g_ref + (alphap + alpham)*h_g_ref + alpha0e_g);
         qm(i,j,k+1,QPRES) = amrex::max(lsmall_pres, p_ref + (alphap + alpham)*csq_ref);
 

@@ -1,5 +1,5 @@
-#ifndef CASTRO_RADINTERPBNDRY_F_H
-#define CASTRO_RADINTERPBNDRY_F_H
+#ifndef FURNACE_RADINTERPBNDRY_F_H
+#define FURNACE_RADINTERPBNDRY_F_H
 
 /*************************************************************/
 

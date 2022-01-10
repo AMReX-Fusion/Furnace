@@ -1,12 +1,12 @@
-# Define the location of the CASTRO top directory,
+# Define the location of the FURNACE top directory,
 # if not already defined by an environment variable.
 
-CASTRO_HOME := ../../..
+FURNACE_HOME := ../../..
 
 # Location of this directory. Useful if
 # you're trying to compile this from another location.
 
-TEST_DIR = $(CASTRO_HOME)/Exec/gravity_tests/uniform_cube_sphere
+TEST_DIR = $(FURNACE_HOME)/Exec/gravity_tests/uniform_cube_sphere
 
 PRECISION   ?= DOUBLE
 PROFILE     ?= FALSE
@@ -32,4 +32,4 @@ NETWORK_INPUTS = gammalaw.net
 Bpack   += $(TEST_DIR)/Make.package
 Blocs   += $(TEST_DIR)
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

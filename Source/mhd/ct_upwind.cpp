@@ -1,13 +1,13 @@
-#include <Castro.H>
-#include <Castro_F.H>
-#include <Castro_util.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
+#include <Furnace_util.H>
 
 #include <mhd_util.H>
 
 using namespace amrex;
 
 void
-Castro::corner_couple(const Box& bx,
+Furnace::corner_couple(const Box& bx,
                       Array4<Real> const& qr_out,
                       Array4<Real> const& ql_out,
                       Array4<Real const> const& ur,
@@ -206,7 +206,7 @@ Castro::corner_couple(const Box& bx,
 
 
 void
-Castro::half_step(const Box& bx,
+Furnace::half_step(const Box& bx,
                   Array4<Real> const& qr_out,
                   Array4<Real> const& ql_out,
                   Array4<Real const> const& ur,

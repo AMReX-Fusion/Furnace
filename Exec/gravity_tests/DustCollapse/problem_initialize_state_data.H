@@ -3,7 +3,7 @@
 
 #include <prob_parameters.H>
 #include <eos.H>
-#include <Castro_util.H>
+#include <Furnace_util.H>
 
 AMREX_GPU_HOST_DEVICE AMREX_INLINE
 void problem_initialize_state_data (int i, int j, int k, Array4<Real> const& state, const GeometryData& geomdata)
@@ -83,7 +83,7 @@ void problem_initialize_state_data (int i, int j, int k, Array4<Real> const& sta
 
     eos_state.rho = state(i,j,k,URHO);
     eos_state.p   = problem::p_0;
-    eos_state.T   = castro::small_temp; // Initial guess for the EOS
+    eos_state.T   = furnace::small_temp; // Initial guess for the EOS
     for (int n = 0; n < NumSpec; ++n) {
         eos_state.xn[n] = problem::X_0[n];
     }

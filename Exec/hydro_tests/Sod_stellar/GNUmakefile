@@ -15,8 +15,8 @@ USE_OMP    = FALSE
 USE_MHD = FALSE
 
 
-# define the location of the CASTRO top directory
-CASTRO_HOME := ../../..
+# define the location of the FURNACE top directory
+FURNACE_HOME := ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/eos
 EOS_DIR     := helmholtz
@@ -26,8 +26,8 @@ NETWORK_DIR := general_null
 NETWORK_INPUTS = ignition.net
 
 Bpack   := ./Make.package 
-#$(CASTRO_HOME)/Util/exact_riemann/Make.package
-#Blocs   := . $(CASTRO_HOME)/Util/exact_riemann/
-#EXTERN_CORE_ADD := $(CASTRO_HOME)/Util/exact_riemann/
+#$(FURNACE_HOME)/Util/exact_riemann/Make.package
+#Blocs   := . $(FURNACE_HOME)/Util/exact_riemann/
+#EXTERN_CORE_ADD := $(FURNACE_HOME)/Util/exact_riemann/
 
-include $(CASTRO_HOME)/Exec/Make.Castro
+include $(FURNACE_HOME)/Exec/Make.Furnace

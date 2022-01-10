@@ -3,7 +3,7 @@
 
 AMREX_INLINE
 void
-Castro::problem_diagnostics ()
+Furnace::problem_diagnostics ()
 {
     int finest_level = parent->finestLevel();
     Real time        = state[State_Type].curTime();
@@ -16,7 +16,7 @@ Castro::problem_diagnostics ()
 
     for (int lev = 0; lev <= finest_level; lev++)
     {
-        Castro& ca_lev = getLevel(lev);
+        Furnace& ca_lev = getLevel(lev);
 
         mass     += ca_lev.volWgtSum("density", time);
 
@@ -47,7 +47,7 @@ Castro::problem_diagnostics ()
             std::cout << "TIME= " << time << " RHO*E = "   << rho_E     << '\n';
         }
 
-        std::ostream& datalog = *Castro::problem_data_logs[0];
+        std::ostream& datalog = *Furnace::problem_data_logs[0];
 
         if (time == 0.0) {
             datalog << std::setw(14) <<  "#     time    ";

@@ -1,14 +1,14 @@
 /* Implementations of functions in Problem.H go here */
 
-#include <Castro.H>
-#include <Castro_F.H>
+#include <Furnace.H>
+#include <Furnace_F.H>
 
 using namespace amrex;
 
-Real Castro::initial_moment_of_inertia = 0.0;
+Real Furnace::initial_moment_of_inertia = 0.0;
 
 Real
-Castro::compute_moment_of_inertia()
+Furnace::compute_moment_of_inertia()
 {
 
     // Compute the moment of inertia for the mass
@@ -27,8 +27,8 @@ Castro::compute_moment_of_inertia()
 
     for (int lev = 0; lev <= finest_level; ++lev) {
 
-        // Get the Castro level
-        Castro& ca_lev = getLevel(lev);
+        // Get the Furnace level
+        Furnace& ca_lev = getLevel(lev);
 
         // Add up the moment of inertia on this level
         int idir = -1; // So we do r**2, rather than any particular direction
@@ -44,7 +44,7 @@ Castro::compute_moment_of_inertia()
 }
 
 void
-Castro::problem_post_init() {
+Furnace::problem_post_init() {
 
     if (level != 0) return;
 
@@ -55,7 +55,7 @@ Castro::problem_post_init() {
 }
 
 void
-Castro::problem_post_restart() {
+Furnace::problem_post_restart() {
 
     if (level != 0) return;
 
@@ -66,7 +66,7 @@ Castro::problem_post_restart() {
 }
 
 void
-Castro::problem_post_timestep() {
+Furnace::problem_post_timestep() {
 
     if (level != 0) return;
 
