@@ -1,8 +1,0 @@
-density
-xmom
-ymom
-zmom
-rho_E
-rho_e
-Temp
-rho_X

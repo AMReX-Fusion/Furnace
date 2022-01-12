@@ -33,6 +33,8 @@ chk*
 *chk?????.old*
 *plt?????.temp.old.*
 *chk?????.temp.old.*
+*plt?????.temp
+*chk?????.temp
 
 *.xmgr
 
@@ -55,6 +57,7 @@ Exec/**/set_indices.F90
 Exec/**/set_conserved.H
 Exec/**/set_primitive.H
 Exec/**/set_godunov.H
+Exec/**/species_diag.out
 
 *.hack
 *.bak
