@@ -1,16 +1,16 @@
-1. run Furnace for both heating and cooling tests:
+1. run Logi for both heating and cooling tests:
 
-   ./Furnace1d.Linux.Intel.Intel.DEBUG.MPI.ex inputs-heating
+   ./Logi1d.Linux.Intel.Intel.DEBUG.MPI.ex inputs-heating
 
-   ./Furnace1d.Linux.Intel.Intel.DEBUG.MPI.ex inputs-cooling
+   ./Logi1d.Linux.Intel.Intel.DEBUG.MPI.ex inputs-cooling
 
 
 
 2. process the output using fradsource from fParallel/data_processing/
 
-   ./fradsource.Linux.Intel.debug.exe plt_heating_* > furnace_heating.out
+   ./fradsource.Linux.Intel.debug.exe plt_heating_* > logi_heating.out
 
-   ./fradsource.Linux.Intel.debug.exe plt_cooling_* > furnace_cooling.out
+   ./fradsource.Linux.Intel.debug.exe plt_cooling_* > logi_cooling.out
 
    This will output the gas energy density (rho_e in the plotfile) in
    the first zone of the first patch on the finest level (along with
@@ -30,7 +30,7 @@
    ./analytic > analytic_cooling.out
 
 
-4. plot the Furnace results over the analytic solution using gnuplot:
+4. plot the Logi results over the analytic solution using gnuplot:
 
    at the gnuplot prompt:
 
@@ -43,9 +43,9 @@
      set yrange [30:3.e9]
 
      plot 'analytic_heating.out' using 1:2 title 'analytic heating solution' w l, \
-          'furnace_heating.out' using 1:2 title 'Furnace heating solution', \
+          'logi_heating.out' using 1:2 title 'Logi heating solution', \
           'analytic_cooling.out' using 1:2 title 'analytic cooling solution' w l, \
-          'furnace_cooling.out' using 1:2 title 'Furnace cooling solution'
+          'logi_cooling.out' using 1:2 title 'Logi cooling solution'
 
 
 5. reference plot is thermal_relax.ps

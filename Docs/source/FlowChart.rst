@@ -6,11 +6,11 @@ Introduction
 ============
 
 There are several different time-evolution methods currently
-implemented in Furnace. As best as possible, they share the same
+implemented in Logi. As best as possible, they share the same
 driver routines and use preprocessor or runtime variables to separate
 the different code paths.  These fall into two categories:
 
-.. index:: furnace.time_integration_method, USE_SIMPLIFIED_SDC, USE_TRUE_SDC
+.. index:: logi.time_integration_method, USE_SIMPLIFIED_SDC, USE_TRUE_SDC
 
 -  Strang+CTU: the Strang evolution does the burning on the
    state for :math:`\Delta t/2`, then updates the hydrodynamics using the
@@ -23,7 +23,7 @@ the different code paths.  These fall into two categories:
 
 -  SDC: a class of iterative methods that couples the advection and reactions
    such that each process explicitly sees the effect of the other.  We have
-   two SDC implementations in Furnace.
+   two SDC implementations in Logi.
 
    - The "simplified SDC" method is based on the CTU hydro update.  We
      iterate over the construction of this term, using a lagged
@@ -37,17 +37,17 @@ the different code paths.  These fall into two categories:
      time using a simple quadrature rule, and integrates the hydro
      explicitly and reactions implicitly to the next time node.
      Iterations allow each process to see one another and achieve
-     high-order in time convergence.  This is described in :cite:`furnace-sdc`.
+     high-order in time convergence.  This is described in :cite:`logi-sdc`.
 
 
 The time-integration method used is controlled by
-``furnace.time_integration_method``.
+``logi.time_integration_method``.
 
-  * ``time_integration_method = 0``: this is the original Furnace method,
-    described in :cite:`furnace_I`.  This uses Strang splitting and the CTU
+  * ``time_integration_method = 0``: this is the original Logi method,
+    described in :cite:`logi_I`.  This uses Strang splitting and the CTU
     hydrodynamics scheme.
 
-  * ``time_integration_method = 1``: unused (in Furnace 19.08 and
+  * ``time_integration_method = 1``: unused (in Logi 19.08 and
     earlier, this was a method-of-lines integration method with Strang
     splitting for reactions.)
 
@@ -91,9 +91,9 @@ Several helper functions are used throughout:
    unphysical in the evolution. The ``clean_state()`` routine
    enforces some checks on the state. In particular, it
 
-   #. enforces that the density is above ``furnace.small_dens``
+   #. enforces that the density is above ``logi.small_dens``
 
-   #. enforces that the speeds in the state don't exceed ``furnace.speed_limit``
+   #. enforces that the speeds in the state don't exceed ``logi.speed_limit``
 
    #. normalizes the species so that the mass fractions sum to 1
 
@@ -109,10 +109,10 @@ Main Driver—All Time Integration Methods
 ========================================
 
 This driver supports the Strang CTU integration.
-(``furnace.time_integration_method`` = 0)
+(``logi.time_integration_method`` = 0)
 
 The main evolution for a single step is contained in
-``Furnace_advance.cpp``, as ``Furnace::advance()``. This does
+``Logi_advance.cpp``, as ``Logi::advance()``. This does
 the following advancement. Note, some parts of this are only done
 depending on which preprocessor directives are defined at
 compile-time—the relevant directive is noted in the [ ] at the start
@@ -124,7 +124,7 @@ of each step.
    actions are performend (note, we omit the actions taken for a retry,
    which we will describe later):
 
-   -  Sync up the level information to the Fortran-side of Furnace.
+   -  Sync up the level information to the Fortran-side of Logi.
 
    -  Do any radiation initialization.
 
@@ -158,13 +158,13 @@ of each step.
 
    .. index:: retry
 
-   If ``furnace.use_retry`` is set, then we subcycle the current
+   If ``logi.use_retry`` is set, then we subcycle the current
    step if we violated any stability criteria to reach the desired
    :math:`\Delta t`. The idea is the following: if the timestep that you
    took had a timestep that was not sufficient to enforce the stability
    criteria that you would like to achieve, such as the CFL criterion
    for hydrodynamics or the burning stability criterion for reactions,
-   you can retry the timestep by setting ``furnace.use_retry`` = 1 in
+   you can retry the timestep by setting ``logi.use_retry`` = 1 in
    your inputs file. This will save the current state data at the
    beginning of the level advance, and then if the criteria are not
    satisfied, will reject that advance and start over from the old
@@ -179,7 +179,7 @@ of each step.
 
 #. [AUX_UPDATE] *Auxiliary quantitiy evolution*
 
-   Auxiliary variables in Furnace are those that obey a continuity
+   Auxiliary variables in Logi are those that obey a continuity
    equation (with optional sources) that are passed into the EOS, but
    not subjected to the constraint on mass fractions (summing to one).
 
@@ -190,13 +190,13 @@ of each step.
 
 #. *Radial data and [POINTMASS] point mass*
 
-   If ``furnace.spherical_star`` is set, then we average the state data
+   If ``logi.spherical_star`` is set, then we average the state data
    over angles here to create a radial profile. This is then used in the
    boundary filling routines to properly set Dirichlet BCs when our domain
    is smaller than the star, so the profile on the boundaries will not
    be uniform.
 
-   If ``furnace.point_mass_fix_solution`` is set, then we
+   If ``logi.point_mass_fix_solution`` is set, then we
    change the mass of the point mass that optionally contributes to the
    gravitational potential by taking mass from the surrounding zones
    (keeping the density in those zones constant).
@@ -232,12 +232,12 @@ of each step.
 Strang+CTU Evolution
 ====================
 
-``do_advance_ctu()`` in ``Furnace_advance_ctu.cpp`` 
+``do_advance_ctu()`` in ``Logi_advance_ctu.cpp`` 
 
 This described the flow using Strang splitting and the CTU
 hydrodynamics (or MHD) method, including gravity, rotation, and
 diffusion.  This integration is selected via
-``furnace.time_integration_method = 0``.
+``logi.time_integration_method = 0``.
 
 The system advancement: reactions, hydrodynamics, diffusion, rotation,
 and gravity are all considered here.
@@ -418,7 +418,7 @@ In the code, the objective is to evolve the state from the old time,
 
       The construction of the form of the gravity source for the
       momentum and energy equation is dependent on the parameter
-      ``furnace.grav_source_type``. Full details of the gravity
+      ``logi.grav_source_type``. Full details of the gravity
       solver are given in Chapter :ref:`ch:gravity`.
 
 
@@ -429,7 +429,7 @@ In the code, the objective is to evolve the state from the old time,
       equation). This includes the Coriolis and centrifugal terms in a
       constant-angular-velocity co-rotating frame. The form of the
       rotational source that is constructed then depends on the
-      parameter ``furnace.rot_source_type``. More details are
+      parameter ``logi.rot_source_type``. More details are
       given in Chapter :ref:`ch:rotation`.
 
    The source terms here are evaluated using the post-burn state,
@@ -489,7 +489,7 @@ In the code, the objective is to evolve the state from the old time,
    enters into the prediction to the interface states. This is
    essentially the same vector that was computed in the previous step,
    with a few modifications. The most important is that if we set
-   ``furnace.source_term_predictor``, then we extrapolate the source
+   ``logi.source_term_predictor``, then we extrapolate the source
    terms from :math:`n` to :math:`n+1/2`, using the change from the
    previous step.
 
@@ -584,7 +584,7 @@ these processes is presented below:
 SDC Evolution
 =============
 
-The SDC evolution is selected by ``furnace.time_integration_method = 2``.  It
+The SDC evolution is selected by ``logi.time_integration_method = 2``.  It
 does away with Strang splitting and instead couples the reactions and hydro
 together directly.
 
@@ -598,7 +598,7 @@ together directly.
    The code must be compiled with ``USE_TRUE_SDC = TRUE`` to use this
    evolution type.
 
-The SDC solver follows the algorithm detailed in :cite:`furnace-sdc`.
+The SDC solver follows the algorithm detailed in :cite:`logi-sdc`.
 We write our evolution equation as:
 
 .. math::
@@ -619,7 +619,7 @@ updates the solution from node :math:`m` to :math:`m+1` as:
    \end{align}
 
 
-.. index:: furnace.sdc_order, furnace.sdc_quadrature
+.. index:: logi.sdc_order, logi.sdc_quadrature
 
 Where :math:`k` is the iteration index.  In the SDC formalism, each
 iteration gains us an order of accuracy in time, up to the order with
@@ -628,16 +628,16 @@ We also write the conservative state as :math:`\avg{\Ub}` to remind us
 that it is the cell average and not the cell-center.  This distinction
 is important when we consider the 4th order method.
 
-In Furnace, there are two parameters that together determine the number
+In Logi, there are two parameters that together determine the number
 and location of the temporal nodes, the accuracy of the integral, and
-hence the overall accuracy in time: ``furnace.sdc_order`` and
-``furnace.sdc_quadrature``. 
+hence the overall accuracy in time: ``logi.sdc_order`` and
+``logi.sdc_quadrature``. 
 
-``furnace.sdc_quadrature = 0`` uses
+``logi.sdc_quadrature = 0`` uses
 Gauss-Lobatto integration, which includes both the starting and ending
 time in the time nodes.  This gives us the trapezoid rule for 2nd
 order methods and Simpson's rule for 4th order methods.  Choosing
-``furnace.sdc_quadrature = 1`` uses Radau IIA integration, which includes
+``logi.sdc_quadrature = 1`` uses Radau IIA integration, which includes
 the ending time but not the starting time in the quadrature.
 
 
@@ -690,7 +690,7 @@ The overall evolution appears as:
    Our iteration loop calls ``do_advance_sdc`` to update the solution through
    all the time nodes for a single iteration.
 
-   The total number of iterations is ``furnace.sdc_order`` + ``furnace.sdc_extra``.
+   The total number of iterations is ``logi.sdc_order`` + ``logi.sdc_extra``.
 
 #. *Finalize*
 
@@ -786,7 +786,7 @@ Simplified-SDC Evolution
 
 The simplified SDC method uses the CTU advection solver together with
 an ODE solution to update the compute advective-reacting system.  This
-is selected by ``furnace.time_integration_method = 3``.
+is selected by ``logi.time_integration_method = 3``.
 
 We use one additional StateData type here, ``Simplified_SDC_React_Type``,
 which will hold the reactive source needed by hydrodynamics.
@@ -833,7 +833,7 @@ summarize those differences.
 
    Unlike the Strang case, there is no need to extrapolate source
    terms to the half-time for the prediction (the
-   ``furnace.source_term_predictor`` parameter), since the
+   ``logi.source_term_predictor`` parameter), since the
    Simplified-SDC provides a natural way to approximate the
    time-centered source—we simply use the iteratively-lagged new-time
    source.  We add the corrector from the previous iteration to the

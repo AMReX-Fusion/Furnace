@@ -1,17 +1,17 @@
-.. Furnace documentation main file, created by
+.. Logi documentation main file, created by
    sphinx-quickstart on Mon Dec 25 18:42:54 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
 ********************************************************
-Furnace: an adaptive mesh compressible hydrodynamics code
+Logi: an adaptive mesh compressible hydrodynamics code
 ********************************************************
 
-https://github.com/amrex-astro/Furnace
+https://github.com/amrex-astro/Logi
 
 .. toctree::
    :maxdepth: 1
-   :caption: Furnace basics
+   :caption: Logi basics
 
    Preface
    Introduction
@@ -31,7 +31,7 @@ https://github.com/amrex-astro/Furnace
 
 .. toctree::
    :maxdepth: 1
-   :caption: Furnace reference
+   :caption: Logi reference
 
    build_system
    debugging

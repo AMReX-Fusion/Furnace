@@ -2,17 +2,17 @@
 Setting Up Your Own Problem
 ***************************
 
-Furnace problems are organized loosely into groups describing their
+Logi problems are organized loosely into groups describing their
 intent (e.g., science, hydro tests, ...).  These groups are
-sub-directories under the ``Furnace/Exec/`` directory.  Each problem is
+sub-directories under the ``Logi/Exec/`` directory.  Each problem is
 then placed in a sub-directory of the appropriate group (for example,
-``Furnace/Exec/hydro_tests/Sedov`` holds the Sedov test problem).
+``Logi/Exec/hydro_tests/Sedov`` holds the Sedov test problem).
 
 To create a new problem, you will create a new directory under one
 of the groups and place in it the following files:
 
   * ``GNUmakefile`` : the makefile for this problem.  This will tell
-    Furnace what options to use and what network and EOS to build.
+    Logi what options to use and what network and EOS to build.
 
   * ``problem_initialize.H`` and
     ``problem_initialize_state_data.H`` : this holds the problem
@@ -28,7 +28,7 @@ of the groups and place in it the following files:
     during the build process.  It tells the build system about any
     problem-specific files that need to be compiled.
 
-  * ``inputs`` : this is the main inputs file that controls Furnace and
+  * ``inputs`` : this is the main inputs file that controls Logi and
     AMReX's behavior.
 
 The best way to get started writing a new problem is to copy an
@@ -59,7 +59,7 @@ Here:
   ``n``, then the variable will still be creates in the ``problem`` namespace,
   but it will not be able to be set via the commandline or inputs file.
   A common usage of this is to define global variables that might be set
-  at problem initialization that are used elsewhere in Furnace.
+  at problem initialization that are used elsewhere in Logi.
 
 * `size` is for arrays, and gives their size.  It can be any integer
   or variable that is known to the ``probdata_module``.  If you need a
@@ -123,28 +123,28 @@ Boundary Conditions
 .. index:: boundary conditions
 
 Standard boundary conditions, including outflow (zero-gradient), periodic,
-and symmetry (reflect) are handled by AMReX directly.  Furnace has a special
+and symmetry (reflect) are handled by AMReX directly.  Logi has a special
 hydrostatic boundary condition that can be used for the lower boundary.  It
-is accessed by setting the ``furnace.lo_bc`` flag to 1 in the vertical coordinate
+is accessed by setting the ``logi.lo_bc`` flag to 1 in the vertical coordinate
 direction, e.g., for 2-d as::
 
-   furnace.lo_bc       =  0   1
+   logi.lo_bc       =  0   1
 
 The flag value 1 is traditionally named "inflow" by AMReX, but generally means that
-the boundary implementation is left to the user.  To tell Furnace to use the
+the boundary implementation is left to the user.  To tell Logi to use the
 hydrostatic boundary condition here, we set::
 
-   furnace.yl_ext_bc_type = 1
-   furnace.hse_interp_temp = 1
-   furnace.hse_reflect_vels = 1
+   logi.yl_ext_bc_type = 1
+   logi.hse_interp_temp = 1
+   logi.hse_reflect_vels = 1
 
-The first parameter tells Furnace to use the HSE boundary condition for the lower
+The first parameter tells Logi to use the HSE boundary condition for the lower
 y direction.
 In filling the ghost cells, hydrostatic equilibrum will be integrated
 from the last interior zone into the boundary.  We need one more
 equation for this integration, so we either interpolate the density or
 temperature into the ghost cells, depending on the value of
-``furnace.hse_interp_temp``.  Finally, ``furnace.hse_reflect_vels``
+``logi.hse_interp_temp``.  Finally, ``logi.hse_reflect_vels``
 determines how we treat the velocity.  The default is to give is a
 zero gradient, but in tests we've found that reflecting the velocity
 while integrating the HSE profile can be better.  For modeling a
@@ -157,11 +157,11 @@ the upper boundary.  This works together with the ``model_parser``
 module to fill the ghost cells at the upper boundary with the initial
 model data.  You set this as::
 
-   furnace.hi_bc = 2 2
+   logi.hi_bc = 2 2
 
-   furnace.fill_ambient_bc = 1
-   furnace.ambient_fill_dir = 1
-   furnace.ambient_outflow_vel = 1
+   logi.fill_ambient_bc = 1
+   logi.ambient_fill_dir = 1
+   logi.ambient_outflow_vel = 1
 
 where ``ambient_fill_dir`` is the 0-based direction to fill using an
 ambient state defined by the problem setup.  In this example, we will
@@ -171,7 +171,7 @@ problem setup needs to fill the ``ambient_state[:]`` array defined in
 ``flame_wave`` problem.
 
 The implementations of these boundary conditions is found in
-``Furnace/Source/problems/Furnace_bc_fill_nd.cpp``.
+``Logi/Source/problems/Logi_bc_fill_nd.cpp``.
 
 Optional Files
 --------------
@@ -206,7 +206,7 @@ each of these in the main source tree.
    that can be stored in the plotfile. ``Problem_Derives.H``
    provides the C++ code that defines these new plot variables. It
    does this by adding them to the ``derive_lst``—a list of
-   derived variables that Furnace knows about. When adding new
+   derived variables that Logi knows about. When adding new
    variables, a descriptive name, Fortran routine that does the
    deriving, and component of ``StateData`` are specified.
 
@@ -220,7 +220,7 @@ each of these in the main source tree.
 
    These files provide problem-specific routines for computing global
    diagnostic information through the sum_integrated_quantities
-   functionality that is part of the ``Furnace`` class.
+   functionality that is part of the ``Logi`` class.
 
    An example is provided by ``toy_flame``, where an estimate
    of the flame speed is computed by integrating the mass of fuel on
@@ -232,7 +232,7 @@ Model Parser
 
 Many problem setups begin with a 1-d initial model that is mapped onto
 the grid.  The ``model_parser.H`` provides the functions that read in
-the initial model and map it on the Furnace grid.  To enable this, add::
+the initial model and map it on the Logi grid.  To enable this, add::
 
   USE_CXX_MODEL_PARSER = TRUE
 
@@ -268,7 +268,7 @@ coordinate and then the variables in the model, with one data point
 per line.
 
 When the model is read, the variables listed in the file are matched
-to the ones that Furnace knows about.  If the variable is recognized,
+to the ones that Logi knows about.  If the variable is recognized,
 then it is stored in the model data, otherwise, it is ignored.
 
 The data can then be mapped onto the grid using the ``interpolate()``

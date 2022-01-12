@@ -1,6 +1,6 @@
 #include <AMReX_BLFort.H>
 
-#include <furnace_params.H>
+#include <logi_params.H>
 
-#include <furnace_declares.H>
+#include <logi_declares.H>
 

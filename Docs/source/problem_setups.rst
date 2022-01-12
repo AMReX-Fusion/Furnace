@@ -1,7 +1,7 @@
 Distributed Problem Setups
 ==========================
 
-There are a number of standard problem setups that come with Furnace.
+There are a number of standard problem setups that come with Logi.
 These can be used as a starting point toward writing your own setup.
 We organize these into subdirectories by broad type (radiation, hydro,
 gravity, etc.): The standard categories and *some* of the included
@@ -50,12 +50,12 @@ problems are:
 
    * ``acoustic_pulse``: The acoustic pulse problem from
      :cite:`mccorquodalecolella` used to measure convergence of pure
-     hydrodynamics problems (as used for Furnace in
-     :cite:`furnace-sdc`).
+     hydrodynamics problems (as used for Logi in
+     :cite:`logi-sdc`).
 
    * ``acoustic_pulse_general``: a general equation of state version
      of ``acoustic_pulse`` used for measuring convergence in
-     :cite:`furnace-sdc`.
+     :cite:`logi-sdc`.
 
    * ``double_bubble``: Initialize 1 or 2 bubbles in a stratified
      atmosphere (isothermal or isentropic) and allow for the bubbles
@@ -68,15 +68,15 @@ problems are:
    * ``oddeven``: A grid-aligned shock hitting a very small density
      perturbation.  This demonstrates the odd-even decoupling problem
      discussed in :cite:`quirk1997`. This setup serves to test the
-     furnace.hybrid_riemann option to hydrodynamics.
+     logi.hybrid_riemann option to hydrodynamics.
 
    * ``RT``: A single-model Rayleigh-Taylor instability problem.
 
    * ``Sedov``: The standard Sedov-Taylor blast wave problem. This
-     setup was used in the first Furnace paper :cite:`furnace_I`.
+     setup was used in the first Logi paper :cite:`logi_I`.
 
    * ``Sod``: A one-dimensional shock tube setup, including the
-     classic Sod problem. This setup was used in the original Furnace
+     classic Sod problem. This setup was used in the original Logi
      paper.
 
    * ``Sod_stellar``: A version of the Sod shock tube for the general
@@ -85,7 +85,7 @@ problems are:
 
    * ``toy_convect``: A simple nova-like convection problem with an
      external heating source. This problem shows how to use the model
-     parser to initialize a 1-d atmosphere on the Furnace grid,
+     parser to initialize a 1-d atmosphere on the Logi grid,
      incorporate a custom tagging routine, sponge the fluid above the
      atmosphere, and write a custom diagnostics routine.
      A MAESTROeX version of this problem setup also exists.
@@ -116,38 +116,38 @@ problems are:
      compared to a semi-analytic solution described in :cite:`lowrieedwards`.
    
    * ``RadFront``: This is the optically-thin streaming of a radiation front problem
-     demonstrated originally in Furnace in :cite:`FurnaceII`.
+     demonstrated originally in Logi in :cite:`LogiII`.
 
    * ``RadShestakovBolstad``: This is a linear multigroup diffusion test problem first described
-     by :cite:`SHESTAKOV2005` and demonstrated in Furnace in :cite:`FurnaceIII`.
+     by :cite:`SHESTAKOV2005` and demonstrated in Logi in :cite:`LogiIII`.
 
    * ``RadSourceTest``: Test the implementation of the source terms in the gray radiation
      solver.  This does the "relaxation to thermal equilibrium" test as
      described in :cite:`swestymyra:2009`  (originally described in :cite:`turnerstone2001`).
 
    * ``RadSphere``: This is a multigroup radiating sphere test problem with an analytic solution,
-     described in :cite:`graziani:2008` and :cite:`swestymyra:2009` and shown in Furnace in :cite:`FurnaceIII`.
+     described in :cite:`graziani:2008` and :cite:`swestymyra:2009` and shown in Logi in :cite:`LogiIII`.
  
    * ``RadSuOlson``: This is a non-equlibrium Marshak wave test described in :cite:`suolson:1996` and shown
-     in Furnace in :cite:`FurnaceII`.
+     in Logi in :cite:`LogiII`.
 
    * ``RadSuOlsonMG``: This is a multigroup version of ``RadSuOlson`` described in :cite:`suolson:1999`
-     and shown in Furnace in :cite:`FurnaceIII`.
+     and shown in Logi in :cite:`LogiIII`.
 
-   * ``RadThermalWave``: A thermal wave test adapted from :cite:`howellgreenough:2003` and shown in Furnace
-     in :cite:`FurnaceII`.
+   * ``RadThermalWave``: A thermal wave test adapted from :cite:`howellgreenough:2003` and shown in Logi
+     in :cite:`LogiII`.
  
 * ``reacting_tests``:
 
    * ``bubble_convergence``: a reacting bubble problem designed for measuring the convergence of
-     the reactive hydro algorithms in Furnace.  This was used in :cite:`furnace-sdc`.
+     the reactive hydro algorithms in Logi.  This was used in :cite:`logi-sdc`.
 
    * ``reacting_bubble``: A reacting bubble in a stratified white
      dwarf atmosphere. This problem was featured in the
      Maestro reaction paper :cite:`maestro:III`.
 
    * ``reacting_convergence``: a simple reacting hydrodynamics problem for measuring convergence,
-     used in :cite:`furnace-sdc`.
+     used in :cite:`logi-sdc`.
 
 * ``science``:
 
@@ -179,7 +179,7 @@ problems are:
 * ``unit_tests``:
 
    * ``diffusion_test``: a test of thermal diffusion (without hydro).  This was used to demonstrate convergence
-     in both :cite:`furnace-sdc` and :cite:`eiden:2020`.
+     in both :cite:`logi-sdc` and :cite:`eiden:2020`.
 
    * ``particles_test``: a test of passive particles.
 

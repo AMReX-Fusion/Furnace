@@ -5,7 +5,7 @@ Development Best Practices
 Coding Conventions
 ==================
 
-Furnace development should do its best to adhere to the following coding
+Logi development should do its best to adhere to the following coding
 style guidelines.
 
 General
@@ -120,21 +120,21 @@ Fortran functions should use Sphinx style comments
   Documentation for modules should be similarly formatted, with the comment block again
   coming `immediately` after the module definition.
 
-Furnace Releases
+Logi Releases
 ===============
 
-This outlines the procedure for doing the monthly Furnace release.
+This outlines the procedure for doing the monthly Logi release.
 
-Furnace uses submodules for dependencies, this means that, at a
+Logi uses submodules for dependencies, this means that, at a
 minimum, we must update the AMReX and  Microphysics submodules monthly when we
 issue new releases. The releases for AMReX and Microphysics must be done
 first. Then navigate to each submodule directory, checkout the new
-tag, and then from the top-level directory of Furnace do a "git add" on
+tag, and then from the top-level directory of Logi do a "git add" on
 the ``external/`` directory to store the new tags. So, for example, at
 the beginning of March 2020 we would first issue the ``20.03`` tag on
 Microphysics, and wait for AMReX to release a ``20.03`` tag, then do::
 
-   cd $FURNACE_HOME/external
+   cd $LOGI_HOME/external
    cd amrex
    git pull
    git checkout 20.03
@@ -164,7 +164,7 @@ submodule dependencies.  The general procedure is:
   * In main branch, commit new release notes (``CHANGES.md``)
     summarizing changes since last major release.
 
-  * Tag the new release: ``git tag -m "Furnace YY.MM" YY.MM``
+  * Tag the new release: ``git tag -m "Logi YY.MM" YY.MM``
 
   * ``git push``
 
@@ -181,16 +181,16 @@ Interim updates
 ---------------
 
 When breaking changes to Microphysics occur in its development branch
-that Furnace depends on, we must update the Microphysics submodule on
-the Furnace development branch in the same way, replacing the git
+that Logi depends on, we must update the Microphysics submodule on
+the Logi development branch in the same way, replacing the git
 checkout statement with the latest commit hash on the Microphysics
 development branch. (A git submodule always tracks a specific
 commit/tag on the target repo -- it is not configured to automatically
 track a particular branch.)  Since such breaking changes usually are
-accompanied by a Furnace change, it is best practice to ensure that
-the PRs in both Microphysics and Furnace have been approved, then
+accompanied by a Logi change, it is best practice to ensure that
+the PRs in both Microphysics and Logi have been approved, then
 merge the Microphysics PR, then add the update to the Microphysics
-submodule to the Furnace PR, then merge. A similar process applies for AMReX.
+submodule to the Logi PR, then merge. A similar process applies for AMReX.
 
 
 Continuous Integration
@@ -198,5 +198,5 @@ Continuous Integration
 
 We github actions to run integration tests on the code and to build and deploy the documentation.
 
-Currently, we run the `clang static analyzer <https://clang-analyzer.llvm.org/>`_, which finds potential bugs in the code. It also runs a script to convert any tabs in the code into spaces. Both of these are run on pull requests to the Furnace GitHub repo, and are run weekly on the development branch. 
+Currently, we run the `clang static analyzer <https://clang-analyzer.llvm.org/>`_, which finds potential bugs in the code. It also runs a script to convert any tabs in the code into spaces. Both of these are run on pull requests to the Logi GitHub repo, and are run weekly on the development branch. 
 

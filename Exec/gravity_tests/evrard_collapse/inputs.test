@@ -14,29 +14,29 @@ amr.n_cell           =  64      64      64
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
 
-furnace.lo_bc       =  2   2   2
-furnace.hi_bc       =  2   2   2
+logi.lo_bc       =  2   2   2
+logi.hi_bc       =  2   2   2
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_grav  = 1
-furnace.ppm_type = 0
+logi.do_hydro = 1
+logi.do_grav  = 1
+logi.ppm_type = 0
 
-furnace.small_dens = 1.0e-2
-furnace.small_temp = 1.0e0
+logi.small_dens = 1.0e-2
+logi.small_temp = 1.0e0
 
 # GRAVITY
 gravity.gravity_type = PoissonGrav # Full self-gravity with the Poisson equation
 gravity.max_multipole_order = 2    # Multipole expansion includes terms up to r**(-max_multipole_order)
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.5     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
-furnace.change_max     = 1.1     # maximum increase in dt over successive steps
+logi.cfl            = 0.5     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
+logi.change_max     = 1.1     # maximum increase in dt over successive steps
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing integrals
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 1       # timesteps between computing integrals
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 gravity.v             = 1       # verbosity in Gravity.cpp
 amr.data_log          = grid_diag.out

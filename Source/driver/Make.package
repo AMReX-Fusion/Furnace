@@ -1,36 +1,36 @@
-# these are the files that should be needed for any Furnace build
+# these are the files that should be needed for any Logi build
 
-CEXE_sources += Furnace.cpp
+CEXE_sources += Logi.cpp
 CEXE_sources += runparams_defaults.cpp
-CEXE_sources += Furnace_advance.cpp
-CEXE_sources += Furnace_advance_ctu.cpp
+CEXE_sources += Logi_advance.cpp
+CEXE_sources += Logi_advance_ctu.cpp
 ifeq ($(USE_TRUE_SDC), TRUE)
 ifneq ($(USE_GPU), TRUE)
-  CEXE_sources += Furnace_advance_sdc.cpp
+  CEXE_sources += Logi_advance_sdc.cpp
 endif
 endif
-CEXE_sources += Furnace_setup.cpp
-CEXE_sources += Furnace_io.cpp
-CEXE_sources += FurnaceBld.cpp
+CEXE_sources += Logi_setup.cpp
+CEXE_sources += Logi_io.cpp
+CEXE_sources += LogiBld.cpp
 CEXE_sources += main.cpp
 
-CEXE_headers += Furnace.H
-CEXE_headers += furnace_limits.H
-CEXE_headers += Furnace_io.H
+CEXE_headers += Logi.H
+CEXE_headers += logi_limits.H
+CEXE_headers += Logi_io.H
 CEXE_headers += state_indices.H
 CEXE_headers += runtime_parameters.H
 CEXE_sources += sum_utils.cpp
 CEXE_sources += sum_integrated_quantities.cpp
 
-FEXE_headers += Furnace_F.H
+FEXE_headers += Logi_F.H
 
 CEXE_headers += Derive.H
 CEXE_sources += Derive.cpp
 
-CEXE_headers += Furnace_generic_fill.H
-CEXE_sources += Furnace_generic_fill.cpp
+CEXE_headers += Logi_generic_fill.H
+CEXE_sources += Logi_generic_fill.cpp
 
-CEXE_headers      += Furnace_util.H
+CEXE_headers      += Logi_util.H
 CEXE_headers      += math.H
 
 NEED_MGUTIL =

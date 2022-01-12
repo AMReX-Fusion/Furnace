@@ -9,9 +9,9 @@ Restart Capability
 
 .. index:: amr.check_file, amr.check_int, amr.check_per, amr.restart
 .. index:: amr.checkpoint_files_output, amr.check_nfiles, amr.checkpoint_on_restart
-.. index:: furnace.grown_factor
+.. index:: logi.grown_factor
 
-Furnace has a standard sort of checkpointing and restarting capability.
+Logi has a standard sort of checkpointing and restarting capability.
 In the inputs file, the following options control the generation of
 checkpoint files (which are really directories):
 
@@ -49,7 +49,7 @@ checkpoint files (which are really directories):
   * ``amr.checkpoint_on_restart``: should we write a
     checkpoint immediately after restarting? (0 or 1; default: 0)
 
-  * ``furnace.grown_factor``: factor by which domain has been
+  * ``logi.grown_factor``: factor by which domain has been
     grown (Integer :math:`\geq 1`; default: 1)
 
 .. note:: You can specify both ``amr.check_int`` or ``amr.check_per``,
@@ -95,7 +95,7 @@ Plotfile Outputting
 
 .. index:: amr.plot_files_output, amr.plotfile_on_restart, amr.write_plotfile_with_checkpoint
 
-Furnace has two levels of plotfiles, `regular` plotfiles and `small`
+Logi has two levels of plotfiles, `regular` plotfiles and `small`
 plotfiles.  The idea behind this distinction is that we can output a
 small number of variables very frequently in the small plotfiles and
 output a large number (or all variables) less frequently.  This helps
@@ -156,7 +156,7 @@ Additional output options control how the I/O is done:
     ``amr.plot_nfiles`` parameter.
 
 All the options for ``amr.derive_plot_vars`` are kept in
-``derive_lst`` in ``Furnace_setup.cpp``. Feel free to look at
+``derive_lst`` in ``Logi_setup.cpp``. Feel free to look at
 it and see what’s there.
 
 .. note:: You can specify both ``amr.plot_int`` or ``amr.plot_per``,
@@ -210,7 +210,7 @@ variables appear in the regular plotfile.
     associated Fortran routine to do the deriving (``Derive_nd.F90``).
 
     By default, no derived variables are stored. You can store all
-    derived variables that Furnace knows about by doing::
+    derived variables that Logi knows about by doing::
 
        amr.derive_plot_vars = ALL
 
@@ -299,7 +299,7 @@ radiation quantities).
 Derived variables
 ^^^^^^^^^^^^^^^^^
 
-.. index:: furnace.domain_is_plane_parallel
+.. index:: logi.domain_is_plane_parallel
 
 +-----------------------------------+---------------------------------------------------+-----------------------------+-----------------------------------------+
 | variable name                     | description                                       | derive routine              | units                                   |
@@ -440,11 +440,11 @@ Screen Output
 -------------
 
 There are several options that set how much output is written to the
-screen as Furnace runs:
+screen as Logi runs:
 
   * ``amr.v``: verbosity of ``Amr.cpp`` (0 or 1; default: 0)
 
-  * ``furnace.v``: verbosity of ``Furnace.cpp`` (0 or 1; default: 0)
+  * ``logi.v``: verbosity of ``Logi.cpp`` (0 or 1; default: 0)
 
   * ``gravity.v``: verbosity of ``Gravity.cpp`` (0 or 1; default: 0)
 
@@ -463,10 +463,10 @@ screen as Furnace runs:
   * ``amr.run_log_terse``: name of the file to which certain
     (terser) output is written (text; not used if not set)
 
-  * ``furnace.do_special_tagging``: allows the user to set a special
+  * ``logi.do_special_tagging``: allows the user to set a special
     flag based on user-specified criteria (0 or 1; default: 1)
 
-    ``furnace.do_special_tagging`` = 1 can be used, for example, to
+    ``logi.do_special_tagging`` = 1 can be used, for example, to
     calculate the bounce time in a core collapse simulation; the
     bounce time is defined as the first time at which the maximum
     density in the domain exceeds a user-specified value. This time
@@ -506,27 +506,27 @@ can be plotted very easily to monitor the time step.
 Integral Diagnostics
 --------------------
 
-.. index:: furnace.sum_interval, integral diagnostics
+.. index:: logi.sum_interval, integral diagnostics
 
-Furnace can calculate integrals of quantities on the grid and other
+Logi can calculate integrals of quantities on the grid and other
 global quantities and output them to both the screen and to a runtime
 file at regular intervals.  By default, this capability is off.  To
 enable it, one of the following runtime parameters can be set:
 
-  * ``furnace.sum_interval``: if :math:`> 0`, how often (in level-0 time
+  * ``logi.sum_interval``: if :math:`> 0`, how often (in level-0 time
     steps) to compute and print integral quantities (Integer; default: -1)
 
     The integral quantities include total mass, momentum and energy in
-    the domain every ``furnace.sum_interval`` level-0 steps.  The print
+    the domain every ``logi.sum_interval`` level-0 steps.  The print
     statements have the form::
 
            TIME= 1.91717746 MASS= 1.792410279e+34
 
     for example.
 
-  * ``furnace.sum_per``: how often in simulation time to output
+  * ``logi.sum_per``: how often in simulation time to output
     integral quantities (this is used as an alternate to
-    ``furnace.sum_interval``).
+    ``logi.sum_interval``).
 
 By default, 4 output files are created:
 

@@ -1,7 +1,7 @@
 #ifndef advection_util_H
 #define advection_util_H
 
-#include <Furnace_util.H>
+#include <Logi_util.H>
 
 #ifdef HYBRID_MOMENTUM
 #include <hybrid.H>

@@ -4,15 +4,15 @@ Getting Started
 
 .. note::
 
-   Furnace has two source dependencies: `AMReX <https://github.com/AMReX-Codes/amrex>`_, the adaptive mesh
+   Logi has two source dependencies: `AMReX <https://github.com/AMReX-Codes/amrex>`_, the adaptive mesh
    library, and `StarKiller Microphysics <https://github.com/starkiller-astro/Microphysics>`_, the collection of equations
    of state, reaction networks, and other microphysics.  The
    instructions below describe how to get these dependencies automatically
-   with Furnace.
+   with Logi.
 
 
 The compilation process is managed by AMReX and its build system.  The
-general requirements to build Furnace are:
+general requirements to build Logi are:
 
  * A C++17 (or later) compiler (e.g. gcc >= 7.0)
 
@@ -31,31 +31,31 @@ is given in section :ref:`ch:mpiplusx`.
 Downloading the Code
 ====================
 
-Furnace is maintained as a repository on GitHub, and can be obtained
+Logi is maintained as a repository on GitHub, and can be obtained
 via standard git clone commands. First, make sure that git
 is installed on your machine—we recommend version 1.7.x or higher.
 
 
-#. Clone/fork the Furnace repository from the AMReX-Astro GitHub
+#. Clone/fork the Logi repository from the AMReX-Astro GitHub
    organization, using either HTTP access::
 
-       git clone --recursive https://github.com/AMReX-Astro/Furnace.git
+       git clone --recursive https://github.com/AMReX-Astro/Logi.git
 
    or SSH access if you have an SSH key enabled with GitHub::
 
-       git clone --recursive git@github.com:AMReX-Astro/Furnace.git
+       git clone --recursive git@github.com:AMReX-Astro/Logi.git
 
    The ``--recursive`` option to ``git clone`` is used to ensure
-   that all of Furnace's dependencies are downloaded. Currently this
+   that all of Logi's dependencies are downloaded. Currently this
    requirement is for the AMReX mesh refinement framework, which is
    maintained in the AMReX-Codes organization on GitHub, and the
    Microphysics repository from the starkiller-astro organization.
    AMReX adds the necessary code for the driver code for the simulation,
    while Microphysics adds the equations of state, reaction
-   networks, and other microphysics needed to run Furnace.
+   networks, and other microphysics needed to run Logi.
 
    If you forget to do a recursive clone, you can rectify the
-   situation by running the following from the top-level of the Furnace
+   situation by running the following from the top-level of the Logi
    directory::
 
        git submodule update --init --recursive
@@ -63,22 +63,22 @@ is installed on your machine—we recommend version 1.7.x or higher.
    .. note::
 
       By default, you will be on the ``main`` branch of the source.
-      Development on Furnace (and its primary dependencies, AMReX and
+      Development on Logi (and its primary dependencies, AMReX and
       Microphysics) is done in the ``development`` branch, so you
       should work there if you want the latest source::
 
         git checkout development
 
-      The Furnace team runs nightly regression testing on the
+      The Logi team runs nightly regression testing on the
       ``development`` branch, so bugs are usually found and fixed
       relatively quickly, but it is generally less stable than staying
       on the ``main`` branch.
 
-#. We recommend setting the ``FURNACE_HOME`` environment
-   variable to point to the path name where you have put Furnace.
+#. We recommend setting the ``LOGI_HOME`` environment
+   variable to point to the path name where you have put Logi.
    Add the following to your ``.bashrc``::
 
-       export FURNACE_HOME="/path/to/Furnace/"
+       export LOGI_HOME="/path/to/Logi/"
 
    (or use the analogous form for a different shell).
 
@@ -104,21 +104,21 @@ is installed on your machine—we recommend version 1.7.x or higher.
 
    Then, set the ``AMREX_HOME`` environment variable to point to the
    ``amrex/`` directory, and the ``MICROPHYSICS_HOME`` environment
-   variable to point to the ``Microphysics/`` directory. Furnace will
+   variable to point to the ``Microphysics/`` directory. Logi will
    look there instead of in its local ``external/`` subdirectory.
 
 Building the Code
 =================
 
-In Furnace each different problem setup is stored in its own
-sub-directory under ``Furnace/Exec/``. You build the
-Furnace executable in the problem sub-directory. Here we’ll
+In Logi each different problem setup is stored in its own
+sub-directory under ``Logi/Exec/``. You build the
+Logi executable in the problem sub-directory. Here we’ll
 build the Sedov problem:
 
-#. From the directory in which you checked out the Furnace git repo,
+#. From the directory in which you checked out the Logi git repo,
    type::
 
-       cd Furnace/Exec/hydro_tests/Sedov
+       cd Logi/Exec/hydro_tests/Sedov
 
    This will put you into a directory in which you can run the Sedov
    problem in 1-d, 2-d or 3-d.
@@ -156,7 +156,7 @@ build the Sedov problem:
 #. Now type ``make``.
 
    The resulting executable will look something like
-   ``Furnace2d.gnu.ex``, which means this is a 2-d version
+   ``Logi2d.gnu.ex``, which means this is a 2-d version
    of the code compiled with ``COMP = gnu``.
 
 More information on the various build options is given in :ref:`ch:buildsystem`.
@@ -164,10 +164,10 @@ More information on the various build options is given in :ref:`ch:buildsystem`.
 Running the Code
 ================
 
-#. Furnace takes an input file that overrides the runtime parameter defaults.
+#. Logi takes an input file that overrides the runtime parameter defaults.
    The code is run as::
 
-       ./Furnace2d.gnu.ex inputs.2d.cyl_in_cartcoords
+       ./Logi2d.gnu.ex inputs.2d.cyl_in_cartcoords
 
    This will run the 2-d cylindrical Sedov problem in Cartesian
    (:math:`x`-:math:`y` coordinates). You can see other possible
@@ -204,7 +204,7 @@ do any of the plots described in the `yt Cookbook
 Here we do a sample visualization and analysis of the
 plotfiles generated.  This section was generated from a
 Jupyter notebook which can be found in
-``Docs/source/yt_example.ipynb`` in the Furnace repo.
+``Docs/source/yt_example.ipynb`` in the Logi repo.
 
 .. include:: yt_example.rst
 
@@ -261,7 +261,7 @@ the grid structure.
 
 #. Visualize:
 
-   Return to the ``Furnace/Exec/hydro_tests/Sedov`` directory. You should
+   Return to the ``Logi/Exec/hydro_tests/Sedov`` directory. You should
    have a number of output files, including some in the form ``pltXXXXX``,
    where XXXXX is a number corresponding to the timestep the file
    was output.

@@ -14,38 +14,38 @@ amr.n_cell           = 256
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  3   4   4
-furnace.hi_bc       =  2   4   4
+logi.lo_bc       =  3   4   4
+logi.hi_bc       =  2   4   4
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 1
+logi.do_hydro = 1
+logi.do_react = 1
 
-furnace.ppm_type = 1
-furnace.ppm_temp_fix = 0
+logi.ppm_type = 1
+logi.ppm_temp_fix = 0
 
-furnace.transverse_reset_density = 1
+logi.transverse_reset_density = 1
 
-furnace.use_flattening = 1
+logi.use_flattening = 1
 
-furnace.small_temp     = 1.e7
+logi.small_temp     = 1.e7
 
-furnace.riemann_solver = 0
+logi.riemann_solver = 0
 
-furnace.time_integration_method = 0
+logi.time_integration_method = 0
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.5     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
-furnace.change_max     = 1.05    # scale back initial timestep
+logi.cfl            = 0.5     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
+logi.change_max     = 1.05    # scale back initial timestep
 
-furnace.dtnuc_e        = 0.25
-furnace.use_retry      = 1
-furnace.max_subcycles  = 32
+logi.dtnuc_e        = 0.25
+logi.use_retry      = 1
+logi.max_subcycles  = 32
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 1       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 #amr.grid_log        = grdlog  # name of grid logging file
 

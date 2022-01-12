@@ -1,6 +1,6 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_F.H>
+#include <Logi_util.H>
 
 #ifdef RADIATION
 #include <Radiation.H>
@@ -18,7 +18,7 @@ using namespace amrex;
 #include <riemann.H>
 
 void
-Furnace::compute_flux_from_q(const Box& bx,
+Logi::compute_flux_from_q(const Box& bx,
                             Array4<Real const> const& qint,
                             Array4<Real> const& F,
                             const int idir) {
@@ -120,7 +120,7 @@ Furnace::compute_flux_from_q(const Box& bx,
 }
 
 void
-Furnace::store_godunov_state(const Box& bx,
+Logi::store_godunov_state(const Box& bx,
                             Array4<Real const> const& qint,
 #ifdef RADIATION
                             Array4<Real const> const& lambda,

@@ -1,5 +1,5 @@
-#ifndef FURNACE_DIFFUSION_H
-#define FURNACE_DIFFUSION_H
+#ifndef LOGI_DIFFUSION_H
+#define LOGI_DIFFUSION_H
 
 #include <AMReX_AmrLevel.H>
 #include <AMReX_MLLinOp.H>

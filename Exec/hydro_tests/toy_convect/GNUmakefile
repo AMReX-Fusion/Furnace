@@ -13,7 +13,7 @@ USE_REACT        = FALSE
 
 USE_CXX_MODEL_PARSER = TRUE
 
-FURNACE_HOME = ../../..
+LOGI_HOME = ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/eos
 EOS_DIR     := helmholtz
@@ -25,4 +25,4 @@ NETWORK_INPUTS = hotcno.net
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

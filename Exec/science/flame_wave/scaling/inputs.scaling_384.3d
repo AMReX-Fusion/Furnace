@@ -15,57 +15,57 @@ amr.n_cell = 384 384 96
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  3   3   1
-furnace.hi_bc       =  2   2   2
+logi.lo_bc       =  3   3   1
+logi.hi_bc       =  2   2   2
 
-furnace.zl_ext_bc_type = 1
-furnace.hse_interp_temp = 1
-furnace.hse_reflect_vels = 1
+logi.zl_ext_bc_type = 1
+logi.hse_interp_temp = 1
+logi.hse_reflect_vels = 1
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 1
-furnace.do_rotation = 1
-furnace.do_grav = 1
-furnace.do_sponge = 1
+logi.do_hydro = 1
+logi.do_react = 1
+logi.do_rotation = 1
+logi.do_grav = 1
+logi.do_sponge = 1
 
-furnace.small_temp = 1.e6
-furnace.small_dens = 1.e-5
+logi.small_temp = 1.e6
+logi.small_dens = 1.e-5
 
-furnace.ppm_type = 1
-furnace.grav_source_type = 2
+logi.ppm_type = 1
+logi.grav_source_type = 2
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.5e14
 
-furnace.rotational_period = 0.0005
-furnace.rotation_include_centrifugal = 0
+logi.rotational_period = 0.0005
+logi.rotation_include_centrifugal = 0
 
-furnace.diffuse_temp = 1
-furnace.diffuse_cutoff_density = 5.e4
-furnace.diffuse_cond_scale_fac = 10.0
+logi.diffuse_temp = 1
+logi.diffuse_cutoff_density = 5.e4
+logi.diffuse_cond_scale_fac = 10.0
 
-furnace.react_rho_min = 1.e2
-furnace.react_rho_max = 1.5e7
+logi.react_rho_min = 1.e2
+logi.react_rho_max = 1.5e7
 
-furnace.react_T_min = 6.e7
+logi.react_T_min = 6.e7
 
-furnace.sponge_upper_density = 1.e2
-furnace.sponge_lower_density = 1.e0
-furnace.sponge_timescale     = 1.e-7
+logi.sponge_upper_density = 1.e2
+logi.sponge_lower_density = 1.e0
+logi.sponge_timescale     = 1.e-7
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.8     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
-furnace.change_max     = 1.1     # max time step growth
+logi.cfl            = 0.8     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
+logi.change_max     = 1.1     # max time step growth
 
-furnace.use_retry      = 1
-furnace.hard_cfl_limit = 0
-furnace.max_subcycles = 16
+logi.use_retry      = 1
+logi.hard_cfl_limit = 0
+logi.max_subcycles = 16
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 0       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 0       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING
@@ -78,12 +78,12 @@ amr.n_error_buf     = 2 2 2 2 # number of buffer cells in error est
 
 # CHECKPOINT FILES
 amr.checkpoint_files_output = 0
-amr.check_file      =  /gpfs/alpine/scratch/harpolea/ast106/furnace/flame_wave/flame_wave_chk        # root name of checkpoint file
+amr.check_file      =  /gpfs/alpine/scratch/harpolea/ast106/logi/flame_wave/flame_wave_chk        # root name of checkpoint file
 amr.check_int       = 100        # number of timesteps between checkpoints
 
 # PLOTFILES
 amr.plot_files_output = 0
-amr.plot_file        =  /gpfs/alpine/scratch/harpolea/ast106/furnace/flame_wave/flame_wave_plt        # root name of plotfile
+amr.plot_file        =  /gpfs/alpine/scratch/harpolea/ast106/logi/flame_wave/flame_wave_plt        # root name of plotfile
 amr.plot_per         = 2.e-3      # number of seconds between plotfiles
 amr.derive_plot_vars = ALL
 

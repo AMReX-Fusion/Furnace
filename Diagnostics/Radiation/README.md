@@ -1,6 +1,6 @@
 # Radiation diagnostics
 
-This directory contains diagnostics for Furnace's radiation tests.
+This directory contains diagnostics for Logi's radiation tests.
 These are:
 
 - `gaussian_pulse`: Process a 2-d gaussian radiation pulse.

@@ -1,6 +1,6 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_F.H>
+#include <Logi_util.H>
 
 #include <Gravity.H>
 
@@ -16,9 +16,9 @@
 using namespace amrex;
 
 void
-Furnace::problem_post_timestep()
+Logi::problem_post_timestep()
 {
-    BL_PROFILE("Furnace::problem_post_timestep()");
+    BL_PROFILE("Logi::problem_post_timestep()");
 
     using namespace wdmerger;
     using namespace problem;
@@ -64,9 +64,9 @@ Furnace::problem_post_timestep()
 //
 
 void
-Furnace::wd_update (Real time, Real dt)
+Logi::wd_update (Real time, Real dt)
 {
-    BL_PROFILE("Furnace::wd_update()");
+    BL_PROFILE("Logi::wd_update()");
 
     using namespace wdmerger;
     using namespace problem;
@@ -102,7 +102,7 @@ Furnace::wd_update (Real time, Real dt)
 
     for (int lev = 0; lev <= parent->finestLevel(); lev++) {
 
-      Furnace& c_lev = getLevel(lev);
+      Logi& c_lev = getLevel(lev);
 
       GeometryData geomdata = c_lev.geom.data();
 
@@ -282,7 +282,7 @@ Furnace::wd_update (Real time, Real dt)
     bool local_flag = true;
 
     for (int i = 0; i <= 6; ++i)
-        Furnace::volInBoundary(time, vol_P[i], vol_S[i], pow(10.0,i), local_flag);
+        Logi::volInBoundary(time, vol_P[i], vol_S[i], pow(10.0,i), local_flag);
 
     // Do all of the reductions.
 
@@ -406,9 +406,9 @@ Furnace::wd_update (Real time, Real dt)
 // We also impose a distance requirement so that we only look
 // at zones that are within twice the original radius of the white dwarf.
 
-void Furnace::volInBoundary (Real time, Real& vol_P, Real& vol_S, Real rho_cutoff, bool local)
+void Logi::volInBoundary (Real time, Real& vol_P, Real& vol_S, Real rho_cutoff, bool local)
 {
-    BL_PROFILE("Furnace::volInBoundary()");
+    BL_PROFILE("Logi::volInBoundary()");
 
     using namespace wdmerger;
     using namespace problem;
@@ -420,7 +420,7 @@ void Furnace::volInBoundary (Real time, Real& vol_P, Real& vol_S, Real rho_cutof
 
     for (int lev = 0; lev <= parent->finestLevel(); lev++) {
 
-      Furnace& c_lev = getLevel(lev);
+      Logi& c_lev = getLevel(lev);
 
       const auto dx = c_lev.geom.CellSizeArray();
       auto mf = c_lev.derive("density",time,0);
@@ -505,7 +505,7 @@ void Furnace::volInBoundary (Real time, Real& vol_P, Real& vol_S, Real rho_cutof
 
 // Computes standard dot-product of two three-vectors.
 
-Real Furnace::dot_product(const Real a[], const Real b[]) {
+Real Logi::dot_product(const Real a[], const Real b[]) {
 
   Real c = 0.0;
 
@@ -520,7 +520,7 @@ Real Furnace::dot_product(const Real a[], const Real b[]) {
 
 // Computes norm of a three-vector.
 
-Real Furnace::norm(const Real a[]) {
+Real Logi::norm(const Real a[]) {
 
   Real n = 0.0;
 
@@ -532,14 +532,14 @@ Real Furnace::norm(const Real a[]) {
 
 
 
-void Furnace::problem_post_init() {
+void Logi::problem_post_init() {
 
   using namespace wdmerger;
   using namespace problem;
 
   // Read in inputs.
 
-  ParmParse pp("furnace");
+  ParmParse pp("logi");
 
   pp.query("use_stopping_criterion", use_stopping_criterion);
   pp.query("use_energy_stopping_criterion", use_energy_stopping_criterion);
@@ -557,14 +557,14 @@ void Furnace::problem_post_init() {
 
 
 
-void Furnace::problem_post_restart() {
+void Logi::problem_post_restart() {
 
   using namespace wdmerger;
   using namespace problem;
 
   // Read in inputs.
 
-  ParmParse pp("furnace");
+  ParmParse pp("logi");
 
   pp.query("use_stopping_criterion", use_stopping_criterion);
   pp.query("use_energy_stopping_criterion", use_energy_stopping_criterion);
@@ -619,13 +619,13 @@ void Furnace::problem_post_restart() {
 
 
 
-void Furnace::writeGitHashes(std::ostream& log) {
+void Logi::writeGitHashes(std::ostream& log) {
 
-  const char* furnace_hash       = buildInfoGetGitHash(1);
+  const char* logi_hash       = buildInfoGetGitHash(1);
   const char* amrex_hash        = buildInfoGetGitHash(2);
   const char* microphysics_hash = buildInfoGetGitHash(3);
 
-  log << "# Furnace       git hash: " << furnace_hash       << std::endl;
+  log << "# Logi       git hash: " << logi_hash       << std::endl;
   log << "# AMReX        git hash: " << amrex_hash        << std::endl;
   log << "# Microphysics git hash: " << microphysics_hash << std::endl;
 
@@ -633,7 +633,7 @@ void Furnace::writeGitHashes(std::ostream& log) {
 
 
 
-void Furnace::check_to_stop(Real time, bool dump) {
+void Logi::check_to_stop(Real time, bool dump) {
 
     using namespace wdmerger;
     using namespace problem;
@@ -771,7 +771,7 @@ void Furnace::check_to_stop(Real time, bool dump) {
 
 
 
-void Furnace::update_extrema(Real time) {
+void Logi::update_extrema(Real time) {
 
     using namespace wdmerger;
     using namespace problem;
@@ -837,7 +837,7 @@ void Furnace::update_extrema(Real time) {
 
 
 void
-Furnace::update_relaxation(Real time, Real dt) {
+Logi::update_relaxation(Real time, Real dt) {
 
     using namespace wdmerger;
     using namespace problem;
@@ -1189,7 +1189,7 @@ Furnace::update_relaxation(Real time, Real dt) {
 
 
 void
-Furnace::problem_sums ()
+Logi::problem_sums ()
 {
     using namespace wdmerger;
     using namespace problem;
@@ -1272,9 +1272,9 @@ Furnace::problem_sums ()
     for (int lev = 0; lev <= finest_level; lev++)
     {
 
-      // Get the current level from Furnace
+      // Get the current level from Logi
 
-      Furnace& ca_lev = getLevel(lev);
+      Logi& ca_lev = getLevel(lev);
 
       for ( int i = 0; i < 3; i++ ) {
         com[i] += ca_lev.locWgtSum("density", time, i, local_flag);

@@ -19,6 +19,6 @@ n_rs_per_node=6
 
 export OMP_NUM_THREADS=$n_omp
 
-Furnace_ex=./Furnace3d.pgi.MPI.CUDA.ex
+Logi_ex=./Logi3d.pgi.MPI.CUDA.ex
 
-jsrun -n $n_mpi -r $n_rs_per_node -c $n_cores -a 1 -g $n_gpu $Furnace_ex $inputs_file
+jsrun -n $n_mpi -r $n_rs_per_node -c $n_cores -a 1 -g $n_gpu $Logi_ex $inputs_file

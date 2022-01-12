@@ -4,7 +4,7 @@
 set -x
 
 DIM=1
-EXEC=./Furnace${DIM}d.gnu.MPI.ex
+EXEC=./Logi${DIM}d.gnu.MPI.ex
 
 mpiexec -n 4 ${EXEC} inputs.64 >& /dev/null
 mpiexec -n 4 ${EXEC} inputs.128 >& /dev/null

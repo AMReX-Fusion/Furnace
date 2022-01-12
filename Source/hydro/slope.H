@@ -1,5 +1,5 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 #ifdef RADIATION
 #include <Radiation.H>

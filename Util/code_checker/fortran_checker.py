@@ -8,14 +8,14 @@ import os
 from pathlib import Path
 
 def find_fortran_files():
-    # find Furnace Fortran source files 
+    # find Logi Fortran source files 
     try:
-        furnace_home = os.environ['FURNACE_HOME']
+        logi_home = os.environ['LOGI_HOME']
     except KeyError:
-        # this assumes this file is run from the Furnace/Util/code_checker directory
-        furnace_home = '../..'
+        # this assumes this file is run from the Logi/Util/code_checker directory
+        logi_home = '../..'
 
-    p = Path(furnace_home + '/Source')
+    p = Path(logi_home + '/Source')
     return p.glob(r'**/*.[fF]90')
 
 def idfunc(argvalue):

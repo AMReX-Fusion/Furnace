@@ -3,7 +3,7 @@
 This is the XRB flame setup, which was used in Eiden et al. 2020
 (https://ui.adsabs.harvard.edu/abs/2020ApJ...894....6E).  That
 original paper used "boosted" flames, but we no longer boost the flame
-speed.  You can find the inputs file for boosted flame in Furnace
+speed.  You can find the inputs file for boosted flame in Logi
 versions 21.01 and earlier.
 
 The current set of inputs files are:

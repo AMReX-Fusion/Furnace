@@ -29,7 +29,7 @@ void problem_initialize_state_data (int i, int j, int k,
 #endif
 
     // Set temperature and energy to arbitrary, positive values
-    // so that the Furnace state checkers are OK.
+    // so that the Logi state checkers are OK.
     state(i,j,k,UTEMP) = 1.0e-50_rt;
     state(i,j,k,UEINT) = 1.0e-50_rt;
     state(i,j,k,UEDEN) = 1.0e-50_rt;

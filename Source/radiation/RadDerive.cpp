@@ -2,7 +2,7 @@
 #include <AMReX.H>
 
 #include <RadDerive.H>
-#include <Furnace.H>
+#include <Logi.H>
 
 #include <Radiation.H>
 

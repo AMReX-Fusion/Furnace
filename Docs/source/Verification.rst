@@ -52,8 +52,8 @@ Sod’s problem:
 
 For multi-dimensional runs, the directions transverse to the jump are
 kept constant. We use a CFL number of 0.9, an initial timestep shrink
-(furnace.init_shrink) of 0.1, and the maximum factor by which
-the timestep can increase (furnace.change_max) of 1.05.
+(logi.init_shrink) of 0.1, and the maximum factor by which
+the timestep can increase (logi.change_max) of 1.05.
 
 .. _fig:sod:
 .. figure:: sod_3d.png
@@ -61,7 +61,7 @@ the timestep can increase (furnace.change_max) of 1.05.
    :align: center
    :width: 4.75in
 
-   Furnace solution for Sod’s problem run in 3-d, with the newest ppm
+   Logi solution for Sod’s problem run in 3-d, with the newest ppm
    limiters, along the :math:`x`, :math:`y`, and :math:`z` axes. A
    coarse grid of 32 zones in the direction of propagation, with 2
    levels of refinement was used. The analytic solution appears as the
@@ -73,13 +73,13 @@ the timestep can increase (furnace.change_max) of 1.05.
    :align: center
    :width: 4.75in
 
-   Furnace solution for Sod’s problem run in 3-d, with the
+   Logi solution for Sod’s problem run in 3-d, with the
    piecewise-linear Godunov method with limiters, along the :math:`x`,
    :math:`y`, and :math:`z` axes. A coarse grid of 32 zones in the
    direction of propagation, with 2 levels of refinement was used. The
    analytic solution appears as the red line.
 
-:numref:`fig:sod` shows the Furnace solution using the newest PPM limiters
+:numref:`fig:sod` shows the Logi solution using the newest PPM limiters
 compared to the analytic
 solution, showing the density, velocity, pressure, and internal energy.
 :numref:`fig:sod_ppm0` is the same as :numref:`fig:sod`,
@@ -88,21 +88,21 @@ shown for comparison.
 
 The Verification subdirectory includes the analytic solution for
 the Sod problem sod-exact.out, with :math:`\gamma = 1.4`. 1-d slices
-can be extracted from the Furnace plotfile using the fextract tool
+can be extracted from the Logi plotfile using the fextract tool
 from ``amrex/Tools/Postprocessing/C_Src/``.
-The steps to generate this verification plot with Furnace are:
+The steps to generate this verification plot with Logi are:
 
-#. in ``Exec/hydro_tests/Sod``, build the Furnace executable in 3-d
+#. in ``Exec/hydro_tests/Sod``, build the Logi executable in 3-d
 
-#. run the Sod problem with Furnace in the :math:`x`, :math:`y`, and :math:`z` directions::
+#. run the Sod problem with Logi in the :math:`x`, :math:`y`, and :math:`z` directions::
 
-    ./Furnace3d.Linux.Intel.Intel.ex inputs-sod-x
-    ./Furnace3d.Linux.Intel.Intel.ex inputs-sod-y
-    ./Furnace3d.Linux.Intel.Intel.ex inputs-sod-z
+    ./Logi3d.Linux.Intel.Intel.ex inputs-sod-x
+    ./Logi3d.Linux.Intel.Intel.ex inputs-sod-y
+    ./Logi3d.Linux.Intel.Intel.ex inputs-sod-z
 
 #. build the fextract tool in ``amrex/Tools/Postprocessing/C_Src/`` .
 
-#. run fextract on the Furnace output to generate 1-d slices
+#. run fextract on the Logi output to generate 1-d slices
    through the output::
 
     fextract3d.Linux.Intel.exe -d 1 -s sodx.out -p sod_x_plt00034
@@ -163,8 +163,8 @@ double rarefaction problem:
 
 
 We use a CFL number of 0.8, an initial timestep shrink
-(``furnace.init_shrink``) of 0.1, and the maximum factor by which the
-timestep can increase (``furnace.change_max``) of 1.05. The PPM solver with
+(``logi.init_shrink``) of 0.1, and the maximum factor by which the
+timestep can increase (``logi.change_max``) of 1.05. The PPM solver with
 the new limiters are used.
 
 .. _fig:test2:
@@ -173,12 +173,12 @@ the new limiters are used.
    :align: center
    :width: 5in
 
-   Furnace solution for the double rarefaction problem run in 3-d,
+   Logi solution for the double rarefaction problem run in 3-d,
    along the :math:`x`, :math:`y`, and :math:`z` axes. A coarse grid
    of 32 zones in the direction of propagation, with 2 levels of
    refinement was used. The analytic solution appears as the red line.
 
-:numref:`fig:test2` shows the Furnace output, run along all 3
+:numref:`fig:test2` shows the Logi output, run along all 3
 coordinate axes in 3-d, compared to the analytic solution.
 
 The comparison to the analytic solution follows the same procedure as
@@ -230,8 +230,8 @@ strong shock problem:
 +-----------------------+-----------------------+
 
 We use a CFL number of 0.9, an initial
-timestep shrink (``furnace.init_shrink``) of 0.1, and the maximum factor by which
-the timestep can increase (``furnace.change_max``) of 1.05. The PPM
+timestep shrink (``logi.init_shrink``) of 0.1, and the maximum factor by which
+the timestep can increase (``logi.change_max``) of 1.05. The PPM
 solver with the new limiters are used.
 
 .. _fig:test3:
@@ -240,12 +240,12 @@ solver with the new limiters are used.
    :align: center
    :width: 5in
 
-   Furnace solution for the strong shock problem run in 3-d, along the
+   Logi solution for the strong shock problem run in 3-d, along the
    :math:`x`, :math:`y`, and :math:`z` axes. A coarse grid of 32 zones
    in the direction of propagation, with 2 levels of refinement was
    used. The analytic solution appears as the red line.
 
-:numref:`fig:test3` shows the Furnace output, run along all 3
+:numref:`fig:test3` shows the Logi output, run along all 3
 coordinate axes in 3-d, compared to the analytic solution.
 
 The comparison to the analytic solution follows the same procedure as
@@ -270,9 +270,9 @@ factors in the hydrodynamics solver.
 We use a publically available code, ``sedov3.f``
 :cite:`timmes_sedov_code`, to generate the analytic solutions.
 
-The Furnace implementation of the Sedov problem is ``in
+The Logi implementation of the Sedov problem is ``in
 Exec/hydro_tests/Sedov/``.  A number of different inputs files
-are provided, corresponding to different Sedov/Furnace geometries. The
+are provided, corresponding to different Sedov/Logi geometries. The
 main ones are:
 
 
@@ -316,7 +316,7 @@ To further minimize any grid effects, we do subsampling
 in each zone: each zone is divided it into :math:`N_\mathrm{sub}` subzones in each
 coordinate direction, each subzone is initialized independently, and
 then the subzones are averaged together (using a volume weighting for
-spherical or cylindrical/axisymmetric Furnace grids) to determine the
+spherical or cylindrical/axisymmetric Logi grids) to determine the
 initial state of the full zone.
 
 For these runs, we use :math:`\rho_\mathrm{ambient} = 1`,
@@ -327,7 +327,7 @@ mesh would coorespond to 256 zones in a coordinate direction). The
 domain runs from 0 to 1 in each coordinate direction.
 
 An analysis routines for the Sedov problem is provided in
-``Furnace/Diagnostics/Sedov/``.  Typing ``make`` should build it (you
+``Logi/Diagnostics/Sedov/``.  Typing ``make`` should build it (you
 can specify the dimensionality with the ``DIM`` variable in the
 build).
 
@@ -338,16 +338,16 @@ inputs files described in :numref:`table:sedov_inputs`. A 1-d radial
 profile can be extracted using the analysis routine. For example, to run and process
 the 2-d cylindrical Sedov explosion, one would do:
 
-#. in ``Exec/hydro_tests/Sedov``, build the Furnace executable in 2-d
+#. in ``Exec/hydro_tests/Sedov``, build the Logi executable in 2-d
 
-#. run the spherical Sedov problem with Furnace in 2-d cylindrical coordinates::
+#. run the spherical Sedov problem with Logi in 2-d cylindrical coordinates::
 
-    ./Furnace2d.Linux.Intel.Intel.ex inputs.2d.sph_in_cylcoords
+    ./Logi2d.Linux.Intel.Intel.ex inputs.2d.sph_in_cylcoords
 
 #. build the ``sedov_2d_ex`` tool in
-   ``Furnace/Diagnostics/Sedov``.
+   ``Logi/Diagnostics/Sedov``.
 
-#. run the analysis script  on the Furnace output to generate 1-d radial
+#. run the analysis script  on the Logi output to generate 1-d radial
    profiles::
 
       ./sedov_2d.ex --sphr --yctr 0.5 -s sedov_2d_sph_in_cyl.out \
@@ -359,7 +359,7 @@ explosions (with the output named ``sedov_1d_sph.out`` and
 ``sedov_sph.gp`` gnuplot script can be used to make a plot comparing
 the 3 solutions to the analytic solution, ``spherical_sedov.dat``.
 
-:numref:`fig:sedov_sph` shows the comparison of the 3 Furnace spherical Sedov explosion simulations to the analytic solution.
+:numref:`fig:sedov_sph` shows the comparison of the 3 Logi spherical Sedov explosion simulations to the analytic solution.
 
 .. _fig:sedov_sph:
 .. figure:: sedov_sph.png
@@ -367,7 +367,7 @@ the 3 solutions to the analytic solution, ``spherical_sedov.dat``.
    :align: center
    :width: 5in
 
-   Furnace solution for the Sedov blast wave problem run in 1-d
+   Logi solution for the Sedov blast wave problem run in 1-d
    spherical, 2-d axisymmetric, and 3-d Cartesian coordinates.  Each
    of these geometries produces a spherical Sedov explosion.
 
@@ -379,7 +379,7 @@ Cylindrical Blast Wave
    :align: center
    :width: 5in
 
-   Furnace solution for the Sedov blast wave problem run in 2-d
+   Logi solution for the Sedov blast wave problem run in 2-d
    Cartesian coordinates. This corresponds to a cylindrical Sedov
    explosion.
 
@@ -422,7 +422,7 @@ Gravity Test Problems
 Radiation Test Problems
 =======================
 
-There are two photon radiation solvers in Furnace—a gray solver and a
+There are two photon radiation solvers in Logi—a gray solver and a
 multigroup solver. The gray solver follows the algorithm outlined
 in :cite:`howellgreenough:2003`. We use the notation described in that
 paper. In particular, the radiation energy equation takes the form
@@ -437,7 +437,7 @@ of:
 Here, :math:`E_R` is the radiation energy density, :math:`\kappa_R` is the
 Roseland-mean opacity, :math:`\kappa_P` is the Planck-mean opaciy, and
 :math:`\lambda` is a quantity :math:`\le 1/3` that is subjected to limiting to
-keep the radiation field causal. Furnace allows for :math:`\kappa_R`
+keep the radiation field causal. Logi allows for :math:`\kappa_R`
 and :math:`\kappa_P` to be set independently as power-laws.
 
 Light Front
@@ -483,7 +483,7 @@ Our implementation of this problem follows that of
    :align: center
    :width: 5in
 
-   Furnace solution for radiating source test problem. Heating and
+   Logi solution for radiating source test problem. Heating and
    cooling solutions are shown as a function of time, compared to the
    analytic solution. The gray photon solver was used.
 
@@ -510,13 +510,13 @@ the analytic solution is provided as analytic.f90.
    :alt: radiating sphere
    :width: 5in
 
-   Furnace solution for radiating sphere problem, showing the radiation
+   Logi solution for radiating sphere problem, showing the radiation
    energy density as a function of energy group.  This test was run
    with 64 photon energy groups.
 
 Regression Testing
 ==================
 
-An automated regression test suite for Furnace (or any AMReX-based
+An automated regression test suite for Logi (or any AMReX-based
 code) written in Python exists in the AMReX-Codes github organization.
 

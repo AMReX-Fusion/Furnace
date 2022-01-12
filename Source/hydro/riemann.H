@@ -1,5 +1,5 @@
-#ifndef FURNACE_RIEMANN_H
-#define FURNACE_RIEMANN_H
+#ifndef LOGI_RIEMANN_H
+#define LOGI_RIEMANN_H
 
 using namespace amrex;
 

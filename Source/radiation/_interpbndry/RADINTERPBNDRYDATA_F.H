@@ -1,5 +1,5 @@
-#ifndef FURNACE_RADINTERPBNDRY_F_H
-#define FURNACE_RADINTERPBNDRY_F_H
+#ifndef LOGI_RADINTERPBNDRY_F_H
+#define LOGI_RADINTERPBNDRY_F_H
 
 /*************************************************************/
 

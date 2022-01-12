@@ -1,10 +1,10 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 #include <math.H>
 #include <Rotation.H>
 
 void
-Furnace::fill_rotational_psi(const Box& bx,
+Logi::fill_rotational_psi(const Box& bx,
                             Array4<Real> const& psi,
                             const Real time) {
 

@@ -1,5 +1,5 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 #include <fundamental_constants.H>
 #include <Gravity.H>
 #include <Rotation.H>
@@ -8,7 +8,7 @@ using namespace amrex;
 
 #ifdef GRAVITY
 #ifdef ROTATION
-void Furnace::scf_relaxation() {
+void Logi::scf_relaxation() {
 
     AMREX_ASSERT(level == 0);
 
@@ -17,7 +17,7 @@ void Furnace::scf_relaxation() {
     // Maximum density must be set.
 
     if (scf_maximum_density <= 0) {
-        amrex::Error("furnace.scf_maximum_density must be set for SCF relaxation.");
+        amrex::Error("logi.scf_maximum_density must be set for SCF relaxation.");
     }
 
     // Equatorial radius and polar radius must both
@@ -58,7 +58,7 @@ void Furnace::scf_relaxation() {
 }
 
 void
-Furnace::do_hscf_solve()
+Logi::do_hscf_solve()
 {
 
     const int finest_level = parent->finestLevel();
@@ -74,8 +74,8 @@ Furnace::do_hscf_solve()
 
     // Note that the sign is somewhat arbitrary here.
 
-    scf_r_A[0] += furnace::scf_equatorial_radius;
-    scf_r_B[2] += furnace::scf_polar_radius;
+    scf_r_A[0] += logi::scf_equatorial_radius;
+    scf_r_B[2] += logi::scf_polar_radius;
 
     // To do the relaxation loop, we need to know the target maximum
     // enthalpy on the domain. So we'll loop through the grid and
@@ -119,7 +119,7 @@ Furnace::do_hscf_solve()
             {
                 eos_t eos_state;
 
-                eos_state.rho = furnace::scf_maximum_density;
+                eos_state.rho = logi::scf_maximum_density;
                 eos_state.T   = state(i,j,k,UTEMP);
                 for (int n = 0; n < NumSpec; ++n) {
                     eos_state.xn[n] = state(i,j,k,UFS+n) / state(i,j,k,URHO);

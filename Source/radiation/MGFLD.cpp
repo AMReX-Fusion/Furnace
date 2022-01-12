@@ -1,5 +1,5 @@
 #include <Radiation.H>
-#include <Furnace_F.H>
+#include <Logi_F.H>
 #include <RAD_F.H>
 #include <rad_util.H>
 #include <blackbody.H>
@@ -449,8 +449,8 @@ void Radiation::gray_accel(MultiFab& Er_new, MultiFab& Er_pi,
 {
   const Geometry& geom = parent->Geom(level);
   auto dx = parent->Geom(level).CellSizeArray();
-  const Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
-  const DistributionMapping& dmap = furnace->DistributionMap();
+  const Logi *logi = dynamic_cast<Logi*>(&parent->getLevel(level));
+  const DistributionMapping& dmap = logi->DistributionMap();
 
   if (nGroups > 1) {
     solver->setHypreMulti(1.0);
@@ -545,12 +545,12 @@ void Radiation::gray_accel(MultiFab& Er_new, MultiFab& Er_pi,
   solver->cellCenteredApplyMetrics(level, acoefs);
   solver->setLevelACoeffs(level, acoefs);
 
-  const DistributionMapping& dm = furnace->DistributionMap();
+  const DistributionMapping& dm = logi->DistributionMap();
 
   // B & C coefficients
   Array<MultiFab, AMREX_SPACEDIM> bcoefs, ccoefs, bcgrp;
   for (int idim = 0; idim < AMREX_SPACEDIM; idim++) {
-    const BoxArray& edge_boxes = furnace->getEdgeBoxArray(idim);
+    const BoxArray& edge_boxes = logi->getEdgeBoxArray(idim);
 
     bcoefs[idim].define(edge_boxes, dm, 1, 0);
     bcoefs[idim].setVal(0.0);

@@ -7,14 +7,14 @@
 
 #include <AMReX_ParmParse.H>
 #include <Gravity.H>
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 #include <AMReX_FillPatchUtil.H>
 #include <AMReX_MLMG.H>
 #include <AMReX_MLPoisson.H>
 
-#include <furnace_limits.H>
+#include <logi_limits.H>
 
 #include <fundamental_constants.H>
 
@@ -880,7 +880,7 @@ Gravity::get_old_grav_vector(int level, MultiFab& grav_vector, Real time)
     }
 #endif
 
-    Furnace* cs = dynamic_cast<Furnace*>(&parent->getLevel(level));
+    Logi* cs = dynamic_cast<Logi*>(&parent->getLevel(level));
     if (cs->using_point_mass()) {
         Real point_mass = cs->get_point_mass();
         MultiFab& phi = LevelData[level]->get_old_data(PhiGrav_Type);
@@ -953,7 +953,7 @@ Gravity::get_new_grav_vector(int level, MultiFab& grav_vector, Real time)
     }
 #endif
 
-    Furnace* cs = dynamic_cast<Furnace*>(&parent->getLevel(level));
+    Logi* cs = dynamic_cast<Logi*>(&parent->getLevel(level));
     if (cs->using_point_mass()) {
         Real point_mass = cs->get_point_mass();
         MultiFab& phi = LevelData[level]->get_new_data(PhiGrav_Type);
@@ -1791,7 +1791,7 @@ Gravity::fill_multipole_BCs(int crse_level, int fine_level, const Vector<MultiFa
         MultiFab::Copy(source, *Rhs[lev - crse_level], 0, 0, 1, 0);
 
         if (lev < fine_level) {
-            const MultiFab& mask = dynamic_cast<Furnace*>(&(parent->getLevel(lev+1)))->build_fine_mask();
+            const MultiFab& mask = dynamic_cast<Logi*>(&(parent->getLevel(lev+1)))->build_fine_mask();
             MultiFab::Multiply(source, mask, 0, 0, 1, 0);
         }
 
@@ -2321,7 +2321,7 @@ Gravity::fill_direct_sum_BCs(int crse_level, int fine_level, const Vector<MultiF
         MultiFab::Copy(source, *Rhs[lev - crse_level], 0, 0, 1, 0);
 
         if (lev < fine_level) {
-            const MultiFab& mask = dynamic_cast<Furnace*>(&(parent->getLevel(lev+1)))->build_fine_mask();
+            const MultiFab& mask = dynamic_cast<Logi*>(&(parent->getLevel(lev+1)))->build_fine_mask();
             MultiFab::Multiply(source, mask, 0, 0, 1, 0);
         }
 
@@ -2853,13 +2853,13 @@ Gravity::set_mass_offset (Real time, bool multi_level)
         if (multi_level)
         {
             for (int lev = 0; lev <= parent->finestLevel(); lev++) {
-                Furnace* cs = dynamic_cast<Furnace*>(&parent->getLevel(lev));
+                Logi* cs = dynamic_cast<Logi*>(&parent->getLevel(lev));
                 mass_offset += cs->volWgtSum("density", time);
             }
         }
         else
         {
-            Furnace* cs = dynamic_cast<Furnace*>(&parent->getLevel(0));
+            Logi* cs = dynamic_cast<Logi*>(&parent->getLevel(0));
             mass_offset = cs->volWgtSum("density", time, false, false);  // do not mask off fine grids
         }
 
@@ -2917,9 +2917,9 @@ Gravity::add_pointmass_to_gravity (int level, MultiFab& phi, MultiFab& grav_vect
 #endif
 
 
-            if(furnace::point_mass_offset_is_true == 1)
+            if(logi::point_mass_offset_is_true == 1)
             {
-                Real star_radius = furnace::point_mass_location_offset;
+                Real star_radius = logi::point_mass_location_offset;
 
                 if(AMREX_SPACEDIM == 1)
                 {
@@ -2937,7 +2937,7 @@ Gravity::add_pointmass_to_gravity (int level, MultiFab& phi, MultiFab& grav_vect
             }
 
             Real rsq = x * x + y * y + z * z;
-            Real radial_force = -C::Gconst * furnace::point_mass / rsq;
+            Real radial_force = -C::Gconst * logi::point_mass / rsq;
 
             Real rinv = 1.e0_rt / std::sqrt(rsq);
 
@@ -2946,7 +2946,7 @@ Gravity::add_pointmass_to_gravity (int level, MultiFab& phi, MultiFab& grav_vect
             // valid indexing here.
 
             if (phi_arr.contains(i,j,k)) {
-                phi_arr(i,j,k) -= C::Gconst * furnace::point_mass * rinv;
+                phi_arr(i,j,k) -= C::Gconst * logi::point_mass * rinv;
             }
 
             grav_arr(i,j,k,0) += radial_force * (x * rinv);
@@ -3016,7 +3016,7 @@ Gravity::make_radial_gravity(int level, Real time, RealVector& radial_grav)
 
         if (lev < level)
         {
-            Furnace* fine_level = dynamic_cast<Furnace*>(&(parent->getLevel(lev+1)));
+            Logi* fine_level = dynamic_cast<Logi*>(&(parent->getLevel(lev+1)));
             const MultiFab& mask = fine_level->build_fine_mask();
             for (int n = 0; n < NUM_STATE; ++n)
                 MultiFab::Multiply(S, mask, 0, n, 1, 0);
@@ -3416,7 +3416,7 @@ Gravity::update_max_rhs()
 
     // Calculate the maximum value of the RHS over all levels.
     // This should only be called at a synchronization point where
-    // all Furnace levels have valid new time data at the same simulation time.
+    // all Logi levels have valid new time data at the same simulation time.
     // The RHS we will use is the density multiplied by 4*pi*G and also
     // multiplied by the metric terms, just as it would be in a real solve.
 

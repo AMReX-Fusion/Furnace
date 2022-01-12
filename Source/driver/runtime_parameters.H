@@ -2,7 +2,7 @@
 #define RUNTIME_PARAMETERS_H
 
 #include <AMReX_ParmParse.H>
-#include <furnace_limits.H>
+#include <logi_limits.H>
 
 #ifdef DIFFUSION
 #include <diffusion_params.H>
@@ -25,8 +25,8 @@ initialize_cpp_runparams()
 {
 
     {
-        ParmParse pp("furnace");
-#include <furnace_queries.H>
+        ParmParse pp("logi");
+#include <logi_queries.H>
     }
 
 #ifdef AMREX_PARTICLES
@@ -70,7 +70,7 @@ void
 validate_runparams()
 {
 
-    amrex::Vector<std::string> check_namespaces = {"furnace", "problem"};
+    amrex::Vector<std::string> check_namespaces = {"logi", "problem"};
 #ifdef AMREX_PARTICLES
     check_namespaces.push_back("particles");
 #endif
@@ -101,7 +101,7 @@ validate_runparams()
 
     for (auto nm: check_namespaces)
     {
-        // "furnace"
+        // "logi"
         if (ParmParse::hasUnusedInputs(nm)) {
             amrex::Print() << "Warning: the following " + nm + ".* parameters are ignored\n";
             auto unused = ParmParse::getUnusedInputs(nm); 

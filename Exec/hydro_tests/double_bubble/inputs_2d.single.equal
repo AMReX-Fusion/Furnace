@@ -14,11 +14,11 @@ geometry.prob_lo     = 0   0
 geometry.prob_hi     = 1.5 1.5
 amr.n_cell           = 256 256
 
-furnace.ppm_type = 1
+logi.ppm_type = 1
 
-furnace.riemann_solver = 1
+logi.riemann_solver = 1
 
-furnace.use_flattening = 1
+logi.use_flattening = 1
 
 
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
@@ -26,30 +26,30 @@ furnace.use_flattening = 1
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  0   1
-furnace.hi_bc       =  0   1
+logi.lo_bc       =  0   1
+logi.hi_bc       =  0   1
 
-furnace.yl_ext_bc_type = 1
-furnace.yr_ext_bc_type = 1
-furnace.hse_interp_temp = 1
+logi.yl_ext_bc_type = 1
+logi.yr_ext_bc_type = 1
+logi.hse_interp_temp = 1
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 0
-furnace.do_grav  = 1
+logi.do_hydro = 1
+logi.do_react = 0
+logi.do_grav  = 1
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.e9
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.8     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
-furnace.change_max     = 1.1     # max time step growth
+logi.cfl            = 0.8     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
+logi.change_max     = 1.1     # max time step growth
 
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 1       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING 
@@ -72,7 +72,7 @@ amr.check_file      = chk        # root name of checkpoint file
 amr.check_int       = -1         # number of timesteps between checkpoints
 
 # PLOTFILES
-amr.plot_file       = furnace_single_equal_plt        # root name of plotfile
+amr.plot_file       = logi_single_equal_plt        # root name of plotfile
 amr.derive_plot_vars = ALL
 
 # PROBLEM PARAMETERS

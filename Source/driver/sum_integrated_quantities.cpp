@@ -1,7 +1,7 @@
 #include <iomanip>
 
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 #ifdef GRAVITY
 #include <Gravity.H>
@@ -12,7 +12,7 @@
 using namespace amrex;
 
 void
-Furnace::sum_integrated_quantities ()
+Logi::sum_integrated_quantities ()
 {
 
     if (verbose <= 0) return;
@@ -50,7 +50,7 @@ Furnace::sum_integrated_quantities ()
 
     for (int lev = 0; lev <= finest_level; lev++)
     {
-        Furnace& ca_lev = getLevel(lev);
+        Logi& ca_lev = getLevel(lev);
 
         mass   += ca_lev.volWgtSum("density", time, local_flag);
         mom[0] += ca_lev.volWgtSum("xmom", time, local_flag);
@@ -172,7 +172,7 @@ Furnace::sum_integrated_quantities ()
             std::cout << "TIME= " << time << " TOTAL ENERGY= "   << total_energy << '\n';
 #endif
 
-            std::ostream& data_log1 = *Furnace::data_logs[0];
+            std::ostream& data_log1 = *Logi::data_logs[0];
 
             if (data_log1.good()) {
 
@@ -296,7 +296,7 @@ Furnace::sum_integrated_quantities ()
 
         for (int lev = 0; lev <= finest_level; lev++)
         {
-            Furnace& ca_lev = getLevel(lev);
+            Logi& ca_lev = getLevel(lev);
 
 #if (AMREX_SPACEDIM > 1)
             // Gravitational wave signal. This is designed to add to these quantities so we can send them directly.
@@ -327,7 +327,7 @@ Furnace::sum_integrated_quantities ()
 
         if (ParallelDescriptor::IOProcessor()) {
 
-            std::ostream& log = *Furnace::data_logs[1];
+            std::ostream& log = *Logi::data_logs[1];
 
             // Write header row
 
@@ -428,7 +428,7 @@ Furnace::sum_integrated_quantities ()
 
         if (ParallelDescriptor::IOProcessor()) {
 
-            std::ostream& log = *Furnace::data_logs[2];
+            std::ostream& log = *Logi::data_logs[2];
 
             if (time == 0.0) {
 
@@ -512,7 +512,7 @@ Furnace::sum_integrated_quantities ()
 
         if (ParallelDescriptor::IOProcessor()) {
 
-            std::ostream& log = *Furnace::data_logs[3];
+            std::ostream& log = *Logi::data_logs[3];
 
             if (time == 0.0) {
 

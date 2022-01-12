@@ -11,7 +11,7 @@ Compiling
    This usually indicates that the build system cannot find a source file.
    The source files are specified
    in the various ``Make.package`` files throughout the
-   Furnace directory hierarchy. make will look through the
+   Logi directory hierarchy. make will look through the
    directories in the ``VPATH_LOCATIONS`` to find the files.
 
    There are 2 things you can do to check what’s happening. First, inspect
@@ -23,7 +23,7 @@ Compiling
 
    Next, ask make to tell you where it is finding each of the source
    files. This is done through a script ``find_files_vpath.py``
-   that is hooked into Furnace’s build system. You can run this as:
+   that is hooked into Logi’s build system. You can run this as:
 
    ::
 
@@ -61,7 +61,7 @@ Compiling
 Debugging
 =========
 
-#. *Furnace crashes with a floating point exception—how can
+#. *Logi crashes with a floating point exception—how can
    I get more information?*
 
    The best thing to do is to recompile the code with ``TEST=TRUE``
@@ -200,25 +200,25 @@ Managing Runs
    by this and will always be written out in the native precision (the ‘fab.format‘ parameter
    is overridden in the checkpoint code in AMReX).
 
-#. *How can I check the compilation parameters of a Furnace executable?*
+#. *How can I check the compilation parameters of a Logi executable?*
 
    The build information (including git hashes, modules, EoS, network, etc.) can be displayed by running the executable as 
 
    ::
 
-       ./Furnace.exe --describe
+       ./Logi.exe --describe
 
 .. _ch:faq:vis:
 
 Runtime Errors
 ==============
 
-#. *When running with retries, Furnace requests too many substeps
+#. *When running with retries, Logi requests too many substeps
    and crashes.*
 
    This can occur due to CFL violations or negative densities.  If
    there are density resets, try running with
-   ``furnace.limit_fluxes_on_small_dens = 1``.  This will use a flux
+   ``logi.limit_fluxes_on_small_dens = 1``.  This will use a flux
    limiter to prevent the density from going negative.
 
 Visualization

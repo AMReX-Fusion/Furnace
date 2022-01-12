@@ -4,19 +4,19 @@
 set -x
 
 DIM=2
-EXEC=./Furnace${DIM}d.gnu.MPI.TRUESDC.ex
+EXEC=./Logi${DIM}d.gnu.MPI.TRUESDC.ex
 
 RUNPARAMS="
-furnace.sdc_order=4
-furnace.time_integration_method=2
-furnace.limit_fourth_order=1
-furnace.use_reconstructed_gamma1=1
-furnace.sdc_solve_for_rhoe=1
-furnace.sdc_solver_tol_dens=1.e-10
-furnace.sdc_solver_tol_spec=1.e-10
-furnace.sdc_solver_tol_ener=1.e-10
-furnace.sdc_solver=1
-furnace.use_retry=0"
+logi.sdc_order=4
+logi.time_integration_method=2
+logi.limit_fourth_order=1
+logi.use_reconstructed_gamma1=1
+logi.sdc_solve_for_rhoe=1
+logi.sdc_solver_tol_dens=1.e-10
+logi.sdc_solver_tol_spec=1.e-10
+logi.sdc_solver_tol_ener=1.e-10
+logi.sdc_solver=1
+logi.use_retry=0"
 
 mpiexec -n 8 ${EXEC}  inputs.64 ${RUNPARAMS}  &> 64.out
 mpiexec -n 16 ${EXEC} inputs.128 ${RUNPARAMS} &> 128.out

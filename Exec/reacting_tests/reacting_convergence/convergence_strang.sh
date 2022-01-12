@@ -4,9 +4,9 @@
 set -x
 
 DIM=2
-EXEC=./Furnace${DIM}d.gnu.MPI.ex
+EXEC=./Logi${DIM}d.gnu.MPI.ex
 
-RUNPARAMS="furnace.time_integration_method=0"
+RUNPARAMS="logi.time_integration_method=0"
 
 mpiexec -n 8 ${EXEC} inputs.64 ${RUNPARAMS} &> 64.out
 mpiexec -n 16 ${EXEC} inputs.128 ${RUNPARAMS} &> 128.out

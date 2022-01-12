@@ -1,5 +1,5 @@
-#include <Furnace.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_util.H>
 
 #ifdef RADIATION
 #include <Radiation.H>
@@ -12,7 +12,7 @@ using namespace amrex;
 // interface states in direction idir_n
 
 void
-Furnace::trans_single(const Box& bx,
+Logi::trans_single(const Box& bx,
                      int idir_t, int idir_n,
                      Array4<Real const> const& qm,
                      Array4<Real> const& qmo,
@@ -64,7 +64,7 @@ Furnace::trans_single(const Box& bx,
 
 
 void
-Furnace::actual_trans_single(const Box& bx,
+Logi::actual_trans_single(const Box& bx,
                             int idir_t, int idir_n, int d,
                             Array4<Real const> const& q_arr,
                             Array4<Real> const& qo_arr,
@@ -439,7 +439,7 @@ Furnace::actual_trans_single(const Box& bx,
 
 
 void
-Furnace::trans_final(const Box& bx,
+Logi::trans_final(const Box& bx,
                     int idir_n, int idir_t1, int idir_t2,
                     Array4<Real const> const& qm,
                     Array4<Real> const& qmo,
@@ -496,7 +496,7 @@ Furnace::trans_final(const Box& bx,
 
 
 void
-Furnace::actual_trans_final(const Box& bx,
+Logi::actual_trans_final(const Box& bx,
                            int idir_n, int idir_t1, int idir_t2, int d,
                            Array4<Real const> const& q_arr,
                            Array4<Real> const& qo_arr,

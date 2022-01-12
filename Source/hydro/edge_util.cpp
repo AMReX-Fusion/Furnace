@@ -1,10 +1,10 @@
-#include <Furnace.H>
-#include <Furnace_hydro.H>
+#include <Logi.H>
+#include <Logi_hydro.H>
 
 using namespace amrex;
 
 void
-Furnace::reset_edge_state_thermo(const Box& bx,
+Logi::reset_edge_state_thermo(const Box& bx,
                                 Array4<Real> const& qedge)
 {
 
@@ -78,7 +78,7 @@ Furnace::reset_edge_state_thermo(const Box& bx,
 
 
 void
-Furnace::edge_state_temp_to_pres(const Box& bx,
+Logi::edge_state_temp_to_pres(const Box& bx,
                                 Array4<Real> const& qm,
                                 Array4<Real> const& qp)
 {

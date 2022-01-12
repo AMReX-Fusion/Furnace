@@ -15,32 +15,32 @@ amr.n_cell           = 256
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  3 
-furnace.hi_bc       =  2 
+logi.lo_bc       =  3 
+logi.hi_bc       =  2 
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 1
+logi.do_hydro = 1
+logi.do_react = 1
 
-furnace.small_temp = 1.e6
-furnace.small_dens = 1.e-5
+logi.small_temp = 1.e6
+logi.small_dens = 1.e-5
 
-furnace.ppm_type = 1
+logi.ppm_type = 1
 
-furnace.diffuse_temp = 1
-furnace.diffuse_cutoff_density = 1.e-2
+logi.diffuse_temp = 1
+logi.diffuse_cutoff_density = 1.e-2
 
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.6     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
-furnace.change_max     = 1.1     # max time step growth
+logi.cfl            = 0.6     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
+logi.change_max     = 1.1     # max time step growth
 
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
+logi.sum_interval   = 1       # timesteps between computing mass
 amr.data_log          = "toy_flame.log"
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING 

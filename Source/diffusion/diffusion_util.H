@@ -1,5 +1,5 @@
-#ifndef FURNACE_DIFFUSION_UTIL_H
-#define FURNACE_DIFFUSION_UTIL_H
+#ifndef LOGI_DIFFUSION_UTIL_H
+#define LOGI_DIFFUSION_UTIL_H
 
 void
 fill_temp_cond(const amrex::Box& bx,

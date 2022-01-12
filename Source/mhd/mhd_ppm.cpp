@@ -1,5 +1,5 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 #include <ppm.H>
 
@@ -8,7 +8,7 @@ using namespace amrex;
 #include <mhd_eigen.H>
 
 void
-Furnace::ppm_mhd(const Box& bx,
+Logi::ppm_mhd(const Box& bx,
                 const int idir,
                 Array4<Real const> const& q_arr,
                 Array4<Real const> const& qaux,

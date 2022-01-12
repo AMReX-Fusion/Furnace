@@ -1,9 +1,9 @@
-#ifndef FURNACE_RAD_UTIL_H
-#define FURNACE_RAD_UTIL_H
+#ifndef LOGI_RAD_UTIL_H
+#define LOGI_RAD_UTIL_H
 
 #include <cmath>
 
-#include <Furnace_util.H>
+#include <Logi_util.H>
 
 #include <fluxlimiter.H>
 

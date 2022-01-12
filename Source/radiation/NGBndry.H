@@ -1,5 +1,5 @@
-#ifndef FURNACE_NGBNDRY_H
-#define FURNACE_NGBNDRY_H
+#ifndef LOGI_NGBNDRY_H
+#define LOGI_NGBNDRY_H
 
 #include <RadInterpBndryData.H>
 #include <AMReX_BC_TYPES.H>

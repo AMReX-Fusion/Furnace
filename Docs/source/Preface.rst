@@ -2,32 +2,32 @@
 Preface
 *******
 
-Welcome to the Furnace User’s Guide!
+Welcome to the Logi User’s Guide!
 
-In this User’s Guide we describe how to download and run Furnace, a
+In this User’s Guide we describe how to download and run Logi, a
 massively parallel code that solves the multicomponent compressible
 hydrodynamic equations for astrophysical flows including self-gravity,
-nuclear reactions and radiation. Furnace uses an Eulerian grid and
+nuclear reactions and radiation. Logi uses an Eulerian grid and
 incorporates adaptive mesh refinement (AMR). Our approach to AMR uses
 a nested hierarchy of logically-rectangular grids with simultaneous
 refinement in both space and time, utilizing the
 AMReX library :cite:`amrex-joss`.
 
-The core algorithms in Furnace are described in a series of papers:
+The core algorithms in Logi are described in a series of papers:
 
-  * *FURNACE: A New Compressible Astrophysical Solver. I. Hydrodynamics
+  * *LOGI: A New Compressible Astrophysical Solver. I. Hydrodynamics
     and Self-gravity*, A. S. Almgren, V. E. Beckner, J. B. Bell,
     M. S. Day, L. H. Howell, C. C. Joggerst, M. J. Lijewski,
     A. Nonaka, M. Singer, & M. Zingale, 2010, ApJ, 715, 1221
     http://dx.doi.org/10.1088/0004-637X/715/2/1221
 
-  * *FURNACE: A New Compressible Astrophysical Solver. II. Gray
+  * *LOGI: A New Compressible Astrophysical Solver. II. Gray
     Radiation
     Hydrodynamics*, W. Zhang, L. Howell, A. Almgren, A. Burrows,
     & J. Bell, 2011, ApJS, 196, 20
     http://dx.doi.org/10.1088/0067-0049/196/2/20
 
-  * *FURNACE: A New Compressible Astrophysical Solver. III. Multigroup
+  * *LOGI: A New Compressible Astrophysical Solver. III. Multigroup
     Radiation
     Hydrodynamics*, W. Zhang, L. Howell, A. Almgren, A. Burrows, J. Dolence,
     & J. Bell, 2013, ApJS, 204, 7
@@ -49,7 +49,7 @@ was described in:
     2019, ApJ, 886, 105.
     https://ui.adsabs.harvard.edu/link_gateway/2019ApJ...886..105Z/doi:10.3847/1538-4357/ab4e1d
 
-The Furnace GPU strategy and performance was described in:
+The Logi GPU strategy and performance was described in:
 
   * *Preparing Nuclear Astrophysics for Exascale*
     M. P. Katz, A. Almgren, M. Barrios Sazo, K. Eiden, K. Gott, A. Harpole, J. M. Sexton, D. E. Willcox, W. Zhang, & M. Zingale
@@ -59,49 +59,49 @@ The Furnace GPU strategy and performance was described in:
 
 The development of AMReX library is led by the
 Center for Computational Sciences and Engineering / Lawrence Berkeley
-National Laboratory. Furnace development is done collaboratively,
+National Laboratory. Logi development is done collaboratively,
 including the CCSE and Stony Brook University.
 
-Furnace *core developers* are those who have made substantial
+Logi *core developers* are those who have made substantial
 contributions to the code. The process for becoming a core developer
-is described in the `README.md <https://github.com/AMReX-Astro/Furnace/blob/main/README.md>`_ in the Furnace root directory.
+is described in the `README.md <https://github.com/AMReX-Astro/Logi/blob/main/README.md>`_ in the Logi root directory.
 
-Current Furnace core developers are listed at https://amrex-astro.github.io/Furnace/who.html
+Current Logi core developers are listed at https://amrex-astro.github.io/Logi/who.html
 
-All Furnace development takes place on the project’s github
-page, https://github.com/AMReX-Astro/Furnace
+All Logi development takes place on the project’s github
+page, https://github.com/AMReX-Astro/Logi
 
-External contributions are welcomed. Fork the Furnace repo, modify your
-local copy, and issue a pull-request to the AMReX-Astro/Furnace
+External contributions are welcomed. Fork the Logi repo, modify your
+local copy, and issue a pull-request to the AMReX-Astro/Logi
 project. Further guidelines are given in the `README.md
-<https://github.com/AMReX-Astro/Furnace/blob/main/README.md>`_ file.
+<https://github.com/AMReX-Astro/Logi/blob/main/README.md>`_ file.
 
 Getting Help
 ============
 
 We use github discussions to ask questions about the code and get help:
 
-https://github.com/AMReX-Astro/Furnace/discussions
+https://github.com/AMReX-Astro/Logi/discussions
 
 You can also post issues on the github page to report bugs.
 
 
-Acknowledging and Citing Furnace
+Acknowledging and Citing Logi
 ===============================
 
-If you use Furnace in your research, we would appreciate it if you
+If you use Logi in your research, we would appreciate it if you
 cited the relevant code papers describing its design, features, and
 testing. A list of these can be found in the `CITATION
-<https://github.com/AMReX-Astro/Furnace/blob/main/CITATION>`_ file in
-the root ``Furnace/`` directory.
+<https://github.com/AMReX-Astro/Logi/blob/main/CITATION>`_ file in
+the root ``Logi/`` directory.
 
-The development Furnace is supported by the science application
+The development Logi is supported by the science application
 interests of the contributors. There is a lot of effort behind the
 scenes: testing, optimization, development of new features, bug
 fixing, ..., that is often done under the radar. Nevertheless,
 we are happy to volunteer our time to help new users come up to speed
-with Furnace. When significant new development / debugging for you
-application is provided by a member of the Furnace development
+with Logi. When significant new development / debugging for you
+application is provided by a member of the Logi development
 community, we would appreciate consideration of inviting the
 developer(s) for co-authorship on any science paper that results.
 

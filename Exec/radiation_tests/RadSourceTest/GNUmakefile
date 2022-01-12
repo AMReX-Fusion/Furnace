@@ -10,7 +10,7 @@ PROFILE    = FALSE
 USE_RAD = TRUE
 
 
-FURNACE_HOME = ../../..
+LOGI_HOME = ../../..
 
 # has the f90 routine ca_initgroups and group structure in probdata_module
 #HAS_INITGROUPS = TRUE
@@ -28,4 +28,4 @@ RAD_INTERP = TRUE
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

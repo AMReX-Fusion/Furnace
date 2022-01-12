@@ -1,12 +1,12 @@
-# Citing Furnace
+# Citing Logi
 
-There are a number of Furnace papers that describe parts of the
+There are a number of Logi papers that describe parts of the
 algorithm.  We ask that you cite all of the appropriate papers
 describing the capabilities you used.
 
 ## General code use
 
-If you use Furnace, we appreciate you citing the most recent code paper:
+If you use Logi, we appreciate you citing the most recent code paper:
 
 ```
 @article{Almgren2020,
@@ -18,7 +18,7 @@ If you use Furnace, we appreciate you citing the most recent code paper:
   number = {54},
   pages = {2513},
   author = {Ann Almgren and Maria Barrios Sazo and John Bell and Alice Harpole and Max Katz and Jean Sexton and Donald Willcox and Weiqun Zhang and Michael Zingale},
-  title = {FURNACE: A Massively Parallel Compressible Astrophysics Simulation Code},
+  title = {LOGI: A Massively Parallel Compressible Astrophysics Simulation Code},
   journal = {Journal of Open Source Software}
 }
 ```
@@ -32,7 +32,7 @@ provides some details on the algorithmic implementations):
 		      J.~B. and {Day}, M.~S. and {Howell}, L.~H. and
 		      {Joggerst}, C.~C. and {Lijewski}, M.~J. and
 		      {Nonaka}, A. and {Singer}, M. and {Zingale}, M.},
-	title = "{FURNACE: A New Compressible Astrophysical
+	title = "{LOGI: A New Compressible Astrophysical
 		      Solver. I. Hydrodynamics and Self-gravity}",
       journal = {\apj},
     archivePrefix = "arXiv",
@@ -65,7 +65,7 @@ cite the following:
     @ARTICLE{2011ApJS..196...20Z,
        author = {{Zhang}, W. and {Howell}, L. and {Almgren}, A. and
 		      {Burrows}, A. and {Bell}, J.},
-	title = "{FURNACE: A New Compressible Astrophysical
+	title = "{LOGI: A New Compressible Astrophysical
 		      Solver. II. Gray Radiation Hydrodynamics}",
       journal = {\apjs},
     archivePrefix = "arXiv",
@@ -88,7 +88,7 @@ cite the following:
     @ARTICLE{2013ApJS..204....7Z,
        author = {{Zhang}, W. and {Howell}, L. and {Almgren}, A. and
 		      {Burrows}, A. and {Dolence}, J. and {Bell}, J.},
-	title = "{FURNACE: A New Compressible Astrophysical
+	title = "{LOGI: A New Compressible Astrophysical
 		      Solver. III. Multigroup Radiation Hydrodynamics}",
       journal = {\apjs},
     archivePrefix = "arXiv",
@@ -147,7 +147,7 @@ For CPU performance numbers, please cite:
              {Beckner}, V.~E. and {Bell}, J.~B. and {Friesen}, B. and
              {Jacobs}, A.~M. and {Katz}, M.~P. and {Malone}, C.~M. and
              {Nonaka}, A.~J. and {Willcox}, D.~E. and {Zhang}, W.},
-            title = "{Meeting the Challenges of Modeling Astrophysical Thermonuclear Explosions: Furnace, Maestro, and the AMReX Astrophysics Suite}",
+            title = "{Meeting the Challenges of Modeling Astrophysical Thermonuclear Explosions: Logi, Maestro, and the AMReX Astrophysics Suite}",
          keywords = {Astrophysics - Instrumentation and Methods for Astrophysics},
         booktitle = {Journal of Physics Conference Series},
              year = 2018,

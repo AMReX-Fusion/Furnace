@@ -10,16 +10,16 @@ COMP	   = gnu
 USE_MPI    = FALSE
 USE_OMP    = FALSE
 
-USE_ALL_FURNACE = FALSE
+USE_ALL_LOGI = FALSE
 USE_AMR_CORE = FALSE
 
-# define the location of the FURNACE top directory
-FURNACE_HOME  := ../..
+# define the location of the LOGI top directory
+LOGI_HOME  := ../..
 
-# This sets the EOS directory in Furnace/EOS
+# This sets the EOS directory in Logi/EOS
 EOS_DIR     := helmholtz
 
-# This sets the network directory in Furnace/Networks
+# This sets the network directory in Logi/Networks
 NETWORK_DIR := general_null
 NETWORK_INPUTS = ignition.net
 
@@ -28,4 +28,4 @@ EXTERN_SEARCH += .
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

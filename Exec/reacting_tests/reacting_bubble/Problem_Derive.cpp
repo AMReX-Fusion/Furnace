@@ -2,8 +2,8 @@
 
 #include <Derive.H>
 #include <Problem_Derive_F.H>
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 #include <model_parser.H>
 
 using namespace amrex;

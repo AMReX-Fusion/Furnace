@@ -14,42 +14,42 @@ amr.n_cell           = 128     128
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  0   3
-furnace.hi_bc       =  0   3
+logi.lo_bc       =  0   3
+logi.hi_bc       =  0   3
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 1
-furnace.do_grav = 1
-furnace.do_sponge = 0
+logi.do_hydro = 1
+logi.do_react = 1
+logi.do_grav = 1
+logi.do_sponge = 0
 
-furnace.small_temp = 1.e6
+logi.small_temp = 1.e6
 
-furnace.sdc_order=4
-furnace.time_integration_method=2
-furnace.limit_fourth_order=1
-furnace.use_reconstructed_gamma1=1
-furnace.sdc_solve_for_rhoe=1
-furnace.sdc_solver_tol_spec=1.e-10
-furnace.sdc_solver_tol_dens=1.e-10
-furnace.sdc_solver_tol_ener=1.e-5
-furnace.sdc_solver_atol=1.e-10
-furnace.sdc_solver=1
+logi.sdc_order=4
+logi.time_integration_method=2
+logi.limit_fourth_order=1
+logi.use_reconstructed_gamma1=1
+logi.sdc_solve_for_rhoe=1
+logi.sdc_solver_tol_spec=1.e-10
+logi.sdc_solver_tol_dens=1.e-10
+logi.sdc_solver_tol_ener=1.e-5
+logi.sdc_solver_atol=1.e-10
+logi.sdc_solver=1
 
-furnace.grav_source_type = 2
+logi.grav_source_type = 2
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.e10
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.9     # cfl number for hyperbolic system
-furnace.init_shrink    = 1.0     # scale back initial timestep
+logi.cfl            = 0.9     # cfl number for hyperbolic system
+logi.init_shrink    = 1.0     # scale back initial timestep
 
-furnace.fixed_dt = 0.75e-4
+logi.fixed_dt = 0.75e-4
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 0       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 0       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING

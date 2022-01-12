@@ -1,14 +1,14 @@
 /* Implementations of functions in Problem.H go here */
 
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 using namespace amrex;
 
-Real Furnace::initial_moment_of_inertia = 0.0;
+Real Logi::initial_moment_of_inertia = 0.0;
 
 Real
-Furnace::compute_moment_of_inertia()
+Logi::compute_moment_of_inertia()
 {
 
     // Compute the moment of inertia for the mass
@@ -27,8 +27,8 @@ Furnace::compute_moment_of_inertia()
 
     for (int lev = 0; lev <= finest_level; ++lev) {
 
-        // Get the Furnace level
-        Furnace& ca_lev = getLevel(lev);
+        // Get the Logi level
+        Logi& ca_lev = getLevel(lev);
 
         // Add up the moment of inertia on this level
         int idir = -1; // So we do r**2, rather than any particular direction
@@ -44,7 +44,7 @@ Furnace::compute_moment_of_inertia()
 }
 
 void
-Furnace::problem_post_init() {
+Logi::problem_post_init() {
 
     if (level != 0) return;
 
@@ -55,7 +55,7 @@ Furnace::problem_post_init() {
 }
 
 void
-Furnace::problem_post_restart() {
+Logi::problem_post_restart() {
 
     if (level != 0) return;
 
@@ -66,7 +66,7 @@ Furnace::problem_post_restart() {
 }
 
 void
-Furnace::problem_post_timestep() {
+Logi::problem_post_timestep() {
 
     if (level != 0) return;
 

@@ -6,14 +6,14 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#include <Furnace.H>
+#include <Logi.H>
 #include <Radiation.H>
-#include <Furnace_F.H>
+#include <Logi_F.H>
 
 using namespace amrex;
 
 void
-Furnace::do_energy_diagnostics()
+Logi::do_energy_diagnostics()
 {
   int finest_level = parent->finestLevel();
 

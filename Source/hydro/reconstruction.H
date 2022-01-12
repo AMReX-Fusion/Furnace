@@ -1,5 +1,5 @@
-#ifndef FURNACE_RECONSTRUCTION_H
-#define FURNACE_RECONSTRUCTION_H
+#ifndef LOGI_RECONSTRUCTION_H
+#define LOGI_RECONSTRUCTION_H
 
 constexpr int im2 = 0;
 constexpr int im1 = 1;

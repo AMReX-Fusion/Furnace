@@ -1,12 +1,12 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 #include <mhd_util.H>
 
 using namespace amrex;
 
 void
-Furnace::electric_edge_x(const Box& bx,
+Logi::electric_edge_x(const Box& bx,
                         Array4<Real const> const& q_arr,
                         Array4<Real> const& E,
                         Array4<Real const> const& flxy,
@@ -165,7 +165,7 @@ Furnace::electric_edge_x(const Box& bx,
 }
 
 void
-Furnace::electric_edge_y(const Box& bx,
+Logi::electric_edge_y(const Box& bx,
                         Array4<Real const> const& q_arr,
                         Array4<Real> const& E,
                         Array4<Real const> const& flxx,
@@ -320,7 +320,7 @@ Furnace::electric_edge_y(const Box& bx,
 
 
 void
-Furnace::electric_edge_z(const Box& bx,
+Logi::electric_edge_z(const Box& bx,
                         Array4<Real const> const& q_arr,
                         Array4<Real> const& E,
                         Array4<Real const> const& flxx,

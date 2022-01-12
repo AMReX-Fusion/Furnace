@@ -1,4 +1,4 @@
-FURNACE_HOME := ../../..
+LOGI_HOME := ../../..
 
 PRECISION  = DOUBLE
 PROFILE    = FALSE
@@ -33,4 +33,4 @@ MAX_NPTS_MODEL = 32768
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

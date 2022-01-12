@@ -4,7 +4,7 @@
 # the plotfile data from the RadSphere problem (using the fradsphere
 # tool) and compare to the analytic solution, and output a plot.
 #
-# run as: ./radsphere.py furnaceradiation_dir plotfle
+# run as: ./radsphere.py logiradiation_dir plotfle
 
 import sys
 import os
@@ -15,12 +15,12 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
-def process(furnace_dir, plotfile):
+def process(logi_dir, plotfile):
 
     run_dir = os.getcwd()
 
     # 1. make sure that the analysis tool is built
-    build_dir = furnace_dir + "/Diagnostics/Radiation/"
+    build_dir = logi_dir + "/Diagnostics/Radiation/"
     os.chdir(build_dir)
     os.system("make DIM=1 rad_sphere.ex >& /dev/null")
 
@@ -107,9 +107,9 @@ def process(furnace_dir, plotfile):
 if __name__ == "__main__":
 
     if len(sys.argv) < 3:
-        sys.exit("usage: ./sedov_3d_sph.py furnace_dir plotfile")
+        sys.exit("usage: ./sedov_3d_sph.py logi_dir plotfile")
 
-    furnace_dir = str(sys.argv[1])
+    logi_dir = str(sys.argv[1])
     plotfile = str(sys.argv[2])
 
-    process(furnace_dir, plotfile)
+    process(logi_dir, plotfile)

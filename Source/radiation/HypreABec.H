@@ -1,5 +1,5 @@
-#ifndef FURNACE_HYPREABEC_H
-#define FURNACE_HYPREABEC_H
+#ifndef LOGI_HYPREABEC_H
+#define LOGI_HYPREABEC_H
 
 #include <AMReX_Array.H>
 #include <AMReX_MultiFab.H>

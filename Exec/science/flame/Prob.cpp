@@ -1,14 +1,14 @@
 /* Implementations of functions in Problem.H go here */
 
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 using namespace amrex;
 
 void
-Furnace::flame_width_properties (Real time, Real& T_max, Real& T_min, Real& grad_T_max)
+Logi::flame_width_properties (Real time, Real& T_max, Real& T_min, Real& grad_T_max)
 {
-    BL_PROFILE("Furnace::flame_width_properties()");
+    BL_PROFILE("Logi::flame_width_properties()");
 
     const auto dx = geom.CellSizeArray();
 
@@ -58,9 +58,9 @@ Furnace::flame_width_properties (Real time, Real& T_max, Real& T_min, Real& grad
 
 
 void
-Furnace::flame_speed_properties (Real time, Real& rho_fuel_dot)
+Logi::flame_speed_properties (Real time, Real& rho_fuel_dot)
 {
-    BL_PROFILE("Furnace::flame_speed_properties()");
+    BL_PROFILE("Logi::flame_speed_properties()");
 
     const auto dx = geom.CellSizeArray();
   std::vector<std::string> spec_names;

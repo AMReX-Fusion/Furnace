@@ -5,7 +5,7 @@
 #include <eos.H>
 #include <math.H>
 #include <Rotation.H>
-#include <Furnace_util.H>
+#include <Logi_util.H>
 
 AMREX_INLINE
 void problem_initialize ()

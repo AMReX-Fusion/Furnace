@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# run as: ./test1-helm.py furnace_exec_dir plotfle
+# run as: ./test1-helm.py logi_exec_dir plotfle
 
 # note: this relies on fextract.XXXX.ex being in your path somewhere
 
@@ -13,7 +13,7 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
-def process(furnace_exec_dir, plotfile):
+def process(logi_exec_dir, plotfile):
 
     run_dir = os.getcwd()
 
@@ -42,7 +42,7 @@ def process(furnace_exec_dir, plotfile):
     os.system("./{} -s {} {}".format(os.path.basename(analysis_routine), "test1-helm.out", plotfile))
 
 
-    analytic = furnace_exec_dir + "Exec/hydro_tests/Sod_stellar/Verification/test1.exact.128.out"
+    analytic = logi_exec_dir + "Exec/hydro_tests/Sod_stellar/Verification/test1.exact.128.out"
     analytic_data = np.loadtxt(analytic)
 
     # need to be more flexible with the data from the simulations, as the
@@ -118,7 +118,7 @@ def process(furnace_exec_dir, plotfile):
 
 if __name__ == "__main__":
 
-    furnace_exec_dir = str(sys.argv[1])
+    logi_exec_dir = str(sys.argv[1])
     plotfile = str(sys.argv[2])
 
-    process(furnace_exec_dir, plotfile)
+    process(logi_exec_dir, plotfile)

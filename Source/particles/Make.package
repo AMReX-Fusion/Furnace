@@ -1,4 +1,4 @@
 # sources used with particles
 # included if USE_PARTICLES = TRUE
 
-CEXE_sources += FurnaceParticles.cpp
+CEXE_sources += LogiParticles.cpp

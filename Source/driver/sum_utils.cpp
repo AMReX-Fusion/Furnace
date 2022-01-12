@@ -1,8 +1,8 @@
 #include <iomanip>
 
-#include <Furnace.H>
-#include <Furnace_F.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_F.H>
+#include <Logi_util.H>
 
 #ifdef GRAVITY
 #include <Gravity.H>
@@ -15,12 +15,12 @@
 using namespace amrex;
 
 Real
-Furnace::volWgtSum (const std::string& name,
+Logi::volWgtSum (const std::string& name,
                    Real               time,
                    bool               local,
                    bool               finemask)
 {
-    BL_PROFILE("Furnace::volWgtSum()");
+    BL_PROFILE("Logi::volWgtSum()");
 
     auto mf = derive(name, time, 0);
 
@@ -69,11 +69,11 @@ Furnace::volWgtSum (const std::string& name,
 }
 
 Real
-Furnace::volWgtSquaredSum (const std::string& name,
+Logi::volWgtSquaredSum (const std::string& name,
                           Real               time,
                           bool               local)
 {
-    BL_PROFILE("Furnace::volWgtSquaredSum()");
+    BL_PROFILE("Logi::volWgtSquaredSum()");
 
     auto mf = derive(name, time, 0);
 
@@ -122,12 +122,12 @@ Furnace::volWgtSquaredSum (const std::string& name,
 }
 
 Real
-Furnace::locWgtSum (const std::string& name,
+Logi::locWgtSum (const std::string& name,
                    Real               time,
                    int                idir,
                    bool               local)
 {
-    BL_PROFILE("Furnace::locWgtSum()");
+    BL_PROFILE("Logi::locWgtSum()");
 
     auto mf = derive(name, time, 0);
 
@@ -205,11 +205,11 @@ Furnace::locWgtSum (const std::string& name,
 }
 
 Real
-Furnace::volProductSum (const std::string& name1, 
+Logi::volProductSum (const std::string& name1, 
                        const std::string& name2,
                        Real time, bool local)
 {
-    BL_PROFILE("Furnace::volProductSum()");
+    BL_PROFILE("Logi::volProductSum()");
 
     auto mf1 = derive(name1, time, 0);
     auto mf2 = derive(name2, time, 0);
@@ -256,12 +256,12 @@ Furnace::volProductSum (const std::string& name1,
 }
 
 Real
-Furnace::locSquaredSum (const std::string& name,
+Logi::locSquaredSum (const std::string& name,
                        Real               time,
                        int                idir,
                        bool               local)
 {
-    BL_PROFILE("Furnace::locSquaredSum()");
+    BL_PROFILE("Logi::locSquaredSum()");
 
     auto mf = derive(name, time, 0);
 
@@ -340,17 +340,17 @@ Furnace::locSquaredSum (const std::string& name,
 
 #ifdef GRAVITY
 void
-Furnace::gwstrain (Real time,
+Logi::gwstrain (Real time,
 		  Real& h_plus_1, Real& h_cross_1,
 		  Real& h_plus_2, Real& h_cross_2,
 		  Real& h_plus_3, Real& h_cross_3,
 		  bool local) {
 
-    BL_PROFILE("Furnace::gwstrain()");
+    BL_PROFILE("Logi::gwstrain()");
 
     // We have nothing to do if the user did not request the gravitational wave
     // strain (inferred from whether the observation distance is positive).
-    if (furnace::gw_dist <= 0.0_rt) {
+    if (logi::gw_dist <= 0.0_rt) {
         return;
     }
 
@@ -593,7 +593,7 @@ Furnace::gwstrain (Real time,
     for (int dir = 0; dir < 3; ++dir) {
 
         Real dist[3] = {0.0};
-        dist[dir] = furnace::gw_dist;
+        dist[dir] = logi::gw_dist;
 
         Real r = std::sqrt(dist[0] * dist[0] + dist[1] * dist[1] + dist[2] * dist[2]);
 

@@ -7,7 +7,7 @@ Rotation
 Introduction
 ============
 
-Currently, Furnace supports contant, solid-body rotation about a fixed
+Currently, Logi supports contant, solid-body rotation about a fixed
 (in space and time) axis in 2D and 3D by transforming the evolution
 equations to the rotating frame of reference.
 
@@ -17,10 +17,10 @@ To include rotation you must set::
 
 in the ``GNUMakefile``. Rotation can then be enabled via::
 
-    furnace.do_rotation = 1
+    logi.do_rotation = 1
 
 in the inputs file. The rotational period must then be set via
-``furnace.rotational_period``. The rotational period is internally
+``logi.rotational_period``. The rotational period is internally
 converted to an angular frequency for use in the source term
 equations.
 
@@ -49,36 +49,36 @@ To change these defaults, modify the omega vector in the
 
 The main parameters that affect rotation are:
 
--  ``furnace.do_rotation`` : include rotation as a forcing
+-  ``logi.do_rotation`` : include rotation as a forcing
    term (0 or 1; default: 0)
 
--  ``furnace.rotational_period`` : period (s) of rotation
+-  ``logi.rotational_period`` : period (s) of rotation
    (default: 0.0)
 
--  ``furnace.rotational_dPdt`` : d(period) / dt for rotation
+-  ``logi.rotational_dPdt`` : d(period) / dt for rotation
    (default: 0.0)
 
--  ``furnace.rotation_include_centrifugal`` : whether to
+-  ``logi.rotation_include_centrifugal`` : whether to
    include the centrifugal forcing (default: 1)
 
--  ``furnace.rotation_include_coriolis`` : whether to
+-  ``logi.rotation_include_coriolis`` : whether to
    include the Coriolis forcing (default: 1)
 
--  ``furnace.rotation_include_domegadt`` : whether to
+-  ``logi.rotation_include_domegadt`` : whether to
    include the forcing from the time derivative of the rotation
    frequency (default: 1)
 
--  ``furnace.state_in_rotating_frame`` : whether state
+-  ``logi.state_in_rotating_frame`` : whether state
    variables are measured in the rotating frame (default: 1)
 
--  ``furnace.rot_source_type`` : method of updating the
+-  ``logi.rot_source_type`` : method of updating the
    energy during a rotation update (default: 4)
 
--  ``furnace.implicit_rotation_update`` : for the Coriolis
+-  ``logi.implicit_rotation_update`` : for the Coriolis
    term, which mixes momenta in the source term, whether we should
    solve for the update implicitly (default: 1)
 
--  ``furnace.rot_axis`` : rotation axis (default: 3
+-  ``logi.rot_axis`` : rotation axis (default: 3
    (Cartesian); 2 (cylindrical))
 
 For completeness, we show below a derivation of the source terms that
@@ -287,13 +287,13 @@ Adding the forcing to the hydrodynamics
 
 There are several ways to incorporate the effect of the rotation
 forcing on the hydrodynamical evolution. We control this through the
-use of the runtime parameter furnace.rot_source_type. This
+use of the runtime parameter logi.rot_source_type. This
 is an integer with values currently ranging from 1 through 4, and
 these values are all analogous to the way that gravity is used to
 update the momentum and energy. For the most part, the differences are
 in how the energy update is done:
 
-* ``furnace.rot_source_type = 1`` : we use a standard
+* ``logi.rot_source_type = 1`` : we use a standard
   predictor-corrector formalism for updating the momentum and
   energy. Specifically, our first update is equal to :math:`\Delta t \times \mathbf{S}^n` ,
   where :math:`\mathbf{S}^n` is the value of
@@ -303,7 +303,7 @@ in how the energy update is done:
   :math:`\Delta t / 2 \times \mathbf{S}^{n+1}`, so that at the end of
   the timestep the source term is properly time centered.
 
-* ``furnace.rot_source_type = 2`` : we do something very similar
+* ``logi.rot_source_type = 2`` : we do something very similar
   to 1. The major difference is that when evaluating the energy source
   term at the new time (which is equal to
   :math:`\mathbf{u} \cdot \mathbf{S}^{n+1}_{\rho \mathbf{u}}`, where the latter is the
@@ -313,7 +313,7 @@ in how the energy update is done:
   between the momentum and energy update and we have seen that it
   usually results in a more accurate evolution.
 
-* ``furnace.rot_source_type = 3`` : we do the same momentum update as
+* ``logi.rot_source_type = 3`` : we do the same momentum update as
   the previous two, but for the energy update, we put all of the work
   into updating the kinetic energy alone. In particular, we explicitly
   ensure that :math:`(rho e)` maintains the same, and update
@@ -323,7 +323,7 @@ in how the energy update is done:
   done on the velocity, and should not directly update the temperature
   – only indirectly through things like shocks.
 
-* ``furnace.rot_source_type = 4`` : the energy update is done in a
+* ``logi.rot_source_type = 4`` : the energy update is done in a
    “conservative” fashion. The previous methods all evaluate the value
    of the source term at the cell center, but this method evaluates
    the change in energy at cell edges, using the hydrodynamical mass
@@ -334,7 +334,7 @@ in how the energy update is done:
    we directly solve this coupled equation, which results in a
    slightly better coupling and a more accurate evolution.
 
-The other major option is ``furnace.implicit_rotation_update``.
+The other major option is ``logi.implicit_rotation_update``.
 This does the update of the Coriolis term in the momentum equation
 implicitly (e.g., the velocity in the Coriolis force for the zone
 depends on the updated momentum). The energy update is unchanged.

@@ -4,7 +4,7 @@ Tracer particles
 
 Tracer particles are to track the Lagrangian evolution of a model
 fluid using discrete particles. In hydrodynamical simulations based on
-an Eulerian grid (including FURNACE), thermodynamic variables at a
+an Eulerian grid (including LOGI), thermodynamic variables at a
 given time are derived by solving the equations of motion of a fluid
 between cells. Therefore, in this scheme, the physical quantities that
 we can access to are not discretized quantities at any given position,
@@ -15,7 +15,7 @@ and the density, at well-defined positions, independent of the spatial
 resolution, i.e., the spatial cell size. This means that we can follow
 the evolution of the fluid at any given position and time.
 
-FURNACE provides a tracer particle scheme with useful options. In this
+LOGI provides a tracer particle scheme with useful options. In this
 scheme, particles are advanced using the midpoint method either with
 the cell-centered velocities or the face-centered velocities
 (Marker-And-Cell method) [1]_. The number and the initial positions of
@@ -32,7 +32,7 @@ One must include the tracer particles in the ``GNUmakefile`` by setting::
 
 And the particles can be initialized via::
 
-   furnace.do_tracer_particles = 1
+   logi.do_tracer_particles = 1
 
 in the ``inputs`` file.
 
@@ -74,7 +74,7 @@ set as follows::
   particles.timestamp_dir = particle\_dir
 
 A directory *particle_dir* is automatically made with the directories
-for the main FURNACE output file (``pltXXXXX``) once a simulation starts
+for the main LOGI output file (``pltXXXXX``) once a simulation starts
 and the particle output files are stored inside that directory.
 
 The name of the output file consists of ``Timestamp_`` along with a
@@ -131,7 +131,7 @@ in the other output file for the other 6 particles, 6 lines are stored
 at the same time.
 
 If ``particles.write_in_plotfile`` = 1, the particle data are stored
-in a binary file along with the main FURNACE output plotfile in
+in a binary file along with the main LOGI output plotfile in
 directories ``pltXXXXX/Tracer/``.
 
 Run-time Screen Output

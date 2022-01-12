@@ -1,13 +1,13 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_F.H>
+#include <Logi_util.H>
 
 #include <mhd_util.H>
 
 using namespace amrex;
 
 void
-Furnace::check_for_mhd_cfl_violation(const Box& bx,
+Logi::check_for_mhd_cfl_violation(const Box& bx,
                                     const Real dt,
                                     Array4<Real const> const& q_arr,
                                     Array4<Real const> const& qaux_arr) {
@@ -120,7 +120,7 @@ Furnace::check_for_mhd_cfl_violation(const Box& bx,
 
 
 void
-Furnace::consup_mhd(const Box& bx, const Real dt,
+Logi::consup_mhd(const Box& bx, const Real dt,
                    Array4<Real> const& U_new,
                    Array4<Real const> const& flux0,
                    Array4<Real const> const& flux1,
@@ -166,7 +166,7 @@ Furnace::consup_mhd(const Box& bx, const Real dt,
 
 
 void
-Furnace::PrimToCons(const Box& bx,
+Logi::PrimToCons(const Box& bx,
                    Array4<Real const> const& q_arr,
                    Array4<Real> const& u_arr) {
 
@@ -221,7 +221,7 @@ Furnace::PrimToCons(const Box& bx,
 
 
 void
-Furnace::prim_half(const Box& bx,
+Logi::prim_half(const Box& bx,
                   Array4<Real> const& q2D,
                   Array4<Real const> const& q_arr,
                   Array4<Real const> const& flxx,

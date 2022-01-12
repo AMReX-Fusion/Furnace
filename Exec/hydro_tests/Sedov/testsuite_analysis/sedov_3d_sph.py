@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# run as: ./sedov_2d_sph_in_cyl.py furnace_dir plotfle
+# run as: ./sedov_2d_sph_in_cyl.py logi_dir plotfle
 
 import sys
 import os
@@ -11,12 +11,12 @@ import matplotlib
 matplotlib.use('agg')
 import pylab
 
-def process(furnace_dir, plotfile):
+def process(logi_dir, plotfile):
 
     run_dir = os.getcwd()
 
     # 1. make sure that the analysis tool is built
-    build_dir = furnace_dir + "/Diagnostics/Sedov/"
+    build_dir = logi_dir + "/Diagnostics/Sedov/"
     os.chdir(build_dir)
     os.system("make DIM=3 >& /dev/null")
 
@@ -45,7 +45,7 @@ def process(furnace_dir, plotfile):
     os.system("./{} --sphr -p {} -s {}".format(analysis_routine, plotfile, "sedov_3d_sph.out"))
 
 
-    analytic = furnace_dir + "/Exec/hydro_tests/Sedov/Verification/spherical_sedov.dat"
+    analytic = logi_dir + "/Exec/hydro_tests/Sedov/Verification/spherical_sedov.dat"
     analytic_data = np.loadtxt(analytic)
 
     data = np.loadtxt("sedov_3d_sph.out")
@@ -105,9 +105,9 @@ def process(furnace_dir, plotfile):
 if __name__ == "__main__":
 
     if len(sys.argv) < 3:
-        sys.exit("usage: ./sedov_3d_sph.py furnace_dir plotfile")
+        sys.exit("usage: ./sedov_3d_sph.py logi_dir plotfile")
 
-    furnace_dir = str(sys.argv[1])
+    logi_dir = str(sys.argv[1])
     plotfile = str(sys.argv[2])
 
-    process(furnace_dir, plotfile)
+    process(logi_dir, plotfile)

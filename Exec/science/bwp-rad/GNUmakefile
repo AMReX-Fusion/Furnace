@@ -19,7 +19,7 @@ USE_REACT        = FALSE
 
 USE_CXX_MODEL_PARSER = TRUE
 
-FURNACE_HOME = ../../..
+LOGI_HOME = ../../..
 
 #This sets the EOS directory in $(MICROPHYSICS_HOME)/eos
 EOS_DIR     := gamma_law
@@ -34,4 +34,4 @@ Opacity_dir := rad_power_law
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

@@ -23,11 +23,11 @@ ifeq ($(USE_MHD),TRUE)
   CEXE_headers += problem_initialize_mhd_data.H
 endif
 
-CEXE_headers += Furnace_bc_fill_nd.H
-CEXE_sources += Furnace_bc_fill_nd.cpp
+CEXE_headers += Logi_bc_fill_nd.H
+CEXE_sources += Logi_bc_fill_nd.cpp
 CEXE_sources += ambient_fill.cpp
 
 CEXE_headers += ambient.H
 CEXE_sources += ambient.cpp
 
-CEXE_sources += Furnace_problem_source.cpp
+CEXE_sources += Logi_problem_source.cpp

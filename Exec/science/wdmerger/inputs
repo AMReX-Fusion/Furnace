@@ -1,5 +1,5 @@
 
-############################## FURNACE INPUTS ###############################################
+############################## LOGI INPUTS ###############################################
 
 ############################################################################################
 # Geometry
@@ -39,17 +39,17 @@ geometry.prob_hi =  5.12e9  5.12e9  5.12e9
 #if AMREX_SPACEDIM == 3
 
   # Boundary conditions on lo x, y, and z edges
-  furnace.lo_bc = 2 2 2
+  logi.lo_bc = 2 2 2
 
 #elif AMREX_SPACEDIM == 2
 
   # Boundary conditions on lo x, y, and z edges
-  furnace.lo_bc = 3 2
+  logi.lo_bc = 3 2
 
 #endif
 
 # Boundary conditions on hi x, y, and z edges
-furnace.hi_bc = 2 2 2
+logi.hi_bc = 2 2 2
 
 ############################################################################################ 
 # Timestepping
@@ -62,28 +62,28 @@ max_step = 10000000
 stop_time = 100.0
 
 # Whether to use our custom stopping criteria
-furnace.use_stopping_criterion = 1
+logi.use_stopping_criterion = 1
 
 # CFL number for hyperbolic system
-furnace.cfl = 0.5
+logi.cfl = 0.5
 
 # Fixed level 0 timestep; unused if < 0
-furnace.fixed_dt = -1.0
+logi.fixed_dt = -1.0
 
 # Scale back initial timestep by this factor
-furnace.init_shrink = 0.0001
+logi.init_shrink = 0.0001
 
 # Factor by which dt is allowed to change each timestep
-furnace.change_max = 1.05
+logi.change_max = 1.05
 
 # If we regrid on Level 0, compute a new timestep afterward
 amr.compute_new_dt_on_regrid = 1
 
 # Use a retry if an advance violated our stability criteria
-furnace.use_retry = 1
+logi.use_retry = 1
 
 # Skip retries for small density if the starting density was less than this threshold
-furnace.retry_small_density_cutoff = 1.0e0
+logi.retry_small_density_cutoff = 1.0e0
 
 ############################################################################################ 
 # Resolution, gridding and AMR
@@ -111,7 +111,7 @@ amr.ref_ratio = 4 4 4 4 4 4 4 4 4
 amr.regrid_int = 2
 
 # Allow special regrids based on stability criteria
-furnace.use_post_step_regrid = 0
+logi.use_post_step_regrid = 0
 
 # Number of buffer cells in error estimation
 amr.n_error_buf = 2 2 2 2 2 2 2 2 2 2
@@ -126,88 +126,88 @@ amr.blocking_factor = 16
 amr.grid_eff = 0.9
 
 # Order of reconstruction for interpolation
-furnace.state_interp_order = 0
+logi.state_interp_order = 0
 
 # Limiting on state data interpolation (preserve linear combinations)
-furnace.lin_limit_state_interp = 1
+logi.lin_limit_state_interp = 1
 
 ############################################################################################
 # Physics to include
 ############################################################################################
 
 # Whether or not to do hydrodynamics
-furnace.do_hydro = 1
+logi.do_hydro = 1
 
 # Whether or not to do gravity
-furnace.do_grav = 1
+logi.do_grav = 1
 
 # Whether or not to do reactions
-furnace.do_react = 0
+logi.do_react = 0
 
 # Whether or not to apply the sponge
-furnace.do_sponge = 1
+logi.do_sponge = 1
 
 # Whether or not to apply external source terms
-furnace.add_ext_src = 1
-furnace.ext_src_implicit = 1
+logi.add_ext_src = 1
+logi.ext_src_implicit = 1
 
 # Whether or not to include the rotation source term
-furnace.do_rotation = 1
+logi.do_rotation = 1
 
 ############################################################################################
 # PPM/Hydro options
 ############################################################################################
 
 # Piecewise parabolic with the original limiters (0 is piecewise linear; 2 is new limiters)
-furnace.ppm_type = 1
+logi.ppm_type = 1
 
 # Use the EOS in calculation of the edge states going into the Riemann solver
-furnace.ppm_temp_fix = 0
+logi.ppm_temp_fix = 0
 
 # Which Riemann solver to use.
 # 0 = Colella, Glaz, and Ferguson (cheaper, less accurate)
 # 1 = Colella and Glaz 1985 (more expensive, more accurate)
 # 2 = HLL
-furnace.riemann_solver = 0
+logi.riemann_solver = 0
 
 # For the CG Riemann solver, we need to tell the solver not to quit when 
 # the iterations don't converge, but instead to do additional bisection iteration.
-furnace.cg_blend = 2
+logi.cg_blend = 2
 
 # Use a lagged predictor estimate of the source terms in the hydro
-furnace.source_term_predictor = 1
+logi.source_term_predictor = 1
 
 # Whether to use the hybrid advection technique that conserves angular momentum
-furnace.hybrid_hydro = 0
+logi.hybrid_hydro = 0
 
 # Reset (rho*e) if it goes negative in the transverse terms
-furnace.transverse_reset_rhoe = 1
+logi.transverse_reset_rhoe = 1
 
 # Reset rho if it goes negative in the transverse terms
-furnace.transverse_reset_density = 1
+logi.transverse_reset_density = 1
 
 # Explicitly limit fluxes to avoid hitting a negative density
-furnace.limit_fluxes_on_small_dens = 1
+logi.limit_fluxes_on_small_dens = 1
 
 # Explicitly limit fluxes to avoid large velocities
-furnace.limit_fluxes_on_large_vel = 0
-furnace.speed_limit = 1.498962290e9 # 0.05c
+logi.limit_fluxes_on_large_vel = 0
+logi.speed_limit = 1.498962290e9 # 0.05c
 
 ############################################################################################
 # Thermodynamics
 ############################################################################################
 
 # Minimum allowable temperature (K)
-furnace.small_temp = 1.e5
+logi.small_temp = 1.e5
 
 # Minimum allowable density (g / cm**3)
-furnace.small_dens = 1.e-5
+logi.small_dens = 1.e-5
 
 # Threshold for when to use the internal energy in calculating pressure
-furnace.dual_energy_eta1 = 1.0e-3
+logi.dual_energy_eta1 = 1.0e-3
 
 # Threshold for when to use (E - K) in updating internal energy
-furnace.dual_energy_eta2 = 1.0e-4
+logi.dual_energy_eta2 = 1.0e-4
 
 # Use Coulomb corrections in Helmholtz EOS
 eos.use_eos_coulomb = 1
@@ -216,32 +216,32 @@ eos.use_eos_coulomb = 1
 eos.eos_input_is_constant = 1
 
 # Ambient temperature (K)
-furnace.ambient_temp = 1.0e7
+logi.ambient_temp = 1.0e7
 
 # Ambient density (g / cm**3)
-furnace.ambient_density = 1.0e-4
+logi.ambient_density = 1.0e-4
 
 ############################################################################################
 # Reactions/Network
 ############################################################################################
 
 # Limit timestep based on nuclear burning considerations (changes in internal energy)
-furnace.dtnuc_e = 0.1
+logi.dtnuc_e = 0.1
 
 # Limit timestep based on nuclear burning considerations (changes in species)
-furnace.dtnuc_X = 0.1
+logi.dtnuc_X = 0.1
 
 # Minimum temperature for allowing nuclear burning
-furnace.react_T_min = 1.0e8
+logi.react_T_min = 1.0e8
 
 # Maximum temperature for allowing nuclear burning
-furnace.react_T_max = 1.0e12
+logi.react_T_max = 1.0e12
 
 # Minimum density for allowing nuclear burning
-furnace.react_rho_min = 1.0e6
+logi.react_rho_min = 1.0e6
 
 # Maximum density for allowing nuclear burning
-furnace.react_rho_max = 1.0e12
+logi.react_rho_max = 1.0e12
 
 # Smallest allowable mass fraction
 network.small_x = 1.0e-12
@@ -259,7 +259,7 @@ integrator.atol_spec = 1.0e-6
 integrator.rtol_enuc = 1.0e-6
 integrator.atol_enuc = 1.0e-6
 
-# Do not abort or retry on a failed burn (Furnace will handle this)
+# Do not abort or retry on a failed burn (Logi will handle this)
 integrator.abort_on_failure = 0
 integrator.retry_burn = 0
 
@@ -296,18 +296,18 @@ gravity.do_composite_phi_correction = 0
 ############################################################################################
 
 # Rotational period of the rotating reference frame
-furnace.rotational_period = 100.0
+logi.rotational_period = 100.0
 
 # Whether to evolve state variables in the inertial or rotating frame
-furnace.state_in_rotating_frame = 1
+logi.state_in_rotating_frame = 1
 
 ############################################################################################
 # Sponge
 ############################################################################################
 
-furnace.sponge_lower_density = 1.0e0
-furnace.sponge_upper_density = 1.0e0
-furnace.sponge_timescale     = 0.01e0
+logi.sponge_lower_density = 1.0e0
+logi.sponge_upper_density = 1.0e0
+logi.sponge_timescale     = 0.01e0
 
 ############################################################################################
 # Load balancing
@@ -324,19 +324,19 @@ DistributionMapping.efficiency = 0.9
 ############################################################################################
 
 # Calculate and print the center of mass at each time step
-furnace.show_center_of_mass = 1
+logi.show_center_of_mass = 1
 
 # Timesteps between computing and printing volume averaged diagnostic quantities
-furnace.sum_interval = 1
+logi.sum_interval = 1
 
 # Simulation time between computing and printing volume averaged diagnostic quantities
-furnace.sum_per = -1.0
+logi.sum_per = -1.0
 
 # Gravitational wave strain observation distance
-furnace.gw_dist = 10.0
+logi.gw_dist = 10.0
 
 # Name the job
-furnace.job_name = wdmerger
+logi.job_name = wdmerger
 
 # Whether or not to output plotfiles
 amr.plot_files_output = 1
@@ -348,7 +348,7 @@ amr.checkpoint_files_output = 1
 amr.check_file = chk
 
 # We want to store the 'old' state data in checkpoints
-furnace.dump_old = 1
+logi.dump_old = 1
 
 # Simulation time between checkpoints
 amr.check_per = 10.0
@@ -378,7 +378,7 @@ amr.small_plot_int = -1
 amr.write_plotfile_with_checkpoint = 0
 
 # Do not write final checkpoint/plotfile
-furnace.output_at_completion = 0
+logi.output_at_completion = 0
 
 # Do not write a plotfile or checkpoint on restart
 amr.plotfile_on_restart = 0
@@ -390,8 +390,8 @@ amr.message_int = 1
 # Control verbosity in Amr.cpp
 amr.v = 1
 
-# Control verbosity in Furnace.cpp
-furnace.v = 1
+# Control verbosity in Logi.cpp
+logi.v = 1
 
 # Control verbosity in Gravity.cpp
 gravity.v = 1

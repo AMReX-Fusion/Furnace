@@ -1,4 +1,4 @@
-#include <Furnace.H>
+#include <Logi.H>
 
 #include <AMReX_ParmParse.H>
 
@@ -8,7 +8,7 @@ using namespace amrex;
 
 #ifdef DO_PROBLEM_POST_TIMESTEP
 void
-Furnace::problem_post_timestep()
+Logi::problem_post_timestep()
 {
 
     if (level != 0) return;

@@ -28,23 +28,23 @@ amr.max_level        = 0
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  2
-furnace.hi_bc       =  2
+logi.lo_bc       =  2
+logi.hi_bc       =  2
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 0
-furnace.ppm_type = 1
+logi.do_hydro = 1
+logi.do_react = 0
+logi.ppm_type = 1
 
 # TIME STEP CONTROL
 
-furnace.cfl            = 0.9     # cfl number for hyperbolic system
-furnace.init_shrink    = 1.0     # scale back initial timestep
-furnace.change_max     = 1.05    # scale back initial timestep
+logi.cfl            = 0.9     # cfl number for hyperbolic system
+logi.init_shrink    = 1.0     # scale back initial timestep
+logi.change_max     = 1.05    # scale back initial timestep
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval = 1       # timesteps between computing mass
-furnace.v            = 1       # verbosity in Furnace.cpp
+logi.sum_interval = 1       # timesteps between computing mass
+logi.v            = 1       # verbosity in Logi.cpp
 amr.v               = 1       # verbosity in Amr.cpp
 amr.grid_log       = grdlog  # name of grid logging file
 

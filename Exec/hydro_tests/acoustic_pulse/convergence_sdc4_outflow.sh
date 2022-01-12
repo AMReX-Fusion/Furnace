@@ -4,9 +4,9 @@
 set -x
 
 DIM=2
-EXEC=./Furnace${DIM}d.gnu.MPI.TRUESDC.ex
+EXEC=./Logi${DIM}d.gnu.MPI.TRUESDC.ex
 
-RUNPARAMS="furnace.sdc_order=4 furnace.time_integration_method=2 furnace.lo_bc=2 2 furnace.hi_bc=2 2 geometry.is_periodic=0 0 furnace.limit_fourth_order=1"
+RUNPARAMS="logi.sdc_order=4 logi.time_integration_method=2 logi.lo_bc=2 2 logi.hi_bc=2 2 geometry.is_periodic=0 0 logi.limit_fourth_order=1"
 
 mpiexec -n 4 ${EXEC} inputs.64 ${RUNPARAMS} amr.plot_file=acoustic_pulse_64_sdc4_plt &> 64.out
 mpiexec -n 4 ${EXEC} inputs.128 ${RUNPARAMS} amr.plot_file=acoustic_pulse_128_sdc4_plt &> 128.out

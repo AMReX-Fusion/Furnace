@@ -1,6 +1,6 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_F.H>
+#include <Logi_util.H>
 
 #ifdef RADIATION
 #include <Radiation.H>
@@ -14,7 +14,7 @@
 using namespace amrex;
 
 void
-Furnace::trace_plm(const Box& bx, const int idir,
+Logi::trace_plm(const Box& bx, const int idir,
                   Array4<Real const> const& q_arr,
                   Array4<Real const> const& qaux_arr,
                   Array4<Real const> const& flatn_arr,

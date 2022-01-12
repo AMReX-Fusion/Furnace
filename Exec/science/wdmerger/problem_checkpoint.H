@@ -45,7 +45,7 @@ void problem_checkpoint (std::string checkpoint_dir)
     rotation << std::scientific;
     rotation.precision(19);
 
-    rotation << std::setw(30) << furnace::rotational_period << std::endl;
+    rotation << std::setw(30) << logi::rotational_period << std::endl;
 
     rotation.close();
 

@@ -23,13 +23,13 @@ Bpack   := ./Make.package
 Blocs   := .
 # EXTERN_SEARCH = .
 
-FURNACE_HOME := ../..
+LOGI_HOME := ../..
 
 INCLUDE_LOCATIONS += $(AMREX_HOME)/Src/Extern/amrdata
 include $(AMREX_HOME)/Src/Extern/amrdata/Make.package
 vpathdir += $(AMREX_HOME)/Src/Extern/amrdata
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi
 
 sedov_$(DIM)d.ex: $(objForExecs)
 	@echo Linking $@ ...

@@ -1,4 +1,4 @@
-/* problem-specific Furnace:: declarations go here */
+/* problem-specific Logi:: declarations go here */
 
 #ifdef DO_PROBLEM_POST_TIMESTEP
 void problem_post_timestep();

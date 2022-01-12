@@ -10,7 +10,7 @@ PROFILE    = FALSE
 USE_RAD = TRUE
 
 
-FURNACE_HOME = ../../..
+LOGI_HOME = ../../..
 
 EOS_DIR     := rad_power_law
 
@@ -24,7 +24,7 @@ NGROUPS := 2
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi
 
 #F90FLAGS += -x f95-cpp-input -D MG_SU_OLSON
 

@@ -1,12 +1,12 @@
-# Define the location of the FURNACE top directory,
+# Define the location of the LOGI top directory,
 # if not already defined by an environment variable.
 
-FURNACE_HOME := ../../..
+LOGI_HOME := ../../..
 
 # Location of this directory. Useful if
 # you're trying to compile this from another location.
 
-TEST_DIR = $(FURNACE_HOME)/Exec/hydro_tests/KH
+TEST_DIR = $(LOGI_HOME)/Exec/hydro_tests/KH
 
 PRECISION  ?= DOUBLE
 PROFILE    ?= FALSE
@@ -33,4 +33,4 @@ NETWORK_INPUTS ?= gammalaw.net
 Bpack   += $(TEST_DIR)/Make.package
 Blocs   += $(TEST_DIR)/.
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

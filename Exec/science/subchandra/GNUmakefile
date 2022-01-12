@@ -1,4 +1,4 @@
-FURNACE_HOME := ../../..
+LOGI_HOME := ../../..
 
 PRECISION  = DOUBLE
 PROFILE    = FALSE
@@ -27,4 +27,4 @@ INTEGRATOR_DIR := VODE
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

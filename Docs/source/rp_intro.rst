@@ -5,9 +5,9 @@ Runtime Parameters
 Introduction to Runtime Parameters
 ==================================
 
-Furnace runtime parameters are set
+Logi runtime parameters are set
 in the inputs file and managed by the AMReX ``ParmParse``
-class. For Furnace-specific parameters, we list the runtime
+class. For Logi-specific parameters, we list the runtime
 parameters in a file ``_cpp_parameters`` and generate the
 C++ code and headers at compile time.
 
@@ -21,10 +21,10 @@ of network, integrator, and EOS, and creates the ``extern_parameters.H`` and
 ``extern_parameters.cpp`` files that manage the parameters.  These
 are set at runtime via the inputs file.
 
-Furnace-specific parameters
+Logi-specific parameters
 --------------------------
 
-The Furnace parameters that control the behavior of the code and
+The Logi parameters that control the behavior of the code and
 physics modules are listed in ``_cpp_parameters`` and take the form of::
 
     # comment describing the parameter
@@ -37,7 +37,7 @@ Here,
 
     The name can actually take the form of ``(a, b)``, where ``a`` is
     the name to be used in the inputs file where the parameter is set
-    and ``b`` is the name used within the Furnace C++ class.  It is not
+    and ``b`` is the name used within the Logi C++ class.  It is not
     recommended to name new parameters with this functionality—this
     was implemented for backwards compatibility.
 

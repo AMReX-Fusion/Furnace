@@ -4,11 +4,11 @@
 set -x
 
 DIM=3
-EXEC=./Furnace${DIM}d.gnu.MPI.ex
+EXEC=./Logi${DIM}d.gnu.MPI.ex
 
 RUNPARAMS="
-furnace.ppm_type=0
-furnace.time_integration_method=0
+logi.ppm_type=0
+logi.time_integration_method=0
 problem.init_as_1d=1
 geometry.prob_hi=1 0.125 0.125"
 

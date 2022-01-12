@@ -13,7 +13,7 @@ USE_RAD = TRUE
 
 USE_CXX_MODEL_PARSER = TRUE
 
-FURNACE_HOME = ../../..
+LOGI_HOME = ../../..
 
 EOS_DIR     = breakout
 NETWORK_DIR := general_null
@@ -23,4 +23,4 @@ Opacity_dir = breakout
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

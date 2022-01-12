@@ -1,7 +1,7 @@
-#ifndef FURNACE_MHD_SOUND_SPEED_H
-#define FURNACE_MHD_SOUND_SPEED_H
+#ifndef LOGI_MHD_SOUND_SPEED_H
+#define LOGI_MHD_SOUND_SPEED_H
 
-#include <Furnace_util.H>
+#include <Logi_util.H>
 #include <mhd_sizes.H>
 
 using namespace amrex;

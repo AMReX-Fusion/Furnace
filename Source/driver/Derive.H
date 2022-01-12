@@ -1,5 +1,5 @@
-#ifndef FURNACE_DERIVE_H
-#define FURNACE_DERIVE_H
+#ifndef LOGI_DERIVE_H
+#define LOGI_DERIVE_H
 
 #include <AMReX_BLFort.H>
 #include <AMReX_FArrayBox.H>

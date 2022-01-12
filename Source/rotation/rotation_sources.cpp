@@ -1,13 +1,13 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_F.H>
+#include <Logi_util.H>
 #include <Rotation.H>
 #ifdef HYBRID_MOMENTUM
 #include <hybrid.H>
 #endif
 
 void
-Furnace::rsrc(const Box& bx,
+Logi::rsrc(const Box& bx,
              Array4<Real const> const& uold,
              Array4<Real> const& source, 
              const Real dt) {
@@ -138,7 +138,7 @@ Furnace::rsrc(const Box& bx,
 
 
 void
-Furnace::corrrsrc(const Box& bx,
+Logi::corrrsrc(const Box& bx,
                  Array4<Real const> const& uold,
                  Array4<Real const> const& unew,
                  Array4<Real> const& source,

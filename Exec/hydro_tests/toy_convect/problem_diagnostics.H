@@ -3,7 +3,7 @@
 
 AMREX_INLINE
 void
-Furnace::problem_diagnostics ()
+Logi::problem_diagnostics ()
 {
     int finest_level = parent->finestLevel();
     Real time        = state[State_Type].curTime();
@@ -16,7 +16,7 @@ Furnace::problem_diagnostics ()
 
     for (int lev = 0; lev <= finest_level; lev++)
     {
-        Furnace& ca_lev = getLevel(lev);
+        Logi& ca_lev = getLevel(lev);
 
         mass     += ca_lev.volWgtSum("density", time);
 	
@@ -46,7 +46,7 @@ Furnace::problem_diagnostics ()
         std::cout << "TIME= " << time << " RHO*E = "   << rho_E     << '\n';
 
 	// get output files
-	std::ostream& data_log1 = *Furnace::problem_data_logs[0];
+	std::ostream& data_log1 = *Logi::problem_data_logs[0];
 
         if (time == 0.0) {
            data_log1 << std::setw(14) <<  "#     time    ";

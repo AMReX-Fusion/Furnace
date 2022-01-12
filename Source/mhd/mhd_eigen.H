@@ -1,5 +1,5 @@
-#ifndef FURNACE_MHD_EIGEN_H
-#define FURNACE_MHD_EIGEN_H
+#ifndef LOGI_MHD_EIGEN_H
+#define LOGI_MHD_EIGEN_H
 
 #include <mhd_util.H>
 

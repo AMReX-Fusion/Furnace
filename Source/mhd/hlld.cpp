@@ -1,12 +1,12 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 #include <mhd_util.H>
 
 using namespace amrex;
 
 void
-Furnace::hlld(const Box& bx,
+Logi::hlld(const Box& bx,
              Array4<Real const> const& qleft,
              Array4<Real const> const& qright,
              Array4<Real> const& flx,

@@ -15,46 +15,46 @@ amr.n_cell           = 64 64 64
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  0   0   1
-furnace.hi_bc       =  0   0   2
+logi.lo_bc       =  0   0   1
+logi.hi_bc       =  0   0   2
 
-furnace.zl_ext_bc_type = 1
+logi.zl_ext_bc_type = 1
 
-furnace.hse_interp_temp = 1
-furnace.hse_reflect_vels = 1
+logi.hse_interp_temp = 1
+logi.hse_reflect_vels = 1
 
-furnace.fill_ambient_bc = 1
-furnace.ambient_fill_dir = 2
-furnace.ambient_outflow_vel = 1
+logi.fill_ambient_bc = 1
+logi.ambient_fill_dir = 2
+logi.ambient_outflow_vel = 1
 
 # this is here just for test suite coverage
-furnace.state_nghost = 1
+logi.state_nghost = 1
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 1
-furnace.do_grav = 1
-furnace.do_sponge = 1
+logi.do_hydro = 1
+logi.do_react = 1
+logi.do_grav = 1
+logi.do_sponge = 1
 
-furnace.ppm_type = 1
-furnace.use_flattening = 1
+logi.ppm_type = 1
+logi.use_flattening = 1
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.5e10
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.8     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
-furnace.change_max     = 1.1     # max time step growth
+logi.cfl            = 0.8     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
+logi.change_max     = 1.1     # max time step growth
 
 # SPONGE
-furnace.sponge_upper_density = 1.e6
-furnace.sponge_lower_density = 1.e4
-furnace.sponge_timescale     = 1.e-5
+logi.sponge_upper_density = 1.e6
+logi.sponge_lower_density = 1.e4
+logi.sponge_timescale     = 1.e-5
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 1       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING

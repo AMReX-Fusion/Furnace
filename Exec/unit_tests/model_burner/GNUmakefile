@@ -22,7 +22,7 @@ USE_REACT        = TRUE
 USE_MAESTRO_INIT = FALSE
 
 
-FURNACE_HOME = ../../..
+LOGI_HOME = ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/eos
 EOS_DIR     := helmholtz
@@ -36,4 +36,4 @@ INTEGRATOR_DIR := VODE
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

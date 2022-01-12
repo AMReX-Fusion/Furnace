@@ -10,7 +10,7 @@ PROFILE    = FALSE
 USE_RAD = TRUE
 
 
-FURNACE_HOME = ../../..
+LOGI_HOME = ../../..
 
 EOS_DIR     := rad_power_law
 
@@ -26,4 +26,4 @@ NGROUPS := 60
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

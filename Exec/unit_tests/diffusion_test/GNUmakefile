@@ -14,7 +14,7 @@ USE_DIFFUSION = TRUE
 
 USE_POST_SIM = TRUE
 
-FURNACE_HOME := ../../..
+LOGI_HOME := ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/EOS
 EOS_DIR     := gamma_law
@@ -28,4 +28,4 @@ NETWORK_INPUTS = gammalaw.net
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

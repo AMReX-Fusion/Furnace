@@ -14,10 +14,10 @@ geometry.prob_hi     =  1.0     1.0    1.0
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  3   3   3
-furnace.hi_bc       =  3   3   3
+logi.lo_bc       =  3   3   3
+logi.hi_bc       =  3   3   3
 
-furnace.small_temp = 1.e6
+logi.small_temp = 1.e6
 
 
 # REFINEMENT / REGRIDDING 

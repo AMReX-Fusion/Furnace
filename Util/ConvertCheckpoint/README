@@ -40,7 +40,7 @@ with *one* additional level of refinement *coarser* than the previous level 0 gr
 a factor of "ref_ratio" (in this case, 2).   The new domain will be a factor of "grown_factor" (in this case, 8)
 
 Note that ref_ratio must be 2 or 4, because those are the only cromulent
-values in FURNACE.
+values in LOGI.
 
 grown_factor can be any reasonable integer; I've only tested 2, 3, 4 and 8.  It does not need
 to be a multiple of 2.
@@ -66,7 +66,7 @@ to be a multiple of 2.
     geometry.prob_lo =  0  0
     geometry.prob_hi = 8P 8P
 
-    furnace.grown_factor = 8
+    logi.grown_factor = 8
 
     amr.ref_ratio = 2 4 4 4 4
 
@@ -88,8 +88,8 @@ In this case amr.n_cell = (8/2)*D = 4D.
 value in the list of ref_ratio, since that will now be the ref_ratio between the new level 0
 and the new level 1.
 
-5) You must set furnace.grown_factor in your inputs file to be the same grown_factor you used
-when you called Embiggen*ex so that the FURNACE code knows how big the original domain
+5) You must set logi.grown_factor in your inputs file to be the same grown_factor you used
+when you called Embiggen*ex so that the LOGI code knows how big the original domain
 was.
 
 6) Note that if you have run 100 steps at the original level 0, that would be equivalent
@@ -132,15 +132,15 @@ In this case grown_factor can be either 2 or 3.
     geometry.prob_lo = -P/2 -P/2
     geometry.prob_hi = 3P/2 3P/2
 
-    furnace.grown_factor = 2
+    logi.grown_factor = 2
 
-    furnace.star_at_center = 1
+    logi.star_at_center = 1
 
     amr.ref_ratio = 2 4 4 4 4
 
 ****************************************************
 
-NOTE: don't forget to set furnace.star_at_center in your inputs file when you restart.
+NOTE: don't forget to set logi.star_at_center in your inputs file when you restart.
 
 NOTE: when star_at_center = 1, MAKE SURE that you have defined the center of the star
 in your subroutine PROBINIT to be 

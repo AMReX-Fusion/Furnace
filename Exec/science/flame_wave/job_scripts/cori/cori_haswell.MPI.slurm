@@ -12,7 +12,7 @@
 
 export OMP_NUM_THREADS=1
 
-export FURNACE_EXEC=./Furnace2d.intel.haswell.MPI.ex
+export LOGI_EXEC=./Logi2d.intel.haswell.MPI.ex
 
 
 function find_chk_file {
@@ -59,5 +59,5 @@ fi
 
 slack_job_start.py "starting flame_wave problem @ NERSC; ${restartFile}" @michael
 
-srun ${FURNACE_EXEC} inputs.boost_10_10 ${restartString}
+srun ${LOGI_EXEC} inputs.boost_10_10 ${restartString}
 

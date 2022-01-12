@@ -5,7 +5,7 @@
 #include <Radiation.H>
 #include <RadSolve.H>
 
-#include <Furnace_F.H>
+#include <Logi_F.H>
 
 #include <RAD_F.H>
 
@@ -30,32 +30,32 @@ void Radiation::MGFLD_implicit_update(int level, int iteration, int ncycle)
   int fine_level =  parent->finestLevel();
 
   // allocation and intialization
-  Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
-  const BoxArray& grids = furnace->boxArray();
-  const DistributionMapping& dmap = furnace->DistributionMap();
+  Logi *logi = dynamic_cast<Logi*>(&parent->getLevel(level));
+  const BoxArray& grids = logi->boxArray();
+  const DistributionMapping& dmap = logi->DistributionMap();
   Real delta_t = parent->dtLevel(level);
 
   int ngrow = 1; 
 
-  Real time = furnace->get_state_data(Rad_Type).curTime();
-  Real oldtime = furnace->get_state_data(Rad_Type).prevTime();
+  Real time = logi->get_state_data(Rad_Type).curTime();
+  Real oldtime = logi->get_state_data(Rad_Type).prevTime();
 
-  MultiFab& S_new = furnace->get_new_data(State_Type);
-  AmrLevel::FillPatch(*furnace,S_new,ngrow,time,State_Type,0,S_new.nComp(),0); 
+  MultiFab& S_new = logi->get_new_data(State_Type);
+  AmrLevel::FillPatch(*logi,S_new,ngrow,time,State_Type,0,S_new.nComp(),0); 
 
   Array<MultiFab, AMREX_SPACEDIM> lambda;
   if (limiter > 0) {
     for (int idim = 0; idim < AMREX_SPACEDIM; idim++) {
-        lambda[idim].define(furnace->getEdgeBoxArray(idim), dmap, nGroups, 0);
+        lambda[idim].define(logi->getEdgeBoxArray(idim), dmap, nGroups, 0);
     }
 
     if (inner_update_limiter == -1) {
-      MultiFab& Er_lag = furnace->get_old_data(Rad_Type);
+      MultiFab& Er_lag = logi->get_old_data(Rad_Type);
       Er_lag.setBndry(-1.0);
       Er_lag.FillBoundary(parent->Geom(level).periodicity());
 
-      MultiFab& S_lag = furnace->get_old_data(State_Type);
-      for (FillPatchIterator fpi(*furnace,S_lag,ngrow,oldtime,State_Type,
+      MultiFab& S_lag = logi->get_old_data(State_Type);
+      for (FillPatchIterator fpi(*logi,S_lag,ngrow,oldtime,State_Type,
                                  0,S_lag.nComp()); fpi.isValid(); ++fpi) {
           S_lag[fpi].copy<RunOn::Device>(fpi());
       }
@@ -73,7 +73,7 @@ void Radiation::MGFLD_implicit_update(int level, int iteration, int ncycle)
   }
   else {
     for (int idim = 0; idim < AMREX_SPACEDIM; idim++) {
-        lambda[idim].define(furnace->getEdgeBoxArray(idim), dmap, 1, 0);
+        lambda[idim].define(logi->getEdgeBoxArray(idim), dmap, 1, 0);
       lambda[idim].setVal(1./3.);
     }    
   }
@@ -83,7 +83,7 @@ void Radiation::MGFLD_implicit_update(int level, int iteration, int ncycle)
   // Er_pi: previous inner iteration
   // Er_star: previous outer iteration
   //
-  MultiFab& Er_new = furnace->get_new_data(Rad_Type);
+  MultiFab& Er_new = logi->get_new_data(Rad_Type);
   {
     MultiFab rhs(grids,dmap,1,0);
     for (int igroup=0; igroup<nGroups; igroup++) {
@@ -146,7 +146,7 @@ void Radiation::MGFLD_implicit_update(int level, int iteration, int ncycle)
   MultiFab coupT(grids,dmap,1,0); // \sum{\kappa E - j}
 
   // multigroup boundary object
-  MGRadBndry mgbd(grids,dmap, nGroups, furnace->Geom());
+  MGRadBndry mgbd(grids,dmap, nGroups, logi->Geom());
   getBndryDataMG(mgbd, Er_new, time, level);
 
   bool have_Sanchez_Pomraning = false;
@@ -160,7 +160,7 @@ void Radiation::MGFLD_implicit_update(int level, int iteration, int ncycle)
     }
   }
 
-  RadSolve* const solver = furnace->rad_solver.get();
+  RadSolve* const solver = logi->rad_solver.get();
 
   Real relative_in, absolute_in, error_er;
   Real rel_rhoe, abs_rhoe;
@@ -173,7 +173,7 @@ void Radiation::MGFLD_implicit_update(int level, int iteration, int ncycle)
 
   Array<MultiFab, AMREX_SPACEDIM> Flux;
   for (int n = 0; n < AMREX_SPACEDIM; n++) {
-      Flux[n].define(furnace->getEdgeBoxArray(n), dmap, 1, 0);
+      Flux[n].define(logi->getEdgeBoxArray(n), dmap, 1, 0);
   }
 
   std::unique_ptr<MultiFab> flxsave;

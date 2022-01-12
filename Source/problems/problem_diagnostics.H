@@ -3,6 +3,6 @@
 
 AMREX_INLINE
 void
-Furnace::problem_diagnostics () {}
+Logi::problem_diagnostics () {}
 
 #endif

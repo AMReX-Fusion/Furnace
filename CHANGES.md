@@ -4,13 +4,13 @@
      scaling performance increase when using multiple threads
      in with OpenMP. See issue #2038.
 
-   * `furnace.hse_fixed_temp` was added to allow for a fixed temperature
+   * `logi.hse_fixed_temp` was added to allow for a fixed temperature
      at an HSE boundary. It can be enabled by setting it to a positive
-     value and setting furnace.hse_interp_temp=0. (#2042)
+     value and setting logi.hse_interp_temp=0. (#2042)
 
 # 21.10
 
-   * A new option, `furnace.drive_initial_convection` was added that
+   * A new option, `logi.drive_initial_convection` was added that
      uses the temperature interpolated from the initial model instead
      of the value on the grid to call the reactions.  This helps
      prevent a reactive zone from burning in place before a convective
@@ -18,27 +18,27 @@
 
    * The `burn_weights` are no longer stored by default in the plotfile.
      Instead, they are now enabled by setting
-     furnace.store_burn_weights=1.  Additionally, they now give a better
+     logi.store_burn_weights=1.  Additionally, they now give a better
      estimate of the cost for the numerical Jacobian (#1946, #1949)
 
-   * `furnace.change_max` is now required to be greater than 1.0. To enforce
+   * `logi.change_max` is now required to be greater than 1.0. To enforce
      a timestep cap but still allow the timestep to decrease, use
-     furnace.max_dt. (#1976)
+     logi.max_dt. (#1976)
 
    * Gravity was modified to introduce parallel plane gravity with a
      point mass by setting the radius of the star by
-     `furnace.point_mass_location_offset` and the integer
-     `furnace.point_mass_offset_is_true` == 1. By default, both
+     `logi.point_mass_location_offset` and the integer
+     `logi.point_mass_offset_is_true` == 1. By default, both
      parameters are 0.0 and 0, respectively.
 
 
 # 21.09
 
-   * `furnace.source_term_predictor` now works for simplified-SDC to
+   * `logi.source_term_predictor` now works for simplified-SDC to
      disable the source predictor for the hydrodynamics states to the
      interface. (#1968)
 
-   * `furnace.add_sdc_react_source_to_advection` was added to disable
+   * `logi.add_sdc_react_source_to_advection` was added to disable
      react source to advection in simplified-SDC (#1969)
 
 # 21.07
@@ -46,11 +46,11 @@
    * The sponge is now applied in a fully implicit manner at the end of
      the CTU advance, rather than using a predictor-corrector approach
      with time centering. This is more consistent with the original form
-     of the sponge in Furnace. (#1876)
+     of the sponge in Logi. (#1876)
 
-   * Furnace can now validate the runtime parameters set in the inputs
+   * Logi can now validate the runtime parameters set in the inputs
      file or on the commandline by setting
-     furnace.abort_on_invalid_params=1 (#1882)
+     logi.abort_on_invalid_params=1 (#1882)
 
 # 21.06
 
@@ -90,14 +90,14 @@
      an implementation of rbndry has been removed. (#1743)
 
    * We no longer store Reactions_Type in checkpoint files.  This means
-     that newer versions of Furnace will not restart from old version.
+     that newer versions of Logi will not restart from old version.
      
 # 21.05
 
    * The parameter use_eos_in_riemann was removed -- we found no
      instances of it being used (#1623)
 
-   * The option furnace.apply_sources_consecutively was removed (#1636)
+   * The option logi.apply_sources_consecutively was removed (#1636)
 
 # 21.04
 
@@ -124,7 +124,7 @@
 
 # 21.01
 
-   * The minimum C++ standard supported by Furnace is now C++17. Most modern compilers
+   * The minimum C++ standard supported by Logi is now C++17. Most modern compilers
      support C++17; the notable exception is RHEL 7 and its derivatives like CentOS 7,
      where the default compiler is gcc 4.8. In that case a newer compiler must be loaded,
      particularly a version of gcc >= 7.0, for example by installing devtoolset-7 or (if
@@ -142,7 +142,7 @@
      bug was fixed in defining the weights for the Radau quadrature
      when using true SDC (#1493)
 
-   * Compiling with the PGI compiler is no longer a requirement for the CUDA build of Furnace.
+   * Compiling with the PGI compiler is no longer a requirement for the CUDA build of Logi.
      We recommend using COMP=gnu with a version of gcc that is C++17 compliant (gcc >= 7).
 
 # 20.12
@@ -155,8 +155,8 @@
    * The minimum supported Hypre version is now 2.19.0. (#1333)
 
    * We have switched from a Fortran to a C++ implementation of VODE in Microphysics.
-     As a result we have also switched the Strang and simplified SDC burners in Furnace
-     to use this C++ implementation. Most networks used in Furnace have already been
+     As a result we have also switched the Strang and simplified SDC burners in Logi
+     to use this C++ implementation. Most networks used in Logi have already been
      ported to C++. While networks are not required to have a C++ implementation,
      networks implemented only in Fortran  will not be useable on GPUs, and eventually
      we will use C++ only. (#1313)
@@ -180,13 +180,13 @@
 
 # 20.11
 
-   * The minimum C++ standard supported by Furnace is now C++14. Most modern compilers
+   * The minimum C++ standard supported by Logi is now C++14. Most modern compilers
      support C++14; the notable exception is RHEL 7 and its derivatives like CentOS 7,
      where the default compiler is gcc 4.8. In that case a newer compiler must be loaded,
      particularly a version of gcc >= 5.0, for example by installing devtoolset-7 or (if
      running on an HPC cluster that provides modules) using a more recent gcc module. (#1284)
 
-   * A new option, `furnace.retry_small_density_cutoff`, has been added. In some
+   * A new option, `logi.retry_small_density_cutoff`, has been added. In some
      cases a small or negative density retry may be triggered on an update that
      moves a zone already close to small_dens just below it. This is not uncommon
      for "ambient"/"fluff" material outside a star. Since these zones are not
@@ -224,7 +224,7 @@
 
    * Automatic problem parameter configuration is now available to every
      problem by placing a _prob_params file in your problem directory.
-     Examples can be found in most of the problems in Furnace/Exec, and you
+     Examples can be found in most of the problems in Logi/Exec, and you
      can look at the "Setting Up Your Own Problem" section of the documentation
      for more information. This functionality is optional, however note that
      a file containing a Fortran module named "probdata_module" is now
@@ -250,7 +250,7 @@
      convert the code over to C++.
 
    * The interpolate_nd.F90 file has been moved to Util/interpolate and
-     is only compiled into Furnace if you set USE_INTERPOLATE=TRUE
+     is only compiled into Logi if you set USE_INTERPOLATE=TRUE
 
 # 20.09
 
@@ -266,13 +266,13 @@
 
    * Rotation_Type has been removed from StateData. (#1128)
 
-   * furnace.use_post_step_regrid now unconditionally regrids after
+   * logi.use_post_step_regrid now unconditionally regrids after
      every timestep on every level. (#898)
 
    * An issue with gravity.max_solve_level resulting in accesses to invalid data
      (#469, #1118) has been resolved. (#1123)
 
-   * If furnace.speed_limit is set to a number greater than zero, this
+   * If logi.speed_limit is set to a number greater than zero, this
      will now be strictly enforced on the magnitude of the velocity. (#1115)
 
    * When using AMR and gravity or rotation, the source terms applied after
@@ -285,7 +285,7 @@
 # 20.07
 
    * The master branch has been renamed the main branch. If you have an
-     existing clone of Furnace, then do the following to update for this
+     existing clone of Logi, then do the following to update for this
      change. First, do `git checkout master` if you're not already on the
      old master branch. Then do `git pull`. This will gather the updates
      to the repo, but will fail with the message `Your configuration specifies
@@ -299,7 +299,7 @@
      be a multiple of 8. Though this is recommended for performance reasons,
      it was previously required due to correctness reasons because of the
      use of an AMReX Fortran function, amrex_filccn. As noted in #1048, this
-     function is no longer required due to recent changes in Furnace (problems
+     function is no longer required due to recent changes in Logi (problems
      overriding bc_fill_nd.F90 or bc_ext_fill_nd.F90 do not need to provide an
      initial fill of the ghost zone data before implementing their specific
      boundary conditions; this is now done for you). Calling this function
@@ -307,15 +307,15 @@
      build, so it should be removed from any problem setups. (#1049)
 
    * The functionality that permitted the rotation rate to change as a
-     function of time, furnace.rotation_include_domegadt and
-     furnace.rotational_dPdt, has been removed. (#1045)
+     function of time, logi.rotation_include_domegadt and
+     logi.rotational_dPdt, has been removed. (#1045)
 
    * A CUDA illegal memory access error in Poisson gravity and diffusion
      has been fixed (#1039).
 
-   * The parameter furnace.track_grid_losses has been removed. (#1035)
+   * The parameter logi.track_grid_losses has been removed. (#1035)
 
-   * The parameter furnace.print_fortran_warnings, which no longer had any
+   * The parameter logi.print_fortran_warnings, which no longer had any
      effect, has been removed. (#1036)
 
    * PPM reconstruction has been added to the MHD solver (#1002)
@@ -334,7 +334,7 @@
 
 # 20.06
 
-   * The parameter furnace.density_reset_method has been removed. A density
+   * The parameter logi.density_reset_method has been removed. A density
      reset now unconditionally sets the density to small_dens, the temperature
      to small_temp, and zeros out the velocities. (#989)
 
@@ -383,7 +383,7 @@
 
    * Backwards compatibility in restarting from a checkpoint is no longer
      supported. Checkpoints from older versions of the code (as determined
-     by the checkpoint version in the FurnaceHeader file in the checkpoint
+     by the checkpoint version in the LogiHeader file in the checkpoint
      directory) cannot be restarted from. (#860)
 
    * Added an option to do CTU reactions in C++.  A compile flag
@@ -405,11 +405,11 @@
 
    * We now always issue a timestep retry if the density after an
      advance is negative (or less than small_dens). The parameter
-     furnace.retry_neg_dens_factor is removed. The parameter
-     furnace.retry_tolerance is also removed as it no longer has
+     logi.retry_neg_dens_factor is removed. The parameter
+     logi.retry_tolerance is also removed as it no longer has
      any effect. (#796)
 
-   * The timestep control parameter furnace.change_max now also will
+   * The timestep control parameter logi.change_max now also will
      prevent the timestep by shrinking too much in one timestep
      (previously it would only prevent it from growing too much).
      If change_max is violated in a timestep we will do a retry
@@ -435,7 +435,7 @@
    * A potential undefined flux from the HLL solver when using
      hybrid_riemann has been fixed (#823)
 
-   * The parameter furnace.allow_small_energy has been removed. The
+   * The parameter logi.allow_small_energy has been removed. The
      code behavior is now similar to what it would have been with
      allow_small_energy == 0 (the internal energy can never be
      smaller than that allowed by small_temp). (#817)
@@ -462,7 +462,7 @@
 # 20.03
 
    * We now depend on the fundamental constants from Microphysics
-     instead of keep our own copy in Furnace (#787)
+     instead of keep our own copy in Logi (#787)
 
    * We removed the ppm_predict_gammae option for the CTU hydro solver.
      This was not used frequently and did not show much difference with
@@ -480,25 +480,25 @@
    * If a derived variable has multiple components, all components are now
      added to plotfiles. Previously only the first component was used. (#758)
 
-   * We have updated our workflow when it comes to Furnace's dependencies.
+   * We have updated our workflow when it comes to Logi's dependencies.
 
-     Previously Furnace shipped with it a minimal set of microphysics that
+     Previously Logi shipped with it a minimal set of microphysics that
      allowed basic problem setups like Sedov to compile, and more advanced
      setups (like ones that include nuclear burning) required downloading
      the starkiller-astro Microphysics repository as an additional step.
-     Now, that Microphysics repository is a requirement for using Furnace.
+     Now, that Microphysics repository is a requirement for using Logi.
      If you are a current user of the Microphysics repository and prefer
      the current workflow where you maintain Microphysics as a separate
-     installation from Furnace, no change in your workflow is necessary:
-     if MICROPHYSICS_HOME is set as an environment variable, Furnace will
+     installation from Logi, no change in your workflow is necessary:
+     if MICROPHYSICS_HOME is set as an environment variable, Logi will
      use the Microphysics installation in that directory. However we have
-     also added Microphysics as a git submodule to Furnace, which is now
+     also added Microphysics as a git submodule to Logi, which is now
      the required path if you previously were not using the more advanced
      microphysics (but is also a possibility for those previously using a
      standalone Microphysics installation). To obtain this, you can use
      git submodule update --init --recursive from the top-level directory
-     of Furnace. The developer team ensures that the version of Microphysics
-     that you obtain this way is consistent with the current version of Furnace.
+     of Logi. The developer team ensures that the version of Microphysics
+     that you obtain this way is consistent with the current version of Logi.
      Then, you can keep up to date with the code mostly as normal, except now
      using git pull --recurse-submodules instead of git pull.
 
@@ -507,9 +507,9 @@
      as above, you'll obtain AMReX. As with Microphysics, you may opt to
      rely on your own installation of AMReX by setting the AMREX_HOME
      environment variable. However you are then responsible for keeping it
-     in sync with Furnace; if you use the submodule, then you'll get the version
+     in sync with Logi; if you use the submodule, then you'll get the version
      of AMReX that we have tested to ensure compatibility with the current
-     version of Furnace. (#651, #760, #762, #765)
+     version of Logi. (#651, #760, #762, #765)
 
    * The names of the conserved state variables in C++ (Density, Xmom, etc.)
      have been changed to match the names in Fortran (URHO, UMX, etc.).
@@ -560,17 +560,17 @@
    * The parameter radiation.do_real_eos = 0 has been removed, and its
      functionality is now enabled with a new equation of state called
      rad_power_law. This new EOS is only compatible with the pure
-     radiation-diffusion tests, not with furnace.do_hydro = 1. (#722)
+     radiation-diffusion tests, not with logi.do_hydro = 1. (#722)
 
-   * We now default to use_retry = 1, instructing Furnace to retry a
+   * We now default to use_retry = 1, instructing Logi to retry a
      step with a smaller dt if there is a CFL violation, burning
      failure, or negative timestep.  For the burning failure, we have
-     Furnace set the Microphysics parameter abort_on_failure to .false.
+     Logi set the Microphysics parameter abort_on_failure to .false.
      at a high priority (so it overrides the Microphysics default).
      We also check to make sure the combination of parameters makes
      sense at runtime. (#724)
 
-   * The parameter furnace.hard_cfl_limit has been removed. (#723)
+   * The parameter logi.hard_cfl_limit has been removed. (#723)
 
    * Some unnecessary clean_state calls were removed (#721)
 
@@ -585,12 +585,12 @@
 
 # 20.01
 
-   * A new option furnace.limit_fluxes_on_large_vel has been added. It
+   * A new option logi.limit_fluxes_on_large_vel has been added. It
      is similar to the existing option limit_fluxes_on_small_dens --
      fluxes are limited to prevent the velocity in any zone from
      getting too high. The largest legal speed is set by
-     furnace.speed_limit. (#712) This is more general than the previous
-     solution proposed by furnace.riemann_speed_limit, so that
+     logi.speed_limit. (#712) This is more general than the previous
+     solution proposed by logi.riemann_speed_limit, so that
      parameter has been removed. (#714)
 
    * The AMR parameter amr.compute_new_dt_on_regrid is now on by
@@ -600,17 +600,17 @@
      to set this off if you want to in your inputs file. (#720)
 
    * We have added calls into Hypre that only exist as of version
-     2.15.0, so that is the new minimum requirement for Furnace
+     2.15.0, so that is the new minimum requirement for Logi
      radiation. Note that Hypre is now hosted on GitHub at
      https://github.com/hypre-space/hypre.
 
-   * A new option furnace.limit_fluxes_on_large_vel has been added. It
+   * A new option logi.limit_fluxes_on_large_vel has been added. It
      is similar to the existing option limit_fluxes_on_small_dens --
      fluxes are limited to prevent the velocity in any zone from
      getting too high. The largest legal speed is set by
-     furnace.riemann_speed_limit. (#712)
+     logi.riemann_speed_limit. (#712)
 
-   * A new option furnace.apply_sources_consecutively has been
+   * A new option logi.apply_sources_consecutively has been
      added. By default we add all source terms together at once. This
      option, if enabled, adds the sources one at a time, so that each
      source sees the effect of the previously added sources. This can
@@ -618,7 +618,7 @@
      more effective if it is added after source terms such as gravity
      that update the velocity. (#710)
 
-   * A new option furnace.ext_src_implicit has been added. The external
+   * A new option logi.ext_src_implicit has been added. The external
      source terms were previously only implemented as an explicit
      predictor-corrector scheme. The new option, if turned on, changes
      the handling of the external source terms to allow an implicit
@@ -667,7 +667,7 @@
    * The SDC algorithm can now use Radau quadrature instead of
      Gauss-Lobatto quadrature. (#666)
 
-   * The option furnace.ppm_reference_eigenvectors has been removed.  This
+   * The option logi.ppm_reference_eigenvectors has been removed.  This
      is now used by default with the CTU PPM solver.
 
 # 19.10
@@ -680,17 +680,17 @@
      the interface states (#652, #654)
 
    * A well-balanced scheme has been added to the piecewise linear SDC
-     method, enabled with furnace.plm_well_balanaced=1.  At the moment
+     method, enabled with logi.plm_well_balanaced=1.  At the moment
      it only supports constant gravity. (#294, $654))
 
    * The weighting of the time-node fluxes stored in the flux registers
      for SDC has been fixed (#654, #658)
 
    * As before, we can choose the reconstruction with PLM using the
-     furnace.plm_iorder flag: 1 = piecewise constant, 2 = piecewise
+     logi.plm_iorder flag: 1 = piecewise constant, 2 = piecewise
      linear slopes.  Now we added a way to specify the limiter used
-     with the linear slopes.  furnace.plm_limiter = 1 will use the 2nd
-     order MC limiter and furnace.plm_limiter = 2 will use the default
+     with the linear slopes.  logi.plm_limiter = 1 will use the 2nd
+     order MC limiter and logi.plm_limiter = 2 will use the default
      4th order MC limiter (previously there was no way to select the
      2nd order limiter). (#654)
 
@@ -716,7 +716,7 @@
 
 # 19.09
 
-   * You can now type ./Furnace.gnu.ex  *describe to see the list of
+   * You can now type ./Logi.gnu.ex  *describe to see the list of
      modules / compilers the code was built with (#660)
 
    * The reaction quantities are now computed as proper 4th order
@@ -743,7 +743,7 @@
      integrals under the parabolas as needed instead of precomputing
      and storing them (#624)
 
-   * We created a new error wrapper, furnace_error(), to replace the
+   * We created a new error wrapper, logi_error(), to replace the
      AMReX amrex_error().  This will allow us to deal with error when
      on the GPU.
 
@@ -752,7 +752,7 @@
       * Explicit thermal diffusion is now implemented for both 2nd and
         4th order accurate solvers. (#610)
 
-      * There is a new option (furnace.sdc_extra) for taking extra SDC
+      * There is a new option (logi.sdc_extra) for taking extra SDC
         iterations.
 
       * The Newton solver for the SDC update can now subcycle.
@@ -787,12 +787,12 @@
      int8_t. This means that the interface to problem_tagging_nd.F90
      has been updated to use integer(1).
 
-     Furnace_prob_err_list.H and other related files have been deleted
+     Logi_prob_err_list.H and other related files have been deleted
      as they were not actually used anywhere.
 
-     Furnace_error.cpp is now removed and there is no further support
+     Logi_error.cpp is now removed and there is no further support
      for writing custom tagging routines. The set of variables that we
-     check for tagging is hard-coded in Furnace and can be expanded as
+     check for tagging is hard-coded in Logi and can be expanded as
      needed. Problem-specific tagging should be done through the
      set_problem_tags functionality. (#611)
 
@@ -822,8 +822,8 @@
      need assistance converting your problem.
 
    * Deprecation notice: as of the 19.06 release, problem-specific
-     overrides of Furnace_error.cpp, and in general custom tagging
-     routines (including Furnace_prob_err.cpp and associated files),
+     overrides of Logi_error.cpp, and in general custom tagging
+     routines (including Logi_prob_err.cpp and associated files),
      are deprecated. The only supported mechanism for problem-specific
      tagging is through the set_problem_tags function in problem_tagging_nd.F90.
      (There are also dimension-specific versions of this file, but these
@@ -847,7 +847,7 @@
 
    * The velocity calculated for the interface in the Riemann solve for
      the CGF/CG Riemann solvers can no longer exceed the speed of light.
-     The parameter furnace.riemann_speed_limit can be set to control the
+     The parameter logi.riemann_speed_limit can be set to control the
      speed limit applied in the Riemann solver  * this is useful for
      preventing unphysically large velocities from being created at
      shock fronts or near large density gradients.
@@ -878,7 +878,7 @@
 
 # 19.04
 
-   * The runtime parameter furnace.fix_mass_flux has been removed: it is not
+   * The runtime parameter logi.fix_mass_flux has been removed: it is not
      clear what the use case is, and it had no test suite coverage. (#572)
 
    * Fixed a bug introduced in August 2015 that resulted in incorrect
@@ -889,7 +889,7 @@
 
    * Using point-mass gravity no longer requires USE_POINTMASS = TRUE
      in your makefile; USE_GRAV = TRUE is sufficient. However, to
-     compensate for this, you must now include furnace.use_point_mass = 1
+     compensate for this, you must now include logi.use_point_mass = 1
      in your inputs file to enable the point mass. This input parameter
      already existed, but was defaulted to 1 since it only mattered
      if the compile flag was enabled. Now the default is 0.
@@ -922,7 +922,7 @@
      this) and species and velocity diffusion (they were 1-d only).
      None of these routines were regularly tested.  (#534)
 
-   * the problem diagnostics in Furnace/Diagnostics have been converted to
+   * the problem diagnostics in Logi/Diagnostics have been converted to
      C++ to remain compatible with the AMReX build system.
 
 # 19.03
@@ -965,8 +965,8 @@
    * The CTU hydrodynamics driver has been rewritten in C++
      (#498)
 
-   * The input parameter furnace.do_ctu has been renamed
-     furnace.time_integration_method. The current legal values
+   * The input parameter logi.do_ctu has been renamed
+     logi.time_integration_method. The current legal values
      are 0 (CTU, the default) and 1 (MOL).
 
    * fixed a bug in the ppm_temp_fix = 1 reconstruction  * we were not
@@ -997,7 +997,7 @@
      This is controlled by the parameters (in the &tagging probin
      namespace) enucerr, and max_enucerr_lev.  We also moved the dxnuc
      tagging parameters from inputs to probin, where they are now
-     named dxnuc_min (formerly furnace.dxnuc), dxnuc_max, and
+     named dxnuc_min (formerly logi.dxnuc), dxnuc_max, and
      max_dxnuc_lev.  (#364, #437, #473)
 
    * The diffusion cutoff now is a linear ramp instead of a
@@ -1121,7 +1121,7 @@
 # 18.08
 
    * the old use_mlmg_solver parameters were removed  * this
-     has been the only multigrid solver in Furnace for some time,
+     has been the only multigrid solver in Logi for some time,
      so the parameters had no effect.
 
    * The parameter dual_energy_eta3 was removed. This had been
@@ -1161,7 +1161,7 @@
      we can cut the timestep again and keep going. Additionally,
      if you set abort_on_false to F in your probin file's extern
      parameters, then a burn in Microphysics will not cause an
-     abort of the run, and Furnace now knows how to deal with that
+     abort of the run, and Logi now knows how to deal with that
      by doing a retry and taking a shorter timestep (under the
      logic that most burn failures come from taking too large of
      a hydrodynamic timestep for the burner to be able to keep up).
@@ -1247,9 +1247,9 @@
      were constructed when simultaneously using reactions (#268, #269)
      have been fixed (#271).
 
-   * The deprecated parameter furnace.use_colglaz is removed. It was
+   * The deprecated parameter logi.use_colglaz is removed. It was
      deprecated in June 2016 because it was obsoleted by the parameter
-     furnace.riemann_solver, which can be set to 1 to use the Colella
+     logi.riemann_solver, which can be set to 1 to use the Colella
      and Glaz Riemann solver.
 
    * The state variable indicies in Fortran are now all defined in a
@@ -1300,7 +1300,7 @@
      interfaces. (#116, #253) A related bug when using SDC was fixed
      too. (#56)
 
-   * The parameter furnace.keep_sources_until_end has been removed.
+   * The parameter logi.keep_sources_until_end has been removed.
 
    * Source terms (gravity, rotation, etc.) have now been all
      coalesced into a single MultiFab. This reduces the memory
@@ -1321,7 +1321,7 @@
      bit different now that it is seeing a different velocity. (#165,
      #249)
 
-   * As of 17.10, there is a new option furnace.plot_per_is_exact. If
+   * As of 17.10, there is a new option logi.plot_per_is_exact. If
      this is set to 1, timesteps will be shortened to exactly hit the
      time interval specified by amr.plot_per. An issue with this
      (#242) was fixed (#243) where an incorrect timestep would be
@@ -1396,9 +1396,9 @@
      phase in your simulation, stop with a checkpoint, and then restart
      (possibly with different options) to do the main phase of the run.
      In this case, you may want to reset the simulation time to zero for
-     analysis purposes. The new option furnace.reset_checkpoint_time allows
+     analysis purposes. The new option logi.reset_checkpoint_time allows
      you to do this: by setting it to the time you want, the checkpoint you
-     generate will have this new time. Similarly, furnace.reset_checkpoint_step
+     generate will have this new time. Similarly, logi.reset_checkpoint_step
      allows you to reset the timestep number (for example, to 0). Both options
      only work when you're using amr.checkpoint_on_restart=1, which itself
      requires amr.regrid_on_restart=1. This option is only intended to be used
@@ -1415,7 +1415,7 @@
      non-Cartesian geometries (issue #175)
 
    * the README.md now describes the process to become a
-     "core developer" of Furnace, and what this means.
+     "core developer" of Logi, and what this means.
 
    * Network_dir has been renamed NETWORK_DIR and EOS_dir has been
      renamed EOS_DIR.  All of the problem GNUmakefiles have been
@@ -1452,7 +1452,7 @@
 
 # 17.08
 
-   * the option furnace.limit_fluxes_on_small_dens now only limits
+   * the option logi.limit_fluxes_on_small_dens now only limits
      on density as the name suggests. It originally also limited
      fluxes if the internal energy would go negative, but this
      caused problems in runs with MPI, so it was removed. It was
@@ -1469,7 +1469,7 @@
      being properly initialized in the Fortran side of the code.
 
    * the viscosity routine is now separate from conductivity
-     in Microphysics/.  Also, Furnace can now use the stellar
+     in Microphysics/.  Also, Logi can now use the stellar
      conductivity that is part of StarKiller.
 
    * the StarKiller-astro Microphysics repo now uses a denser table
@@ -1567,7 +1567,7 @@
 # 17.01
 
    * the radiation-specific version of computeTemp has been removed
-     and instead everything goes through the main Furnace computeTemp.
+     and instead everything goes through the main Logi computeTemp.
      This affects, in particular, how we treated small internal
      energies in radiation. (issue #64)
 
@@ -1607,11 +1607,11 @@
      is that after a reflux, we recompute the value of the source terms
      on the affected levels so that the new-time source term knows about
      the updated state due to the flux. For gravity, this resembles
-     what the original Furnace paper described for a sync source, but this
+     what the original Logi paper described for a sync source, but this
      is now done in a consistent way for all source terms. This should be fairly
      cheap which is why it is enabled by default, but you can disable it
-     (see furnace.update_sources_after_reflux). An additional optional
-     change is a new strategy for refluxing (see furnace.reflux_strategy).
+     (see logi.update_sources_after_reflux). An additional optional
+     change is a new strategy for refluxing (see logi.reflux_strategy).
      In the existing standard method, we only reflux after all fine timesteps
      over a coarse timestep have completed. In the new method, we do a
      partial reflux at the end of each fine timestep. This means that
@@ -1631,7 +1631,7 @@
 # 16.10
 
    * the parameter first_order_hydro has been moved from the
-     radiation namespace to the furnace namespace
+     radiation namespace to the logi namespace
 
    * the problem setups have been moved into sub-directory
      categories to make it easier to read (issue #32)
@@ -1663,15 +1663,15 @@
      requirements.  gravity.delta_tol has been removed. (issue #43)
 
    * the radiation hydro solver, that used to live in
-     FurnaceRadiation.git has now been completely integrated into the
-     main Furnace git repo.  The history was preserved in the
+     LogiRadiation.git has now been completely integrated into the
+     main Logi git repo.  The history was preserved in the
      transition It has also been cleaned up a little (issues #24, #31,
      #33, #48)
 
      The radiation build variable Network_inputs was renamed
      to NETWORK_INPUTS for consistency.
 
-     The EOSes that used to come with FurnaceRadiation are available
+     The EOSes that used to come with LogiRadiation are available
      in Microphysics.git
 
    * the gravity and diffusion runtime parameters have been moved
@@ -1683,7 +1683,7 @@
 
    * a flux limiter has been added that limits the size of the hydro
      fluxes if they would cause rho or (rho e) to go negative. This
-     can be used with furnace.limit_hydro_fluxes_on_small_dens = 1.
+     can be used with logi.limit_hydro_fluxes_on_small_dens = 1.
 
    * a bug for single-level problems with Poisson gravity has been
      fixed where the multi-grid tolerance was being set to an
@@ -1701,10 +1701,10 @@
    * the radiation hydro ppm now implements the ppm_predict_gammae
      option
 
-   * we no longer ship VODE or BLAS with Furnace  * these are provided
+   * we no longer ship VODE or BLAS with Logi  * these are provided
      by the separate Microphysics git repo
 
-   * the documentation of the architecture of Furnace has been
+   * the documentation of the architecture of Logi has been
      significantly improved (issues #20, #23, #29, #31)
 
 # 16.09:
@@ -1737,7 +1737,7 @@
      i.e. the potential is negative and we solve del**2 phi = 4 * pi *
      G * rho.
 
-   * Furnace_advance.cpp has been significantly cleaned up. Each source
+   * Logi_advance.cpp has been significantly cleaned up. Each source
      term (gravity, rotation, diffusion, etc.) has a MultiFab
      associated with it through which it affects the state data. This
      has changed results slightly (typically a relative change no
@@ -1747,7 +1747,7 @@
    * An iterative solver for coupling between reactions and
      hydrodynamics has been introduced, which you can enable with
      USE_SDC = TRUE in the makefile. The number of iterations done for
-     each timestep is controlled with furnace.sdc_max_iters.
+     each timestep is controlled with logi.sdc_max_iters.
 
    * We changed the defaults for the gravity and rotation sources.
      now we do grav_source_type and rot_source_type = 4 by default.
@@ -1763,9 +1763,9 @@
      parabolic reconstruction of the momentum sources and traces
      under them when constructing the interface states
 
-   * we now set furnace.cg_blend = 2 by default.  This has no effect for
+   * we now set logi.cg_blend = 2 by default.  This has no effect for
      the default CGF Riemann solver, but for the Colella & Glaz solver
-     (furnace.riemann_solver = 1), this will augment the secant iteration
+     (logi.riemann_solver = 1), this will augment the secant iteration
      for the pstar find with bisection if we fail to converge.  This
      makes the root find for the star state more robust.
 
@@ -1773,10 +1773,10 @@
      right hydro state to the CG Riemann solver for testing  * this acts
      as a unit test for that solver.
 
-   * the default for furnace.allow_negative_energy is now 0  * this is
+   * the default for logi.allow_negative_energy is now 0  * this is
      the safer choice.
 
-   * the default for furnace.point_mass_fix_solution was changed to 0
+   * the default for logi.point_mass_fix_solution was changed to 0
       * this is a more expected behavior for new users.
 
 
@@ -1785,7 +1785,7 @@
    * A new parameter gravity.max_multipole_moment_level was added.
      This comes into play when using the multipole solver to compute
      the boundary conditions on the domain for isolated mass
-     distributions.  The default behavior in Furnace when constructing
+     distributions.  The default behavior in Logi when constructing
      boundary conditions for the gravity solve is to do a multipole
      expansion sum over the density on the coarse grid only.  If you
      increase the value of that new parameter from its default of 0 to
@@ -1799,7 +1799,7 @@
 
    * The sponge update is usually done in an implicit fashion,
      but you can now instead do an explicit update with
-     furnace.sponge_implicit == 0.
+     logi.sponge_implicit == 0.
 
    * the shock variable is now output if we are running with shock
      detection enabled
@@ -1813,11 +1813,11 @@
 # 16.07
 
    * For consistency across the BoxLib suite of astro codes, we've
-     renamed the main environment variables.  FURNACE_HOME now replaces
-     FURNACE_DIR; MICROPHYSICS_HOME now replaces MICROPHYSICS_DIR.
+     renamed the main environment variables.  LOGI_HOME now replaces
+     LOGI_DIR; MICROPHYSICS_HOME now replaces MICROPHYSICS_DIR.
 
    * The EOS, network, and conductivity routines have been moved to
-     sub-directories or Furnace/Microphysics/.  This reflects the way
+     sub-directories or Logi/Microphysics/.  This reflects the way
      the layout in the standalone Microphysics repo as well as that in
      Maestro.
 
@@ -1826,39 +1826,39 @@
      you were using any of them (Prob_nd.f90, problem_tagging_nd.f90,
      Rotation_frequency.f90, or ext_src_nd.f90) by having local copies
      in your problem directory that overwrote them, please be sure to
-     update the file extension so that Furnace will recognize them.
+     update the file extension so that Logi will recognize them.
 
    * If you were using allow_negative_energy == 0, the case where
      (rho*E), the total gas energy of the zone, was negative was
      indirectly covered and it would be reset in this case due to the
      way the logic worked for resetting the internal energy and then
      updating the total energy to be consistent with it. However at
-     one point we added an option furnace.dual_energy_update_E_from_e
+     one point we added an option logi.dual_energy_update_E_from_e
      which disabled that second update and also meant that negative
      (rho*E) was again possible. This possibility has now been
      precluded directly, by resetting (rho*E) the same way if we
      detect that it is negative. This should not change results unless
-     you were using furnace.dual_energy_update_E_from_e = 1. This is
+     you were using logi.dual_energy_update_E_from_e = 1. This is
      also a good time to plug the newer option
-     furnace.allow_small_energy, which if set to 1 will reset when you
+     logi.allow_small_energy, which if set to 1 will reset when you
      hit a (rho*e) that is less than the smallest possible energy for
      the (rho, small_temp, X) in that zone. Note that it requires an
      extra EOS call.
 
    * The default interpolation for coarse zones into fine zones is
      piecewise linear.  There is now an option to use piecewise
-     constant instead  * set furnace.state_interp_order to 0. Note that
+     constant instead  * set logi.state_interp_order to 0. Note that
      if you use piecewise linear you can set
-     furnace.lin_limit_state_interp to 1 if you want to preserve linear
+     logi.lin_limit_state_interp to 1 if you want to preserve linear
      combinations and therefore guarantee that, say, sum(X) = 1.
 
-   * If you set the new option furnace.limit_fluxes_on_small_dens = 1,
+   * If you set the new option logi.limit_fluxes_on_small_dens = 1,
      the fluxes will be explicitly limited such that a negative
      density is never created.
 
    * Along similar lines, there are also new options for how to reset
      a negative density if one should arise. Set
-     furnace.density_reset_method = 2 to use the average of all
+     logi.density_reset_method = 2 to use the average of all
      adjacent zones instead of the default, which is the
      characteristics of the adjacent zone with the highest
      density. Set it to 3 if you want to reset it to the original zone

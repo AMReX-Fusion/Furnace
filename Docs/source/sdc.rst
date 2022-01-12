@@ -4,27 +4,27 @@
 Spectral Deferred Corrections
 *****************************
 
-The Furnace SDC solver couples the hydrodynamics tightly together,
+The Logi SDC solver couples the hydrodynamics tightly together,
 iteratively improving the convergence of the solution.  This is the
-basis of the 4th order accurate Furnace solver.  The algorithm is described
-in :cite:`furnace-sdc`.
+basis of the 4th order accurate Logi solver.  The algorithm is described
+in :cite:`logi-sdc`.
 
 .. note::
 
    Here we are referring to the full SDC time integration scheme
-   (``furnace.time_integration_method = 2``), not the simplified-SDC solver.
+   (``logi.time_integration_method = 2``), not the simplified-SDC solver.
 
 
 The options that describe the quadrature and iterations are:
 
-* ``furnace.sdc_order`` : the desired spatial and temporal order.  2 and 4 are supported.
+* ``logi.sdc_order`` : the desired spatial and temporal order.  2 and 4 are supported.
 
-* ``furnace.sdc_quadrature`` : the quadrature scheme used for the
+* ``logi.sdc_quadrature`` : the quadrature scheme used for the
   time-integration.  This determines the number and location of the
   temporal nodes.  Supported values are 0 for Gauss-Lobatto and 1 for
   Radau IIA.
 
-* ``furnace.sdc_extra`` : the number of extra iterations to take.  By
+* ``logi.sdc_extra`` : the number of extra iterations to take.  By
   default the number of iterations used is equal to the value of
   ``sdc_order``.
 

@@ -1,4 +1,4 @@
-#include <Furnace.H>
+#include <Logi.H>
 #include <fourth_center_average.H>
 
 using namespace amrex;
@@ -7,7 +7,7 @@ using namespace amrex;
 
 
 void
-Furnace::make_cell_center(const Box& bx,
+Logi::make_cell_center(const Box& bx,
                          Array4<Real const> const& U,
                          Array4<Real> const& U_cc,
                          GpuArray<int, 3> const& domlo, GpuArray<int, 3> const& domhi) {
@@ -51,7 +51,7 @@ Furnace::make_cell_center(const Box& bx,
 }
 
 void
-Furnace::make_cell_center_in_place(const Box& bx,
+Logi::make_cell_center_in_place(const Box& bx,
                                   Array4<Real> const& U,
                                   Array4<Real> const& tmp,
                                   GpuArray<int, 3> const& domlo, GpuArray<int, 3> const& domhi) {
@@ -91,7 +91,7 @@ Furnace::make_cell_center_in_place(const Box& bx,
 
 
 void
-Furnace::compute_lap_term(const Box& bx,
+Logi::compute_lap_term(const Box& bx,
                          Array4<Real const> const& U,
                          Array4<Real> const& lap, const int ncomp,
                          GpuArray<int, 3> const& domlo, GpuArray<int, 3> const& domhi) {
@@ -121,7 +121,7 @@ Furnace::compute_lap_term(const Box& bx,
 
 
 void
-Furnace::make_fourth_average(const Box& bx,
+Logi::make_fourth_average(const Box& bx,
                             Array4<Real> const& q,
                             Array4<Real const> const& q_bar,
                             GpuArray<int, 3> const& domlo, GpuArray<int, 3> const& domhi) {
@@ -152,7 +152,7 @@ Furnace::make_fourth_average(const Box& bx,
 
 
 void
-Furnace::make_fourth_in_place(const Box& bx,
+Logi::make_fourth_in_place(const Box& bx,
                              Array4<Real> const& q,
                              Array4<Real> const& tmp,
                              GpuArray<int, 3> const& domlo, GpuArray<int, 3> const& domhi) {
@@ -168,7 +168,7 @@ Furnace::make_fourth_in_place(const Box& bx,
 
 
 void
-Furnace::make_fourth_in_place_n(const Box& bx,
+Logi::make_fourth_in_place_n(const Box& bx,
                                Array4<Real> const& q, const int ncomp,
                                Array4<Real> const& tmp,
                                GpuArray<int, 3> const& domlo, GpuArray<int, 3> const& domhi) {

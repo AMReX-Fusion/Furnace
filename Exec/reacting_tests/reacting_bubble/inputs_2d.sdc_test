@@ -14,49 +14,49 @@ amr.n_cell           = 384     640
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  0   3
-furnace.hi_bc       =  0   2
+logi.lo_bc       =  0   3
+logi.hi_bc       =  0   2
 
-furnace.yl_ext_bc_type = 1
+logi.yl_ext_bc_type = 1
 
-furnace.hse_interp_temp = 1
-furnace.hse_reflect_vels = 1
+logi.hse_interp_temp = 1
+logi.hse_reflect_vels = 1
 
-furnace.fill_ambient_bc = 1
-furnace.ambient_fill_dir = 1
-furnace.ambient_outflow_vel = 1
+logi.fill_ambient_bc = 1
+logi.ambient_fill_dir = 1
+logi.ambient_outflow_vel = 1
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 1
-furnace.do_grav = 1
-furnace.do_sponge = 1
+logi.do_hydro = 1
+logi.do_react = 1
+logi.do_grav = 1
+logi.do_sponge = 1
 
-furnace.react_rho_min = 1.0
+logi.react_rho_min = 1.0
 
-furnace.small_temp = 1.e6
+logi.small_temp = 1.e6
 
-furnace.ppm_type = 1
-furnace.grav_source_type = 2
+logi.ppm_type = 1
+logi.grav_source_type = 2
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.5e10
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.9     # cfl number for hyperbolic system
-furnace.init_shrink    = 1.0     # scale back initial timestep
-furnace.change_max     = 1.1     # max time step growth
+logi.cfl            = 0.9     # cfl number for hyperbolic system
+logi.init_shrink    = 1.0     # scale back initial timestep
+logi.change_max     = 1.1     # max time step growth
 
-furnace.time_integration_method=3
+logi.time_integration_method=3
 
 # SPONGE
-furnace.sponge_upper_density = 1.e6
-furnace.sponge_lower_density = 1.e4
-furnace.sponge_timescale     = 1.e-5
+logi.sponge_upper_density = 1.e6
+logi.sponge_lower_density = 1.e4
+logi.sponge_timescale     = 1.e-5
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 1       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING

@@ -15,8 +15,8 @@ USE_OMP    = FALSE
 USE_MHD = FALSE
 
 
-# define the location of the FURNACE top directory
-FURNACE_HOME := ../../..
+# define the location of the LOGI top directory
+LOGI_HOME := ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/eos
 EOS_DIR     := helmholtz
@@ -26,8 +26,8 @@ NETWORK_DIR := general_null
 NETWORK_INPUTS = ignition.net
 
 Bpack   := ./Make.package 
-#$(FURNACE_HOME)/Util/exact_riemann/Make.package
-#Blocs   := . $(FURNACE_HOME)/Util/exact_riemann/
-#EXTERN_CORE_ADD := $(FURNACE_HOME)/Util/exact_riemann/
+#$(LOGI_HOME)/Util/exact_riemann/Make.package
+#Blocs   := . $(LOGI_HOME)/Util/exact_riemann/
+#EXTERN_CORE_ADD := $(LOGI_HOME)/Util/exact_riemann/
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

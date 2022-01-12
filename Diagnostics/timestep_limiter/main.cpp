@@ -9,7 +9,7 @@
 #include <AMReX_ParmParse.H>
 #include <AMReX_BaseFab.H>
 #include <Limiter_F.H>
-#include <Furnace_F.H>
+#include <Logi_F.H>
 
 using namespace amrex;
 
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     int NUM_GROW;
 
     ca_get_method_params(&NUM_GROW);
-    ca_set_furnace_method_params();
+    ca_set_logi_method_params();
 
 	// Start dataservices
 	DataServices::SetBatchMode();

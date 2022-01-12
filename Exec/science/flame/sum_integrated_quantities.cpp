@@ -1,12 +1,12 @@
 #include <iomanip>
 
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 using namespace amrex;
 
 void
-Furnace::sum_integrated_quantities ()
+Logi::sum_integrated_quantities ()
 {
   if (verbose <= 0) return;
 
@@ -35,7 +35,7 @@ Furnace::sum_integrated_quantities ()
 
   for (int lev = 0; lev <= finest_level; lev++)
     {
-      Furnace& ca_lev = getLevel(lev);
+      Logi& ca_lev = getLevel(lev);
 
       mass   += ca_lev.volWgtSum("density", time, local_flag);
       mom[0] += ca_lev.volWgtSum("xmom", time, local_flag);

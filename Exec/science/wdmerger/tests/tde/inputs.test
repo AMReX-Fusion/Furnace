@@ -1,5 +1,5 @@
 
-############################## FURNACE INPUTS ###############################################
+############################## LOGI INPUTS ###############################################
 
 ############################################################################################
 # Geometry
@@ -18,13 +18,13 @@ geometry.prob_lo = -1.28e11 -1.28e11 -1.28e11
 geometry.prob_hi =  1.28e11  1.28e11  1.28e11
 
 # System center of mass
-furnace.center    =   0.0e0   0.0e0   0.0e0
+logi.center    =   0.0e0   0.0e0   0.0e0
 
 # Boundary conditions on lo x, y, and z edges
-furnace.lo_bc = 2 2 2
+logi.lo_bc = 2 2 2
 
 # Boundary conditions on hi x, y, and z edges
-furnace.hi_bc = 2 2 2
+logi.hi_bc = 2 2 2
 
 ############################################################################################ 
 # Timestepping
@@ -37,16 +37,16 @@ max_step = 10000000
 stop_time = 30.0
 
 # Whether to use our custom stopping criteria
-furnace.use_stopping_criterion = 1
+logi.use_stopping_criterion = 1
 
 # CFL number for hyperbolic system
-furnace.cfl = 0.15
+logi.cfl = 0.15
 
 # Scale back initial timestep by this factor
-furnace.init_shrink = 0.1
+logi.init_shrink = 0.1
 
 # Factor by which dt is allowed to change each timestep
-furnace.change_max = 1.05
+logi.change_max = 1.05
 
 ############################################################################################ 
 # Resolution, gridding and AMR
@@ -78,45 +78,45 @@ amr.blocking_factor = 16
 ############################################################################################
 
 # Whether or not to do hydrodynamics
-furnace.do_hydro = 1
+logi.do_hydro = 1
 
 # Whether or not to do gravity
-furnace.do_grav = 1
+logi.do_grav = 1
 
 # Whether or not to do reactions
-furnace.do_react = 0
+logi.do_react = 0
 
 # Whether or not to apply the sponge
-furnace.do_sponge = 1
+logi.do_sponge = 1
 
 # Whether or not to apply external source terms
-furnace.add_ext_src = 1
+logi.add_ext_src = 1
 
 # Whether or not to include the rotation source term
-furnace.do_rotation = 0
+logi.do_rotation = 0
 
 ############################################################################################
 # PPM/Hydro options
 ############################################################################################
 
 # Use a lagged predictor estimate of the source terms in the hydro
-furnace.source_term_predictor = 1
+logi.source_term_predictor = 1
 
 # Whether to use the hybrid advection technique that conserves angular momentum
-furnace.hybrid_hydro = 0
+logi.hybrid_hydro = 0
 
 # Explicitly limit fluxes to avoid hitting a negative density
-furnace.limit_fluxes_on_small_dens = 0
+logi.limit_fluxes_on_small_dens = 0
 
 ############################################################################################
 # Thermodynamics
 ############################################################################################
 
 # Minimum allowable temperature (K)
-furnace.small_temp = 1.e5
+logi.small_temp = 1.e5
 
 # Minimum allowable density (g / cm**3)
-furnace.small_dens = 1.e-5
+logi.small_dens = 1.e-5
 
 # Use Coulomb corrections in Helmholtz EOS
 eos.use_eos_coulomb = 1
@@ -125,10 +125,10 @@ eos.use_eos_coulomb = 1
 eos.eos_input_is_constant = 1
 
 # Ambient temperature (K)
-furnace.ambient_temp = 1.0e7
+logi.ambient_temp = 1.0e7
 
 # Ambient density (g / cm**3)
-furnace.ambient_density = 1.0e-4
+logi.ambient_density = 1.0e-4
 
 ############################################################################################
 # Gravity
@@ -150,29 +150,29 @@ gravity.no_sync = 0
 gravity.do_composite_phi_correction = 0
 
 # Add a black hole point mass (1000 M_sun)
-furnace.point_mass = 1.9884e36
-furnace.point_mass_fix_solution = 1
+logi.point_mass = 1.9884e36
+logi.point_mass_fix_solution = 1
 
 ############################################################################################
 # Sponge
 ############################################################################################
 
-furnace.sponge_lower_density = 1.0e0
-furnace.sponge_upper_density = 1.0e0
-furnace.sponge_timescale     = 0.01e0
+logi.sponge_lower_density = 1.0e0
+logi.sponge_upper_density = 1.0e0
+logi.sponge_timescale     = 0.01e0
 
 ############################################################################################
 # Diagnostics and I/O
 ############################################################################################
 
 # Timesteps between computing and printing volume averaged diagnostic quantities
-furnace.sum_interval = 1
+logi.sum_interval = 1
 
 # Simulation time between computing and printing volume averaged diagnostic quantities
-furnace.sum_per = -1.0
+logi.sum_per = -1.0
 
 # Gravitational wave strain observation distance
-furnace.gw_dist = 10.0
+logi.gw_dist = 10.0
 
 # Whether or not to output plotfiles
 amr.plot_files_output = 1
@@ -184,11 +184,11 @@ amr.checkpoint_files_output = 1
 amr.check_file = chk
 
 # We want to store the 'old' state data in checkpoints
-furnace.dump_old = 1
+logi.dump_old = 1
 
 # Verbosity
 amr.v = 1
-furnace.v = 1
+logi.v = 1
 
 # Simulation time between checkpoints
 amr.check_per = 10.0

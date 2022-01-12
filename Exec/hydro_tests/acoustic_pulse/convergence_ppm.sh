@@ -4,9 +4,9 @@
 set -x
 
 DIM=3
-EXEC=./Furnace${DIM}d.gnu.MPI.ex
+EXEC=./Logi${DIM}d.gnu.MPI.ex
 
-RUNPARAMS="furnace.ppm_type=1 furnace.time_integration_method=0"
+RUNPARAMS="logi.ppm_type=1 logi.time_integration_method=0"
 
 mpiexec -n 8 ${EXEC} inputs.64 ${RUNPARAMS} amr.plot_file=acoustic_pulse_64_ppm_plt &> 64.out
 mpiexec -n 8 ${EXEC} inputs.128 ${RUNPARAMS} amr.plot_file=acoustic_pulse_128_ppm_plt &> 128.out

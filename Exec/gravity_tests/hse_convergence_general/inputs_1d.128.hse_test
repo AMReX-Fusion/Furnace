@@ -14,47 +14,47 @@ amr.n_cell           = 128
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  1
-furnace.hi_bc       =  2
+logi.lo_bc       =  1
+logi.hi_bc       =  2
 
-furnace.xl_ext_bc_type = 1
-furnace.hse_interp_temp = 1
-furnace.hse_reflect_vels = 1
+logi.xl_ext_bc_type = 1
+logi.hse_interp_temp = 1
+logi.hse_reflect_vels = 1
 
-furnace.fill_ambient_bc = 1
-furnace.ambient_fill_dir = 0
-furnace.ambient_outflow_vel = 1
+logi.fill_ambient_bc = 1
+logi.ambient_fill_dir = 0
+logi.ambient_outflow_vel = 1
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 0
-furnace.do_rotation = 0
-furnace.do_grav = 1
-furnace.do_sponge = 0
+logi.do_hydro = 1
+logi.do_react = 0
+logi.do_rotation = 0
+logi.do_grav = 1
+logi.do_sponge = 0
 
-furnace.small_temp = 1.e6
-furnace.small_dens = 1.e-5
+logi.small_temp = 1.e6
+logi.small_dens = 1.e-5
 
-furnace.ppm_type = 1
-furnace.grav_source_type = 2
+logi.ppm_type = 1
+logi.grav_source_type = 2
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -1.5e14
 
-furnace.diffuse_temp = 0
+logi.diffuse_temp = 0
 
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.8     # cfl number for hyperbolic system
-furnace.init_shrink    = 1.0     # scale back initial timestep
-furnace.change_max     = 1.1     # max time step growth
-furnace.use_retry      = 1
-furnace.max_subcycles = 16
-furnace.fixed_dt = 3.75e-8
+logi.cfl            = 0.8     # cfl number for hyperbolic system
+logi.init_shrink    = 1.0     # scale back initial timestep
+logi.change_max     = 1.1     # max time step growth
+logi.use_retry      = 1
+logi.max_subcycles = 16
+logi.fixed_dt = 3.75e-8
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 1       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING

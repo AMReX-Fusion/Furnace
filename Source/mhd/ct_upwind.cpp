@@ -1,13 +1,13 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_F.H>
+#include <Logi_util.H>
 
 #include <mhd_util.H>
 
 using namespace amrex;
 
 void
-Furnace::corner_couple(const Box& bx,
+Logi::corner_couple(const Box& bx,
                       Array4<Real> const& qr_out,
                       Array4<Real> const& ql_out,
                       Array4<Real const> const& ur,
@@ -206,7 +206,7 @@ Furnace::corner_couple(const Box& bx,
 
 
 void
-Furnace::half_step(const Box& bx,
+Logi::half_step(const Box& bx,
                   Array4<Real> const& qr_out,
                   Array4<Real> const& ql_out,
                   Array4<Real const> const& ur,

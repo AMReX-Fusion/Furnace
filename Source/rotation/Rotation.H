@@ -3,8 +3,8 @@
 
 #include <math.H>
 #include <AMReX_Array.H>
-#include <Furnace.H>
-#include <Furnace_util.H>
+#include <Logi.H>
+#include <Logi_util.H>
 
 ///
 /// Return the omega vector corresponding to the current rotational period
@@ -17,8 +17,8 @@ GpuArray<Real, 3> get_omega()
     // If rotational_period is less than zero, that means rotation is disabled, and so we should effectively
     // shut off the source term by setting omega = 0.
 
-    if (furnace::rotational_period > 0.0_rt) {
-        omega[furnace::rot_axis - 1] = 2.0_rt * M_PI / furnace::rotational_period;
+    if (logi::rotational_period > 0.0_rt) {
+        omega[logi::rot_axis - 1] = 2.0_rt * M_PI / logi::rotational_period;
     }
 
     return omega;
@@ -50,7 +50,7 @@ rotational_acceleration(GpuArray<Real, 3>& r, GpuArray<Real, 3>& v,
 
   auto omega = get_omega();
 
-  if (furnace::state_in_rotating_frame == 1) {
+  if (logi::state_in_rotating_frame == 1) {
 
     // Allow the various terms to be turned off.  This is often used
     // for diagnostic purposes, but there are genuine science cases
@@ -61,9 +61,9 @@ rotational_acceleration(GpuArray<Real, 3>& r, GpuArray<Real, 3>& v,
     // on the basis that the true equilibrium state will have zero
     // velocity anyway).
 
-    bool c1 = (furnace::rotation_include_centrifugal == 1) ? true : false;
+    bool c1 = (logi::rotation_include_centrifugal == 1) ? true : false;
 
-    bool c2 = (furnace::rotation_include_coriolis == 1 && coriolis) ? true : false;
+    bool c2 = (logi::rotation_include_coriolis == 1 && coriolis) ? true : false;
 
     GpuArray<Real, 3> omega_cross_v;
     cross_product(omega, v, omega_cross_v);
@@ -93,7 +93,7 @@ rotational_acceleration(GpuArray<Real, 3>& r, GpuArray<Real, 3>& v,
     // Coriolis force, but we'll still allow it to be disabled with
     // the same parameter.
 
-    bool c2 = (furnace::rotation_include_coriolis == 1 && coriolis) ? true : false;
+    bool c2 = (logi::rotation_include_coriolis == 1 && coriolis) ? true : false;
 
     if (c2) {
       GpuArray<Real, 3> omega_cross_v;
@@ -206,7 +206,7 @@ GpuArray<Real, 3> inertial_rotation(const GpuArray<Real, 3>& vec, Real time)
 
     auto omega = get_omega();
 
-    if (furnace::do_rotation == 1) {
+    if (logi::do_rotation == 1) {
         for (int n = 0; n < 3; ++n) {
             theta(n) = omega[n] * time;
         }

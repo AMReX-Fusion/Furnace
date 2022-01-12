@@ -26,8 +26,8 @@ void problem_initialize_state_data (int i, int j, int k, Array4<Real> const& sta
 
     // Establish the initial guess: a uniform density sphere
 
-    if (std::sqrt(xx * xx + yy * yy + zz * zz) < furnace::scf_equatorial_radius) {
-        state(i,j,k,URHO) = furnace::scf_maximum_density;
+    if (std::sqrt(xx * xx + yy * yy + zz * zz) < logi::scf_equatorial_radius) {
+        state(i,j,k,URHO) = logi::scf_maximum_density;
     } else {
         state(i,j,k,URHO) = problem::ambient_dens;
     }

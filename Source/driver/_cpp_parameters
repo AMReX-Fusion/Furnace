@@ -4,7 +4,7 @@
 # in the inputs file, b is the variable name in the C++ class.
 
 
-@namespace: furnace
+@namespace: logi
 
 #-----------------------------------------------------------------------------
 # category: AMR
@@ -496,7 +496,7 @@ point_mass_fix_solution      int           0                  n        GRAVITY
 
 # Distance (in kpc) used for calculation of the gravitational wave amplitude
 # (this wil be calculated along all three coordinate axes). Only relevant if
-# furnace.sum_interval > 0 and if set to a positive number. A standard value
+# logi.sum_interval > 0 and if set to a positive number. A standard value
 # in the literature is 10.0 (kpc).
 gw_dist                      Real          0.0                n        GRAVITY
 
@@ -631,7 +631,7 @@ show_center_of_mass          int           0
 
 # a string describing the simulation that will be copied into the
 # plotfile's ``job_info`` file
-job_name                     string        "Furnace"
+job_name                     string        "Logi"
 
 # write a final plotfile and checkpoint upon completion
 output_at_completion         int           1

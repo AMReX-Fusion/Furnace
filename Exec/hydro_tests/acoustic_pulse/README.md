@@ -11,10 +11,10 @@ do the pulse in that coordinate direction.
 # Convergence testing
 
 Here we detail the procedure used for convergence testing at NERSC and
-processing the results for the pretty table included in the Furnace SDC
+processing the results for the pretty table included in the Logi SDC
 paper.
 
-  in `Furnace/Exec/hydro_tests/acoustic_pulse`
+  in `Logi/Exec/hydro_tests/acoustic_pulse`
     ```
     make COMP=intel -j 4
     ```
@@ -23,16 +23,16 @@ paper.
     ```
     mkdir acoustic_pulse
     cd acoustic_pulse
-    cp ~/Furnace/Exec/hydro_tests/acoustic_pulse/Furnace2d.intel.haswell.MPI.ex .
-    cp ~/Furnace/Exec/hydro_tests/acoustic_pulse/inputs.2d.* .
-    cp ~/Furnace/Exec/hydro_tests/acoustic_pulse/job_scripts/cori.acoustic_pulse_convergence.slurm .
+    cp ~/Logi/Exec/hydro_tests/acoustic_pulse/Logi2d.intel.haswell.MPI.ex .
+    cp ~/Logi/Exec/hydro_tests/acoustic_pulse/inputs.2d.* .
+    cp ~/Logi/Exec/hydro_tests/acoustic_pulse/job_scripts/cori.acoustic_pulse_convergence.slurm .
     sbatch cori.acoustic_pulse_convergence.slurm
     ```
 
   to do the analysis, in the output directory:
     ```
-    cp ~/Furnace//Exec/hydro_tests/acoustic_pulse/job_scripts/check_convergence.sh .
-    cp ~/Furnace//Exec/hydro_tests/acoustic_pulse/job_scripts/create_pretty_tables.py .
+    cp ~/Logi//Exec/hydro_tests/acoustic_pulse/job_scripts/check_convergence.sh .
+    cp ~/Logi//Exec/hydro_tests/acoustic_pulse/job_scripts/create_pretty_tables.py .
 
   you may need to edit `check_convergence.sh` to use bash and have a
   different executable name.  Then

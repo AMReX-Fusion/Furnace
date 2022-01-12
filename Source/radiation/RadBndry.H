@@ -1,5 +1,5 @@
-#ifndef FURNACE_RADBNDRY_H
-#define FURNACE_RADBNDRY_H
+#ifndef LOGI_RADBNDRY_H
+#define LOGI_RADBNDRY_H
 
 #include <NGBndry.H>
 

@@ -18,7 +18,7 @@ USE_DIFFUSION = TRUE
 USE_CXX_MODEL_PARSER = TRUE
 NUM_MODELS := 2
 
-FURNACE_HOME = ../../..
+LOGI_HOME = ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/eos
 EOS_DIR     := gamma_law
@@ -31,4 +31,4 @@ CONDUCTIVITY_DIR := constant
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

@@ -15,8 +15,8 @@ USE_REACT  = TRUE
 USE_ROTATION  = TRUE
 USE_DIFFUSION = TRUE
 
-# define the location of the FURNACE top directory
-FURNACE_HOME  := ../../..
+# define the location of the LOGI top directory
+LOGI_HOME  := ../../..
 
 USE_JACOBIAN_CACHING = TRUE
 USE_CXX_MODEL_PARSER = TRUE
@@ -35,4 +35,4 @@ CONDUCTIVITY_DIR := stellar
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

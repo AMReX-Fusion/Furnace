@@ -14,24 +14,24 @@ amr.n_cell           = 400 400 400         # number of cells
 # 1 = Inflow            4 = SlipWall
 # 2 = Outflow           5 = NoSlipWall
 # >>>>>>>>>>>> BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc         = 5  5  5
-furnace.hi_bc         = 5  5  5
+logi.lo_bc         = 5  5  5
+logi.hi_bc         = 5  5  5
 
 #WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 0
+logi.do_hydro = 1
+logi.do_react = 0
 
 #TIME STEP CONTROL
 
-furnace.cfl           = 0.6
-furnace.init_shrink   = 0.1
-furnace.changemax     = 1.1
-#furnace.fixed_dt      = 
+logi.cfl           = 0.6
+logi.init_shrink   = 0.1
+logi.changemax     = 1.1
+#logi.fixed_dt      = 
 
 
 #DIAGNOSTIC & VERBOSITY
-furnace.sum_interval = 1
-furnace.v            = 1
+logi.sum_interval = 1
+logi.v            = 1
 amr.v               = 1
 
 

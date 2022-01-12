@@ -2,7 +2,7 @@
 Input Files
 ***********
 
-The Furnace executable uses an inputs file at runtime to set and
+The Logi executable uses an inputs file at runtime to set and
 alter the behavior of the algorithm and initial conditions.  
 
 Runtime parameters take the form ``namespace.parameter = value`` ,
@@ -15,7 +15,7 @@ named ``inputs``, it
   * Sets the AMReX parameters for gridding, refinement, etc., through the
     ``geometry`` and ``amr`` namespaces.
 
-  * Enables different physics behaviors through the ``furnace`` namespace.
+  * Enables different physics behaviors through the ``logi`` namespace.
 
   * Sets the problem-specific runtime parameters through the ``problem`` namespace.
 
@@ -30,7 +30,7 @@ named ``inputs``, it
 
 .. note::
 
-   Additionally, note that in Furnace, all quantities are in CGS units.
+   Additionally, note that in Logi, all quantities are in CGS units.
 
 
 Common inputs Options
@@ -61,7 +61,7 @@ computational domain. The main parameters here are:
 
     Note: an integer is needed for each dimension in the problem.
 
-  * ``furnace.center``: physical location of problem center on the
+  * ``logi.center``: physical location of problem center on the
     domain (type: ``Real``; default: ``0.0 0.0 0.0``). The problem
     center is used for gravity, rotation, and some other quantities.
     This is not necessarily the geometric center of the domain—often
@@ -76,7 +76,7 @@ As an example, the following::
     geometry.prob_hi = 1.e8 2.e8 2.e8
     geometry.coord_sys = 0
     geometry.is_periodic = 0 1 0
-    furnace.center = 5.e7 1.e8 1.e8
+    logi.center = 5.e7 1.e8 1.e8
 
 This defines the domain to run from :math:`(0,0,0)` at the lower left to
 :math:`(10^8,\, 2\times 10^8,\, 2\times 10^8)` at the upper right in physical
@@ -90,9 +90,9 @@ Domain Boundary Conditions
 Boundary conditions are specified using integer keys that are interpreted
 by AMReX. The runtime parameters that we use are:
 
-  * ``furnace.lo_bc``: boundary type of each low face (must be set)
+  * ``logi.lo_bc``: boundary type of each low face (must be set)
 
-  * ``furnace.hi_bc``: boundary type of each high face (must be set)
+  * ``logi.hi_bc``: boundary type of each high face (must be set)
 
 The valid boundary types are:
 
@@ -107,15 +107,15 @@ The valid boundary types are:
    | 2: Outflow             | 5: No Slip Wall |
    +------------------------+-----------------+
 
-.. note:: ``furnace.lo_bc`` and ``furnace.hi_bc`` must be consistent
+.. note:: ``logi.lo_bc`` and ``logi.hi_bc`` must be consistent
    with ``geometry.is_periodic``—if the domain is periodic in a
    particular direction then the low and high bc’s must be set to 0
    for that direction.
 
 As an example, the following::
 
-    furnace.lo_bc = 1 4 0
-    furnace.hi_bc = 2 4 0
+    logi.lo_bc = 1 4 0
+    logi.hi_bc = 2 4 0
 
     geometry.is_periodic = 0 0 1
 

@@ -1,12 +1,12 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 using namespace amrex;
 
 #include <mhd_eigen.H>
 #include <slope.H>
 void
-Furnace::plm(const Box& bx,
+Logi::plm(const Box& bx,
             const int idir,
             Array4<Real const> const& s,
             Array4<Real const> const& qaux,

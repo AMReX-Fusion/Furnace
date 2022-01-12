@@ -5,11 +5,11 @@ set -x
 
 DIM=2
 SDC_ITERS=2
-EXEC=./Furnace${DIM}d.gnu.MPI.SMPLSDC.ex
+EXEC=./Logi${DIM}d.gnu.MPI.SMPLSDC.ex
 
 RUNPARAMS="
-furnace.time_integration_method=3
-furnace.sdc_iters=${SDC_ITERS}"
+logi.time_integration_method=3
+logi.sdc_iters=${SDC_ITERS}"
 
 mpiexec -n 8 ${EXEC} inputs.64 ${RUNPARAMS} &> 64.out
 mpiexec -n 8 ${EXEC} inputs.128 ${RUNPARAMS} &> 128.out

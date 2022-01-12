@@ -20,8 +20,8 @@ Docs/*/*.pdf
 \#*
 
 
-# Furnace executables
-Furnace*.ex
+# Logi executables
+Logi*.ex
 *.exe
 
 # plt and chk files

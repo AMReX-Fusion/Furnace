@@ -1,5 +1,5 @@
-#ifndef FURNACE_MATH_H
-#define FURNACE_MATH_H
+#ifndef LOGI_MATH_H
+#define LOGI_MATH_H
 
 #include <AMReX_REAL.H>
 #include <AMReX_Array.H>

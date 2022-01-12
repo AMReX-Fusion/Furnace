@@ -4,7 +4,7 @@
 // plotfile can be 1-, 2-, or 3-d.
 //
 // This routine is a generalized version is based on fextract3d, but geared
-// toward the FURNACE radiating shock problem
+// toward the LOGI radiating shock problem
 //
 // We read in all the variables, but only output a subset
 //

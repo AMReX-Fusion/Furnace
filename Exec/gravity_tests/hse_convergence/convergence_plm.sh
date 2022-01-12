@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-EXEC=./Furnace1d.gnu.MPI.ex
+EXEC=./Logi1d.gnu.MPI.ex
 
 
 ## plm
@@ -9,7 +9,7 @@ EXEC=./Furnace1d.gnu.MPI.ex
 ofile=plm.converge.out
 
 RUNPARAMS="
-furnace.ppm_type=0
+logi.ppm_type=0
 """
 
 ${EXEC} inputs.ppm.64 ${RUNPARAMS} >& 64.out
@@ -34,9 +34,9 @@ fextrema.gnu.ex -v magvel ${pfile} | grep -i magvel >> ${ofile}
 ofile=plm-hsereflect.converge.out
 
 RUNPARAMS="
-furnace.ppm_type=0
-furnace.hse_interp_temp=1
-furnace.hse_reflect_vels=1
+logi.ppm_type=0
+logi.hse_interp_temp=1
+logi.hse_reflect_vels=1
 """
 
 ${EXEC} inputs.ppm.64 ${RUNPARAMS} >& 64.out
@@ -61,10 +61,10 @@ fextrema.gnu.ex -v magvel ${pfile} | grep -i magvel >> ${ofile}
 ofile=plm-hsereflect-nopslope.converge.out
 
 RUNPARAMS="
-furnace.ppm_type=0
-furnace.use_pslope=0
-furnace.hse_interp_temp=1
-furnace.hse_reflect_vels=1
+logi.ppm_type=0
+logi.use_pslope=0
+logi.hse_interp_temp=1
+logi.hse_reflect_vels=1
 """
 
 ${EXEC} inputs.ppm.64 ${RUNPARAMS} >& 64.out
@@ -89,9 +89,9 @@ fextrema.gnu.ex -v magvel ${pfile} | grep -i magvel >> ${ofile}
 ofile=plm-reflect.converge.out
 
 RUNPARAMS="
-furnace.ppm_type=0
-furnace.lo_bc=3
-furnace.hi_bc=3
+logi.ppm_type=0
+logi.lo_bc=3
+logi.hi_bc=3
 """
 
 ${EXEC} inputs.ppm.64 ${RUNPARAMS} >& 64.out
@@ -117,10 +117,10 @@ fextrema.gnu.ex -v magvel ${pfile} | grep -i magvel >> ${ofile}
 ofile=plm-reflect-nopslope.converge.out
 
 RUNPARAMS="
-furnace.ppm_type=0
-furnace.lo_bc=3
-furnace.hi_bc=3
-furnace.use_pslope=0
+logi.ppm_type=0
+logi.lo_bc=3
+logi.hi_bc=3
+logi.use_pslope=0
 """
 
 ${EXEC} inputs.ppm.64 ${RUNPARAMS} >& 64.out

@@ -1,8 +1,8 @@
 #include <AMReX_REAL.H>
 
 #include <Derive.H>
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 #include <fundamental_constants.H>
 #include <prob_parameters.H>
 #include <wdmerger_util.H>

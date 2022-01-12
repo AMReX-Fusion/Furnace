@@ -1,9 +1,9 @@
-#ifndef FURNACE_RADIATION_H
-#define FURNACE_RADIATION_H
+#ifndef LOGI_RADIATION_H
+#define LOGI_RADIATION_H
 
 #include <AMReX_AmrLevel.H>
 
-#include <Furnace.H>
+#include <Logi.H>
 #include <RadTypes.H>
 #include <RadBndry.H>
 #include <MGRadBndry.H>
@@ -116,10 +116,10 @@ public:
 
 ///
 /// @param Parent
-/// @param furnace
+/// @param logi
 /// @param restart
 ///
-  Radiation(amrex::Amr* Parent, class Furnace* furnace, int restart = 0);
+  Radiation(amrex::Amr* Parent, class Logi* logi, int restart = 0);
   ~Radiation() { }
 
 

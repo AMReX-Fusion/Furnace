@@ -498,24 +498,24 @@ static void WriteCheckpointFile(const std::string& inFileName, const std::string
 
     if (ParallelDescriptor::IOProcessor()) {
 
-      std::ifstream oldFurnaceHeaderFile;
+      std::ifstream oldLogiHeaderFile;
 
-      std::string oldFurnaceHeaderName = inFileName + "/FurnaceHeader";
-      oldFurnaceHeaderFile.open(oldFurnaceHeaderName.c_str(), std::ios::binary);
+      std::string oldLogiHeaderName = inFileName + "/LogiHeader";
+      oldLogiHeaderFile.open(oldLogiHeaderName.c_str(), std::ios::binary);
 
-      if (oldFurnaceHeaderFile.good()) {
+      if (oldLogiHeaderFile.good()) {
 
-	std::ofstream newFurnaceHeaderFile;
+	std::ofstream newLogiHeaderFile;
 
-	std::string newFurnaceHeaderName = outFileName + "/FurnaceHeader";
-	newFurnaceHeaderFile.open(newFurnaceHeaderName.c_str(), std::ios::binary);
+	std::string newLogiHeaderName = outFileName + "/LogiHeader";
+	newLogiHeaderFile.open(newLogiHeaderName.c_str(), std::ios::binary);
 
-	if (newFurnaceHeaderFile.good()) {
-	  newFurnaceHeaderFile << oldFurnaceHeaderFile.rdbuf();
-	  newFurnaceHeaderFile.close();
+	if (newLogiHeaderFile.good()) {
+	  newLogiHeaderFile << oldLogiHeaderFile.rdbuf();
+	  newLogiHeaderFile.close();
 	}
 
-	oldFurnaceHeaderFile.close();
+	oldLogiHeaderFile.close();
 
       }
 

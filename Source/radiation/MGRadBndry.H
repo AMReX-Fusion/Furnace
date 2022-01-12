@@ -1,5 +1,5 @@
-#ifndef FURNACE_MGRADBNDRY_H
-#define FURNACE_MGRADBNDRY_H
+#ifndef LOGI_MGRADBNDRY_H
+#define LOGI_MGRADBNDRY_H
 
 #include <NGBndry.H>
 

@@ -11,14 +11,14 @@ echo "starting..."
 
 export OMP_NUM_THREADS=1
 
-export FURNACE_EXEC=./Furnace2d.intel.haswell.MPI.ex
+export LOGI_EXEC=./Logi2d.intel.haswell.MPI.ex
 
 # Cori Haswell has 2 Intel "Haswell" processors each with 16 cores.
 # number of nodes = # of MPI * number of threads / 32 (cores / node)
 
-RUNPARAMS="furnace.sdc_order=4 furnace.time_integration_method=2 furnace.limit_fourth_order=1"
+RUNPARAMS="logi.sdc_order=4 logi.time_integration_method=2 logi.limit_fourth_order=1"
 
-srun ${FURNACE_EXEC} inputs.64 ${RUNPARAMS} amr.plot_file=acoustic_pulse_64_sdc4_plt &> 64.out
-srun ${FURNACE_EXEC} inputs.128 ${RUNPARAMS} amr.plot_file=acoustic_pulse_128_sdc4_plt &> 128.out
-srun ${FURNACE_EXEC} inputs.256 ${RUNPARAMS} amr.plot_file=acoustic_pulse_256_sdc4_plt &> 256.out
-srun ${FURNACE_EXEC} inputs.512 ${RUNPARAMS} amr.plot_file=acoustic_pulse_512_sdc4_plt &> 512.out
+srun ${LOGI_EXEC} inputs.64 ${RUNPARAMS} amr.plot_file=acoustic_pulse_64_sdc4_plt &> 64.out
+srun ${LOGI_EXEC} inputs.128 ${RUNPARAMS} amr.plot_file=acoustic_pulse_128_sdc4_plt &> 128.out
+srun ${LOGI_EXEC} inputs.256 ${RUNPARAMS} amr.plot_file=acoustic_pulse_256_sdc4_plt &> 256.out
+srun ${LOGI_EXEC} inputs.512 ${RUNPARAMS} amr.plot_file=acoustic_pulse_512_sdc4_plt &> 512.out

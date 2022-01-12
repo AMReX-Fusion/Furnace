@@ -13,8 +13,8 @@ USE_GRAV   = TRUE
 USE_PARTICLES = FALSE
 
 
-# define the location of the FURNACE top directory
-FURNACE_HOME  := ../../..
+# define the location of the LOGI top directory
+LOGI_HOME  := ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/EOS
 EOS_DIR     := gamma_law
@@ -26,4 +26,4 @@ NETWORK_INPUTS = gammalaw.net
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

@@ -61,31 +61,31 @@ amr.v = 1
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  2    0    0
-furnace.hi_bc       =  2    0    0
+logi.lo_bc       =  2    0    0
+logi.hi_bc       =  2    0    0
 
 # WHICH PHYSICS
-furnace.do_grav        = 0
-furnace.do_hydro       = 1
-furnace.do_radiation   = 1
-furnace.do_reflux      = 1       # 1 => do refluxing
-furnace.do_react       = 0       # reactions?
+logi.do_grav        = 0
+logi.do_hydro       = 1
+logi.do_radiation   = 1
+logi.do_reflux      = 1       # 1 => do refluxing
+logi.do_react       = 0       # reactions?
 
 # hydro cutoff parameters
-# furnace.small_dens     = 1.e-20
-furnace.small_temp = 1.0e1
-furnace.small_dens =1.0e-10 
+# logi.small_dens     = 1.e-20
+logi.small_temp = 1.0e1
+logi.small_dens =1.0e-10 
 
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.9     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
+logi.cfl            = 0.9     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
 
-furnace.fixed_dt       = 1.3e-12
+logi.fixed_dt       = 1.3e-12
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
-furnace.v = 1
+logi.sum_interval   = 1       # timesteps between computing mass
+logi.v = 1
 
 # ------------------  INPUTS TO RADIATION CLASS  -------------------
 

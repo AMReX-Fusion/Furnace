@@ -12,8 +12,8 @@ USE_GRAV   = TRUE
 
 USE_CXX_MODEL_PARSER = TRUE
 
-# define the location of the FURNACE top directory
-FURNACE_HOME  := ../../..
+# define the location of the LOGI top directory
+LOGI_HOME  := ../../..
 
 # This sets the EOS directory in $(MICROPHYSICS_HOME)/EOS
 EOS_DIR     := multigamma
@@ -25,4 +25,4 @@ NETWORK_INPUTS = simple3.net
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

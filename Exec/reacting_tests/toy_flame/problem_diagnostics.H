@@ -3,7 +3,7 @@
 
 AMREX_INLINE
 void
-Furnace::problem_diagnostics ()
+Logi::problem_diagnostics ()
 {
     int finest_level = parent->finestLevel();
     Real time        = state[State_Type].curTime();
@@ -19,7 +19,7 @@ Furnace::problem_diagnostics ()
 
     for (int lev = 0; lev <= finest_level; lev++)
     {
-        Furnace& ca_lev = getLevel(lev);
+        Logi& ca_lev = getLevel(lev);
 
         ca_lev.flame_width_properties(time, T_max, T_min, grad_T_max);
 
@@ -51,7 +51,7 @@ Furnace::problem_diagnostics ()
             std::cout << "TIME= " << time << " FLAME SPEED = "   << flame_speed << '\n';
         }
 
-        std::ostream& datalog = *Furnace::problem_data_logs[0];
+        std::ostream& datalog = *Logi::problem_data_logs[0];
 
         if (time == 0.0) {
             datalog << std::setw(14) <<  "      time    ";

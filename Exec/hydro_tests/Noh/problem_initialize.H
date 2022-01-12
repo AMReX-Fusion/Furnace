@@ -1,7 +1,7 @@
 #ifndef problem_initialize_H
 #define problem_initialize_H
 
-#include <Furnace_util.H>
+#include <Logi_util.H>
 #include <eos.H>
 
 AMREX_INLINE

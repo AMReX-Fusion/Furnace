@@ -1,5 +1,5 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 #include <cmath>
 
@@ -10,7 +10,7 @@
 using namespace amrex;
 
 void
-Furnace::uflatten(const Box& bx,
+Logi::uflatten(const Box& bx,
                  Array4<Real const> const& q_arr,
                  Array4<Real> const& flatn, const int pres_comp) {
 

@@ -14,54 +14,54 @@ amr.n_cell           = @@NZONES@@
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  3   4   4
-furnace.hi_bc       =  2   4   4
+logi.lo_bc       =  3   4   4
+logi.hi_bc       =  2   4   4
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 1
+logi.do_hydro = 1
+logi.do_react = 1
 
-furnace.ppm_type = 0
-furnace.ppm_temp_fix = 0
+logi.ppm_type = 0
+logi.ppm_temp_fix = 0
 
-furnace.transverse_reset_density = 1
+logi.transverse_reset_density = 1
 
-furnace.use_flattening = 1
+logi.use_flattening = 1
 
-furnace.small_temp     = 1.e7
+logi.small_temp     = 1.e7
 
-furnace.riemann_solver = 0
+logi.riemann_solver = 0
 
-furnace.time_integration_method = @@method@@
-furnace.sdc_order = @@SDC_ORDER@@
-furnace.sdc_quadrature = @@SDC_QUADRATURE@@
+logi.time_integration_method = @@method@@
+logi.sdc_order = @@SDC_ORDER@@
+logi.sdc_quadrature = @@SDC_QUADRATURE@@
 
-furnace.limit_fourth_order=1
-furnace.use_reconstructed_gamma1=1
-furnace.sdc_solve_for_rhoe=1
-furnace.sdc_solver_tol_dens=1.e-8
-furnace.sdc_solver_tol_spec=1.e-8
-furnace.sdc_solver_tol_ener=1.e-8
-furnace.sdc_solver_atol = 1.e-8
-furnace.sdc_solver=2
-furnace.sdc_newton_use_analytic_jac = 1
+logi.limit_fourth_order=1
+logi.use_reconstructed_gamma1=1
+logi.sdc_solve_for_rhoe=1
+logi.sdc_solver_tol_dens=1.e-8
+logi.sdc_solver_tol_spec=1.e-8
+logi.sdc_solver_tol_ener=1.e-8
+logi.sdc_solver_atol = 1.e-8
+logi.sdc_solver=2
+logi.sdc_newton_use_analytic_jac = 1
 
 
 
 # TIME STEP CONTROL
-furnace.cfl            = @@CFL@@     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
-furnace.change_max     = 1.05    # scale back initial timestep
+logi.cfl            = @@CFL@@     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
+logi.change_max     = 1.05    # scale back initial timestep
 
-furnace.dtnuc_e = @@DTNUC_E@@
-furnace.use_retry = 1
-furnace.max_subcycles = 32
+logi.dtnuc_e = @@DTNUC_E@@
+logi.use_retry = 1
+logi.max_subcycles = 32
 
-furnace.plot_per_is_exact = 1
+logi.plot_per_is_exact = 1
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 1       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 #amr.grid_log        = grdlog  # name of grid logging file
 

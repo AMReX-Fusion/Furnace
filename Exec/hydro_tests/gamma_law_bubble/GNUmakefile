@@ -1,4 +1,4 @@
-FURNACE_HOME := ../../..
+LOGI_HOME := ../../..
 
 PRECISION  = DOUBLE
 PROFILE    = FALSE
@@ -26,4 +26,4 @@ NETWORK_INPUTS = gammalaw.net
 Bpack   := ./Make.package
 Blocs   := .
 
-include $(FURNACE_HOME)/Exec/Make.Furnace
+include $(LOGI_HOME)/Exec/Make.Logi

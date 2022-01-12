@@ -1,12 +1,12 @@
 **********************
-Introduction to Furnace
+Introduction to Logi
 **********************
 
-Furnace is a adaptive mesh, radiation/MHD hydrodynamics code that is
+Logi is a adaptive mesh, radiation/MHD hydrodynamics code that is
 designed to model astrophysical reacting flows on massively parallel
 computers.
 
-Furnace's major capabilities:
+Logi's major capabilities:
 
   * 1-, 2-, and 3-dimensional unsplit, 2nd-order finite-volume
     hydrodynamics; 4th order hydro for uniform grids.
@@ -46,7 +46,7 @@ Furnace's major capabilities:
 Development Model
 =================
 
-Furnace is developed on github (https://github.com/amrex-astro/Furnace
+Logi is developed on github (https://github.com/amrex-astro/Logi
 ). The ``main`` branch is stable and can be used for day-to-day
 science.  New changes are made via pull requests to the
 ``development`` branch.  This is where the ongoing regression testing
@@ -57,17 +57,17 @@ apply a tag of the form ``YY.MM`` (e.g. ``20.02`` for Feb. 2020).  We
 also create a github release and mint a Zenodo DOI using the
 information in the ``.zenodo.json`` file at the root level.
 
-Furnace "core developers" are those who have made substantial code
+Logi "core developers" are those who have made substantial code
 contributions (details are in the main ``README.md``).  These
 developers are coauthors on the Zenodo DOI and of any papers
-describing Furnace generally (science papers coauthors are decided by
+describing Logi generally (science papers coauthors are decided by
 the science paper lead).
 
 
 Units and Conventions
 =====================
 
-Furnace works in CGS units unless otherwise specified.
+Logi works in CGS units unless otherwise specified.
 :numref:`table:units` shows some of the common symbols / names used
 throughout the code documentation and papers.
 

@@ -1,5 +1,5 @@
-#ifndef FURNACE_RADTYPES_H
-#define FURNACE_RADTYPES_H
+#ifndef LOGI_RADTYPES_H
+#define LOGI_RADTYPES_H
 
 enum RadNames  { Rad  = 0 };
 

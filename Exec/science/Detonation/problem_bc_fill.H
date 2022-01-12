@@ -53,7 +53,7 @@ void problem_bc_fill(int i, int j, int k,
     // don't want to do this for interior/periodic boundaries
     // or for reflecting boundaries.
 
-    if (furnace::fill_ambient_bc == 1) {
+    if (logi::fill_ambient_bc == 1) {
 
         const int* domlo = geomdata.Domain().loVect();
         const int* domhi = geomdata.Domain().hiVect();

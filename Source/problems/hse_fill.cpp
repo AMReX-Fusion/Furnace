@@ -1,5 +1,5 @@
 #include <AMReX_BLFort.H>
-#include <Furnace.H>
+#include <Logi.H>
 #include <runtime_parameters.H>
 #include <ext_bc_types.H>
 

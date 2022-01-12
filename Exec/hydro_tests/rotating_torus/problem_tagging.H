@@ -1,7 +1,7 @@
 #ifndef problem_tagging_H
 #define problem_tagging_H
 
-#include <Furnace_util.H>
+#include <Logi_util.H>
 #include <prob_parameters.H>
 #include <AMReX_TagBox.H>
 

@@ -16,8 +16,8 @@ amr.n_cell         = 128 256
 
 amr.max_level      = 2       # maximum level number allowed
 
-furnace.lo_bc       =  3 2
-furnace.hi_bc       =  2 2
+logi.lo_bc       =  3 2
+logi.hi_bc       =  2 2
 
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
 # 0 = Interior           3 = Symmetry
@@ -25,29 +25,29 @@ furnace.hi_bc       =  2 2
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
 
-furnace.do_hydro = 1
-furnace.do_grav  = 1
-furnace.do_react = 0
-furnace.do_sponge = 1
+logi.do_hydro = 1
+logi.do_grav  = 1
+logi.do_react = 0
+logi.do_sponge = 1
 
-furnace.ppm_type = 1
-furnace.ppm_temp_fix = 0
+logi.ppm_type = 1
+logi.ppm_temp_fix = 0
 
-furnace.use_flattening = 1
+logi.use_flattening = 1
 
-furnace.riemann_solver = 1
+logi.riemann_solver = 1
 
 gravity.gravity_type = MonopoleGrav
 gravity.drdxfac = 2
 
-furnace.cfl            = 0.9     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep by this factor
-furnace.change_max     = 1.05    # factor by which dt is allowed to change each timestep
-furnace.sum_interval   = 0       # timesteps between computing and printing volume averages
+logi.cfl            = 0.9     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep by this factor
+logi.change_max     = 1.05    # factor by which dt is allowed to change each timestep
+logi.sum_interval   = 0       # timesteps between computing and printing volume averages
 
-furnace.sponge_upper_density = 1.e4
-furnace.sponge_lower_density = 1.e2
-furnace.sponge_timescale     = 1.e-3
+logi.sponge_upper_density = 1.e4
+logi.sponge_lower_density = 1.e2
+logi.sponge_timescale     = 1.e-3
 
 amr.ref_ratio       = 2 2 2 2 # refinement ratio
 amr.regrid_int      = 10000   # how often to regrid
@@ -69,7 +69,7 @@ amr.max_grid_size   = 128       # maximum grid size allowed -- used to control p
 amr.blocking_factor = 32       # block factor in grid generation
 
 amr.v               = 1       # control verbosity in Amr.cpp
-furnace.v            = 0       # control verbosity in Furnace.cpp
+logi.v            = 0       # control verbosity in Logi.cpp
 
 amr.derive_plot_vars = ALL
 

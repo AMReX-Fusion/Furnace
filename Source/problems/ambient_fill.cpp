@@ -1,6 +1,6 @@
 #include <ambient.H>
-#include <Furnace.H>
-#include <Furnace_bc_fill_nd.H>
+#include <Logi.H>
+#include <Logi_bc_fill_nd.H>
 
 void
 ambient_denfill(const Box& bx, Array4<Real> const& state,
@@ -16,26 +16,26 @@ ambient_denfill(const Box& bx, Array4<Real> const& state,
     amrex::ParallelFor(bx,
     [=] AMREX_GPU_HOST_DEVICE (int i, int j, int k)
     {
-        bool ambient_x_lo = (furnace::ambient_fill_dir == 0 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_x_lo = (logi::ambient_fill_dir == 0 || logi::ambient_fill_dir == -1) &&
                             (bc.lo(0) == FOEXTRAP || bc.lo(0) == HOEXTRAP);
-        bool ambient_x_hi = (furnace::ambient_fill_dir == 0 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_x_hi = (logi::ambient_fill_dir == 0 || logi::ambient_fill_dir == -1) &&
                             (bc.hi(0) == FOEXTRAP || bc.hi(0) == HOEXTRAP);
 
 #if AMREX_SPACEDIM >= 2
-        bool ambient_y_lo = (furnace::ambient_fill_dir == 1 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_y_lo = (logi::ambient_fill_dir == 1 || logi::ambient_fill_dir == -1) &&
                             (bc.lo(1) == FOEXTRAP || bc.lo(1) == HOEXTRAP);
-        bool ambient_y_hi = (furnace::ambient_fill_dir == 1 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_y_hi = (logi::ambient_fill_dir == 1 || logi::ambient_fill_dir == -1) &&
                             (bc.hi(1) == FOEXTRAP || bc.hi(1) == HOEXTRAP);
 #endif
 
 #if AMREX_SPACEDIM == 3
-        bool ambient_z_lo = (furnace::ambient_fill_dir == 2 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_z_lo = (logi::ambient_fill_dir == 2 || logi::ambient_fill_dir == -1) &&
                             (bc.lo(2) == FOEXTRAP || bc.lo(2) == HOEXTRAP);
-        bool ambient_z_hi = (furnace::ambient_fill_dir == 2 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_z_hi = (logi::ambient_fill_dir == 2 || logi::ambient_fill_dir == -1) &&
                             (bc.hi(2) == FOEXTRAP || bc.hi(2) == HOEXTRAP);
 #endif
 
-        if (furnace::fill_ambient_bc == 1) {
+        if (logi::fill_ambient_bc == 1) {
             if (ambient_x_lo && i < domlo[0] ||
                 ambient_x_hi && i > domhi[0]
 #if AMREX_SPACEDIM >= 2
@@ -75,26 +75,26 @@ ambient_fill(const Box& bx, Array4<Real> const& state,
     amrex::ParallelFor(bx,
     [=] AMREX_GPU_HOST_DEVICE (int i, int j, int k)
     {
-        bool ambient_x_lo = (furnace::ambient_fill_dir == 0 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_x_lo = (logi::ambient_fill_dir == 0 || logi::ambient_fill_dir == -1) &&
                             (bcs(URHO).lo(0) == FOEXTRAP || bcs(URHO).lo(0) == HOEXTRAP);
-        bool ambient_x_hi = (furnace::ambient_fill_dir == 0 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_x_hi = (logi::ambient_fill_dir == 0 || logi::ambient_fill_dir == -1) &&
                             (bcs(URHO).hi(0) == FOEXTRAP || bcs(URHO).hi(0) == HOEXTRAP);
 
 #if AMREX_SPACEDIM >= 2
-        bool ambient_y_lo = (furnace::ambient_fill_dir == 1 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_y_lo = (logi::ambient_fill_dir == 1 || logi::ambient_fill_dir == -1) &&
                             (bcs(URHO).lo(1) == FOEXTRAP || bcs(URHO).lo(1) == HOEXTRAP);
-        bool ambient_y_hi = (furnace::ambient_fill_dir == 1 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_y_hi = (logi::ambient_fill_dir == 1 || logi::ambient_fill_dir == -1) &&
                             (bcs(URHO).hi(1) == FOEXTRAP || bcs(URHO).hi(1) == HOEXTRAP);
 #endif
 
 #if AMREX_SPACEDIM == 3
-        bool ambient_z_lo = (furnace::ambient_fill_dir == 2 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_z_lo = (logi::ambient_fill_dir == 2 || logi::ambient_fill_dir == -1) &&
                             (bcs(URHO).lo(2) == FOEXTRAP || bcs(URHO).lo(2) == HOEXTRAP);
-        bool ambient_z_hi = (furnace::ambient_fill_dir == 2 || furnace::ambient_fill_dir == -1) &&
+        bool ambient_z_hi = (logi::ambient_fill_dir == 2 || logi::ambient_fill_dir == -1) &&
                             (bcs(URHO).hi(2) == FOEXTRAP || bcs(URHO).hi(2) == HOEXTRAP);
 #endif
 
-        if (furnace::fill_ambient_bc == 1) {
+        if (logi::fill_ambient_bc == 1) {
             if (ambient_x_lo && i < domlo[0] ||
                 ambient_x_hi && i > domhi[0]
 #if AMREX_SPACEDIM >= 2
@@ -112,7 +112,7 @@ ambient_fill(const Box& bx, Array4<Real> const& state,
                     state(i,j,k,n) = ambient::ambient_state[n];
                 }
 
-                if (furnace::ambient_outflow_vel == 1) {
+                if (logi::ambient_outflow_vel == 1) {
 
                     // extrapolate the normal velocity only if it is outgoing
                     if (i < domlo[0]) {

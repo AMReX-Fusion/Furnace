@@ -1,12 +1,12 @@
 #include <AMReX_ParmParse.H>
 #include <Diffusion.H>
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 #include <AMReX_MLABecLaplacian.H>
 #include <AMReX_MLMG.H>
 #include <MGutils.H>
 
-#include <furnace_limits.H>
+#include <logi_limits.H>
 
 using namespace amrex;
 

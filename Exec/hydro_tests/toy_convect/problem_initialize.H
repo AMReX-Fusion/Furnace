@@ -35,15 +35,15 @@ void problem_initialize ()
         problem::xloc_vortices[i] = (static_cast<Real>(i) + 0.5_rt) * offset + problo[0];
     }
 
-    // Set up Furnace data logs for this problem
+    // Set up Logi data logs for this problem
 
-    if (furnace::sum_interval > 0 && amrex::ParallelDescriptor::IOProcessor()) {
+    if (logi::sum_interval > 0 && amrex::ParallelDescriptor::IOProcessor()) {
 
-        Furnace::problem_data_logs.resize(1);
+        Logi::problem_data_logs.resize(1);
 
-        Furnace::problem_data_logs[0].reset(new std::fstream);
-        Furnace::problem_data_logs[0]->open("problem_diag.out", std::ios::out | std::ios::app);
-        if (!Furnace::problem_data_logs[0]->good()) {
+        Logi::problem_data_logs[0].reset(new std::fstream);
+        Logi::problem_data_logs[0]->open("problem_diag.out", std::ios::out | std::ios::app);
+        if (!Logi::problem_data_logs[0]->good()) {
             amrex::FileOpenFailed("problem_diag.out");
         }
 

@@ -1,5 +1,5 @@
-#ifndef FURNACE_RADSOLVE_H
-#define FURNACE_RADSOLVE_H
+#ifndef LOGI_RADSOLVE_H
+#define LOGI_RADSOLVE_H
 
 #include <AMReX_Amr.H>
 

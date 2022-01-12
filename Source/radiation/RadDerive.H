@@ -1,5 +1,5 @@
-#ifndef FURNACE_RADDERIVE_H
-#define FURNACE_RADDERIVE_H
+#ifndef LOGI_RADDERIVE_H
+#define LOGI_RADDERIVE_H
 
 #include <AMReX_BLFort.H>
 #include <AMReX_FArrayBox.H>

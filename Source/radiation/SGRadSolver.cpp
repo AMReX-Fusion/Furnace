@@ -5,7 +5,7 @@
 #include <Radiation.H>
 #include <RadSolve.H>
 
-#include <Furnace_F.H>
+#include <Logi_F.H>
 
 #include <RAD_F.H>
 
@@ -32,14 +32,14 @@ void Radiation::single_group_update(int level, int iteration, int ncycle)
 
   // Allocation and initialization:
 
-  Furnace *furnace = dynamic_cast<Furnace*>(&parent->getLevel(level));
-  const BoxArray& grids = furnace->boxArray();
-  const DistributionMapping& dmap = furnace->DistributionMap();
+  Logi *logi = dynamic_cast<Logi*>(&parent->getLevel(level));
+  const BoxArray& grids = logi->boxArray();
+  const DistributionMapping& dmap = logi->DistributionMap();
   Real delta_t          = parent->dtLevel(level);
-  Real time = furnace->get_state_data(Rad_Type).curTime();
+  Real time = logi->get_state_data(Rad_Type).curTime();
 
-  MultiFab& S_new = furnace->get_new_data(State_Type);
-  MultiFab& Er_new = furnace->get_new_data(Rad_Type);
+  MultiFab& S_new = logi->get_new_data(State_Type);
+  MultiFab& Er_new = logi->get_new_data(Rad_Type);
 
   MultiFab Er_old(grids, dmap, Er_new.nComp(), Er_new.nGrow());
   MultiFab::Copy(Er_old, Er_new, 0, 0, Er_new.nComp(), 0);
@@ -47,7 +47,7 @@ void Radiation::single_group_update(int level, int iteration, int ncycle)
   Array<MultiFab, AMREX_SPACEDIM> Ff_new;
 
   for (int idim = 0; idim < AMREX_SPACEDIM; idim++) {
-      Ff_new[idim].define(furnace->getEdgeBoxArray(idim), dmap, 1, 0);
+      Ff_new[idim].define(logi->getEdgeBoxArray(idim), dmap, 1, 0);
   }
 
   MultiFab Dterm;  
@@ -94,10 +94,10 @@ void Radiation::single_group_update(int level, int iteration, int ncycle)
   if (has_dcoefs) {
     velo.define(grids, dmap, AMREX_SPACEDIM, 1);
     dcfactor.define(grids, dmap, 1, 1);
-    get_rosseland_v_dcf(kappa_r, velo, dcfactor, delta_t, c, furnace);
+    get_rosseland_v_dcf(kappa_r, velo, dcfactor, delta_t, c, logi);
   }
   else {
-    get_rosseland(kappa_r, furnace); // fills everywhere, incl ghost cells
+    get_rosseland(kappa_r, logi); // fills everywhere, incl ghost cells
   }
 
   MultiFab eta(grids,dmap,1,0);
@@ -106,7 +106,7 @@ void Radiation::single_group_update(int level, int iteration, int ncycle)
   Array<MultiFab, AMREX_SPACEDIM> lambda;
 
   for (int idim = 0; idim < AMREX_SPACEDIM; idim++) {
-      lambda[idim].define(furnace->getEdgeBoxArray(idim), dmap, 1, 0);
+      lambda[idim].define(logi->getEdgeBoxArray(idim), dmap, 1, 0);
   }
 
   if (update_limiter == 0) {
@@ -117,14 +117,14 @@ void Radiation::single_group_update(int level, int iteration, int ncycle)
     // lambda now contains flux limiter
   }
   else if (update_limiter < 0) {
-    MultiFab& Er_lag = furnace->get_old_data(Rad_Type);
+    MultiFab& Er_lag = logi->get_old_data(Rad_Type);
     scaledGradient(level, lambda, kappa_r, 0, Er_lag, 0, limiter);
     fluxLimiter(level, lambda, limiter);
   }
 
   // Implicit update loop:
 
-  RadBndry bd(grids, dmap, furnace->Geom());
+  RadBndry bd(grids, dmap, logi->Geom());
 
   getBndryData(bd, Er_new, time, level);
 
@@ -144,7 +144,7 @@ void Radiation::single_group_update(int level, int iteration, int ncycle)
   FluxRegister* flux_out =
       (level > 0) ? flux_trial[level].get() : nullptr;
 
-  RadSolve* const solver = furnace->rad_solver.get();
+  RadSolve* const solver = logi->rad_solver.get();
 
   solver->levelBndry(bd);
 
@@ -179,7 +179,7 @@ void Radiation::single_group_update(int level, int iteration, int ncycle)
 
     if (it > 1 && it <= update_rosseland + 1) {
       // only updates cells in interior of fine level:
-      update_rosseland_from_temp(kappa_r, temp, S_new, furnace->Geom());
+      update_rosseland_from_temp(kappa_r, temp, S_new, logi->Geom());
     }
 
     // solve linear system:
@@ -201,7 +201,7 @@ void Radiation::single_group_update(int level, int iteration, int ncycle)
 
     if (has_dcoefs) {
       if (it>1) {
-        update_dcf(dcfactor, etainv, fkp, kappa_r, furnace->Geom());
+        update_dcf(dcfactor, etainv, fkp, kappa_r, logi->Geom());
       }
       solver->levelDCoeffs(level, lambda, velo, dcfactor);
     }

@@ -15,51 +15,51 @@ amr.n_cell           = 512   384
 # 1 = Inflow             4 = SlipWall
 # 2 = Outflow            5 = NoSlipWall
 # >>>>>>>>>>>>>  BC FLAGS <<<<<<<<<<<<<<<<
-furnace.lo_bc       =  3   3 1
-furnace.hi_bc       =  2   2 1
+logi.lo_bc       =  3   3 1
+logi.hi_bc       =  2   2 1
 
 # WHICH PHYSICS
-furnace.do_hydro = 1
-furnace.do_react = 1
+logi.do_hydro = 1
+logi.do_react = 1
 
-furnace.diffuse_temp = 1
-furnace.diffuse_cutoff_density = 1.e-1
+logi.diffuse_temp = 1
+logi.diffuse_cutoff_density = 1.e-1
 
-furnace.small_temp = 1.e-5
-furnace.small_dens = 1.e-10
+logi.small_temp = 1.e-5
+logi.small_dens = 1.e-10
 
-furnace.do_grav  = 1
-furnace.do_sponge = 0
+logi.do_grav  = 1
+logi.do_sponge = 0
 
-furnace.ppm_type = 1
-furnace.ppm_temp_fix = 0
+logi.ppm_type = 1
+logi.ppm_temp_fix = 0
 
-furnace.transverse_reset_density = 1
+logi.transverse_reset_density = 1
 
-furnace.use_flattening = 1
+logi.use_flattening = 1
 
-furnace.riemann_solver = 0
+logi.riemann_solver = 0
 
 gravity.gravity_type = ConstantGrav
 gravity.const_grav   = -4.2e7
 
-furnace.do_rotation = 1
-furnace.rotational_period = 0.01
-furnace.rotation_include_centrifugal = 0
+logi.do_rotation = 1
+logi.rotational_period = 0.01
+logi.rotation_include_centrifugal = 0
 
 # TIME STEP CONTROL
-furnace.cfl            = 0.5     # cfl number for hyperbolic system
-furnace.init_shrink    = 0.1     # scale back initial timestep
-furnace.change_max     = 1.1     # max time step growth
+logi.cfl            = 0.5     # cfl number for hyperbolic system
+logi.init_shrink    = 0.1     # scale back initial timestep
+logi.change_max     = 1.1     # max time step growth
 
 # SPONGE
-furnace.sponge_upper_density = 5.0e-8
-furnace.sponge_lower_density = 1.0e-8
-furnace.sponge_timescale     = 1.0e-6
+logi.sponge_upper_density = 5.0e-8
+logi.sponge_lower_density = 1.0e-8
+logi.sponge_timescale     = 1.0e-6
 
 # DIAGNOSTICS & VERBOSITY
-furnace.sum_interval   = 1       # timesteps between computing mass
-furnace.v              = 1       # verbosity in Furnace.cpp
+logi.sum_interval   = 1       # timesteps between computing mass
+logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
 
 # REFINEMENT / REGRIDDING

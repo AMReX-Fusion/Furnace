@@ -1,5 +1,5 @@
-#include <Furnace.H>
-#include <Furnace_F.H>
+#include <Logi.H>
+#include <Logi_F.H>
 
 #include <Gravity.H>
 
@@ -13,7 +13,7 @@
 
 using namespace amrex;
 
-void Furnace::problem_post_init()
+void Logi::problem_post_init()
 {
     BL_ASSERT(level == 0);
 
