@@ -1,7 +1,0 @@
-
-model_name          character         ""         y
-
-pert_temp_factor    real              1.0_rt     y
-
-pert_rad_factor     real              1.0_rt     y
-

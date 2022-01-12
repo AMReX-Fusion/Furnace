@@ -1,3 +1,29 @@
+# 0.2
+
+   * Removed gravity modules and documentation
+       Source/gravity
+       Docs/source/gravity.rst
+   * Removing following tests that depend on gravity:
+       Exec/gravity_tests
+       Exec/science/wdmerger
+       Exec/science/massive_star
+       Exec/science/nova
+       Exec/science/planet
+       Exec/science/flame_wave
+       Exec/science/bwp-rad
+       Exec/scf_tests/single_star
+       Exec/reacting_tests/reacting_bubble
+       Exec/reacting_tests/bubble_convergence
+       Exec/hydro_tests/double_bubble
+       Exec/hydro_tests/gamma_law_bubble
+       Exec/hydro_tests/Sedov/tmp_build_dir
+
+# 0.1
+
+   * Renamed Castro to Logi and refracted coresponding code
+
+# Castro legacy logs
+
 # 21.12
 
    * Tiling was added to main loop in MHD algorithm to enable 
