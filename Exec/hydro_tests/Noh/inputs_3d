@@ -34,7 +34,6 @@ logi.change_max     = 1.1     # maximum increase in dt over successive steps
 logi.sum_interval   = 1       # timesteps between computing integrals
 logi.v              = 1       # verbosity in Logi.cpp
 amr.v                 = 1       # verbosity in Amr.cpp
-gravity.v             = 1       # verbosity in Gravity.cpp
 
 # REFINEMENT / REGRIDDING
 amr.max_level         = 0       # maximum level number allowed

@@ -33,10 +33,6 @@
 #include <AMReX_Particles.H>
 #endif
 
-#ifdef GRAVITY
-#include <Gravity.H>
-#endif
-
 #ifdef DIFFUSION
 #include <Diffusion.H>
 #endif
@@ -98,11 +94,6 @@ Vector<Real> Logi::dt_sdc;
 Vector<Real> Logi::node_weights;
 #endif
 
-#ifdef GRAVITY
-// the gravity object
-Gravity*     Logi::gravity  = 0;
-#endif
-
 #ifdef DIFFUSION
 // the diffusion object
 Diffusion*    Logi::diffusion  = 0;
@@ -157,15 +148,6 @@ int          Logi::do_cxx_prob_initialize = 0;
 void
 Logi::variableCleanUp ()
 {
-#ifdef GRAVITY
-  if (gravity != 0) {
-    if (verbose > 1 && ParallelDescriptor::IOProcessor()) {
-      std::cout << "Deleting gravity in variableCleanUp..." << '\n';
-    }
-    delete gravity;
-    gravity = 0;
-  }
-#endif
 
 #ifdef DIFFUSION
   if (diffusion != 0) {
@@ -498,15 +480,6 @@ Logi::read_params ()
     }
 #endif
 
-   // SCF initial model construction can only be done if both
-   // rotation and gravity have been compiled in.
-
-#if (!defined(GRAVITY) || !defined(ROTATION))
-   if (do_scf_initial_model) {
-       amrex::Error("SCF initial model construction is only permitted if USE_GRAV=TRUE and USE_ROTATION=TRUE at compile time.");
-   }
-#endif
-
    StateDescriptor::setBndryFuncThreadSafety(bndry_func_thread_safe);
 
    // Open up Logi data logs
@@ -527,12 +500,6 @@ Logi::read_params ()
        }
 
        data_logs[1].reset(new std::fstream);
-#ifdef GRAVITY
-       data_logs[1]->open("gravity_diag.out", std::ios::out | std::ios::app);
-       if (!data_logs[1]->good()) {
-           amrex::FileOpenFailed("gravity_diag.out");
-       }
-#endif
 
        data_logs[2].reset(new std::fstream);
        data_logs[2]->open("species_diag.out", std::ios::out | std::ios::app);
@@ -666,47 +633,6 @@ Logi::Logi (Amr&            papa,
       MultiFab& data = get_new_data(k);
       data.setVal(0.0, data.nGrow());
     }
-
-#ifdef GRAVITY
-
-    if (do_grav) {
-      // gravity is a static object, only alloc if not already there
-      if (gravity == 0) {
-        gravity = new Gravity(parent,parent->finestLevel(),&phys_bc, URHO);
-      }
-
-      // Passing numpts_1d at level 0
-      if (!level_geom.isAllPeriodic() && gravity != 0)
-      {
-         int numpts_1d = get_numpts();
-
-         // For 1D, we need to add ghost cells to the numpts
-         // given to us by Logi.
-
-#if (AMREX_SPACEDIM == 1)
-         numpts_1d += 2 * NUM_GROW;
-#endif
-
-         gravity->set_numpts_in_gravity(numpts_1d);
-      }
-
-      gravity->install_level(level,this,volume,area.data());
-
-      if (verbose && level == 0 &&  ParallelDescriptor::IOProcessor()) {
-        std::cout << "Setting the gravity type to " << gravity->get_gravity_type() << std::endl;
-      }
-
-#ifdef GRAVITY
-      if (gravity->get_gravity_type() == "PoissonGrav" && gravity->NoComposite() != 0 && gravity->NoSync() == 0)
-      {
-          std::cerr << "Error: not meaningful to have gravity.no_sync == 0 without having gravity.no_composite == 0.";
-          amrex::Error();
-      }
-#endif
-   }
-
-#endif
-
 
 #ifdef DIFFUSION
       // diffusion is a static object, only alloc if not already there
@@ -867,13 +793,6 @@ Logi::initMFs()
         if (Radiation::rad_hydro_combined) {
             rad_flux_reg.define(grids, dmap, crse_ratio, level, Radiation::nGroups);
             rad_flux_reg.setVal(0.0);
-        }
-#endif
-
-#ifdef GRAVITY
-        if (do_grav && gravity->get_gravity_type() == "PoissonGrav" && gravity->NoSync() == 0) {
-            phi_reg.define(grids, dmap, crse_ratio, level, 1);
-            phi_reg.setVal(0.0);
         }
 #endif
 
@@ -1391,24 +1310,6 @@ Logi::initData ()
 #endif // RADIATION
 
 #endif // MAESTRO_INIT
-
-
-#ifdef GRAVITY
-#if (AMREX_SPACEDIM > 1)
-    if ( (level == 0) && (spherical_star == 1) ) {
-       const int nc = S_new.nComp();
-       const int n1d = get_numpts();
-       int is_new = 1;
-       make_radial_data(is_new);
-    }
-#endif
-
-    MultiFab& G_new = get_new_data(Gravity_Type);
-    G_new.setVal(0.);
-
-    MultiFab& phi_new = get_new_data(PhiGrav_Type);
-    phi_new.setVal(0.);
-#endif
 
     MultiFab& source_new = get_new_data(Source_Type);
     source_new.setVal(0., source_new.nGrow());
@@ -1983,11 +1884,6 @@ Logi::post_timestep (int iteration_local)
           sum_integrated_quantities();
         }
 
-#ifdef GRAVITY
-        if (moving_center) {
-          write_center();
-        }
-#endif
     }
 
 #ifdef RADIATION
@@ -2026,58 +1922,6 @@ Logi::post_restart ()
    ParticlePostRestart(parent->theRestartFile());
 #endif
 
-#ifdef GRAVITY
-    if (do_grav)
-    {
-        Real cur_time = state[State_Type].curTime();
-
-        if (level == 0)
-        {
-            // Passing numpts_1d at level 0
-            int numpts_1d = get_numpts ();
-
-#if (AMREX_SPACEDIM == 1)
-            numpts_1d += 2 * NUM_GROW;
-#endif
-
-            gravity->set_numpts_in_gravity(numpts_1d);
-
-            for (int lev = 0; lev <= parent->finestLevel(); lev++)
-            {
-                AmrLevel& this_level  = getLevel(lev);
-                Logi& cs_level = getLevel(lev);
-                gravity->install_level(lev,&this_level,
-                                       cs_level.Volume(),cs_level.Area());
-            }
-
-            if (moving_center == 1)
-            {
-               MultiFab&  S_new = get_new_data(State_Type);
-               define_new_center(S_new,cur_time);
-            }
-
-            gravity->set_mass_offset(cur_time);
-
-            if ( gravity->get_gravity_type() == "PoissonGrav")
-            {
-                if (gravity->NoComposite() != 1)
-                {
-                   // Update the maximum density, used in setting the solver tolerance.
-
-                   gravity->update_max_rhs();
-
-                   gravity->multilevel_solve_for_new_phi(0, parent->finestLevel());
-                   if (gravity->test_results_of_solves() == 1)
-                       gravity->test_composite_phi(level);
-                }
-            }
-
-            if (grown_factor > 1)
-                post_grown_restart();
-        }
-    }
-#endif
-
 #ifdef DIFFUSION
       // diffusion is a static object, only alloc if not already there
       if (diffusion == 0)
@@ -2104,11 +1948,6 @@ Logi::postCoarseTimeStep (Real cumtime)
     // postCoarseTimeStep() is only called by level 0.
     BL_ASSERT(level == 0);
     AmrLevel::postCoarseTimeStep(cumtime);
-#ifdef GRAVITY
-    if (do_grav)
-        gravity->set_mass_offset(cumtime, 0);
-#endif
-
 }
 
 void
@@ -2123,71 +1962,6 @@ Logi::post_regrid (int lbase,
 #ifdef AMREX_PARTICLES
     if (TracerPC && level == lbase) {
         TracerPC->Redistribute(lbase);
-    }
-#endif
-
-#ifdef GRAVITY
-    if (do_grav)
-    {
-
-        if (use_post_step_regrid && getLevel(lbase).post_step_regrid && gravity->get_gravity_type() == "PoissonGrav") {
-
-           if (level > lbase) {
-
-               // In the case where we're coming here during a regrid that occurs
-               // after a timestep, we only want to interpolate the gravitational
-               // field from the old time. The state data will already have been
-               // filled, so all we need to do is interpolate the grad_phi data.
-
-               // Instantiate a bare physical BC function for grad_phi. It doesn't do anything
-               // since the fine levels for Poisson gravity do not touch the physical boundary.
-
-               GradPhiPhysBCFunct gp_phys_bc;
-
-               // We need to use a interpolater that works with data on faces.
-
-               Interpolater* gp_interp = &face_linear_interp;
-
-               Vector<MultiFab*> grad_phi_coarse = amrex::GetVecOfPtrs(gravity->get_grad_phi_prev(level-1));
-               Vector<MultiFab*> grad_phi_fine = amrex::GetVecOfPtrs(gravity->get_grad_phi_curr(level));
-
-               Real time = getLevel(lbase).get_state_data(Gravity_Type).prevTime();
-
-               // For the BCs, we will use the Gravity_Type BCs for convenience, but these will
-               // not do anything because we do not fill on physical boundaries.
-
-               const Vector<BCRec>& gp_bcs = getLevel(level).get_desc_lst()[Gravity_Type].getBCs();
-
-               for (int n = 0; n < AMREX_SPACEDIM; ++n) {
-                   amrex::InterpFromCoarseLevel(*grad_phi_fine[n], time, *grad_phi_coarse[n],
-                                                0, 0, 1,
-                                                parent->Geom(level-1), parent->Geom(level),
-                                                gp_phys_bc, 0, gp_phys_bc, 0, parent->refRatio(level-1),
-                                                gp_interp, gp_bcs, 0);
-               }
-
-           }
-
-       } else {
-
-            const Real cur_time = state[State_Type].curTime();
-            if ( (level == lbase) && cur_time > 0.)
-            {
-                if ( gravity->get_gravity_type() == "PoissonGrav" && (gravity->NoComposite() != 1) ) {
-                    // Update the maximum density, used in setting the solver tolerance.
-
-                    if (level == 0) {
-                      gravity->update_max_rhs();
-                    }
-
-                    gravity->multilevel_solve_for_new_phi(level, new_finest);
-
-                }
-
-            }
-
-        }
-
     }
 #endif
 
@@ -2243,40 +2017,6 @@ Logi::post_init (Real /*stop_time*/)
       getLevel(k).avgDown();
     }
 
-#ifdef GRAVITY
-
-    if (do_grav) {
-
-       Real cur_time = state[State_Type].curTime();
-
-       if (gravity->get_gravity_type() == "PoissonGrav") {
-
-          // Update the maximum density, used in setting the solver tolerance.
-
-          gravity->update_max_rhs();
-
-          // Calculate offset before first multilevel solve.
-          gravity->set_mass_offset(cur_time);
-
-          if (gravity->NoComposite() != 1)  {
-             gravity->multilevel_solve_for_new_phi(level,finest_level);
-             if (gravity->test_results_of_solves() == 1) {
-               gravity->test_composite_phi(level);
-             }
-          }
-       }
-
-       // Make this call just to fill the initial state data.
-       for (int k = 0; k <= parent->finestLevel(); k++)
-       {
-          BoxArray ba = getLevel(k).boxArray();
-          MultiFab& grav_new = getLevel(k).get_new_data(Gravity_Type);
-          gravity->get_new_grav_vector(k,grav_new,cur_time);
-       }
-    }
-#endif
-
-
 #ifdef RADIATION
     if (do_radiation) {
       // The option of whether to do a multilevel initialization is
@@ -2306,14 +2046,6 @@ Logi::post_init (Real /*stop_time*/)
 #endif
 
     // If we're doing SCF initialization, do it here.
-
-#ifdef GRAVITY
-#ifdef ROTATION
-    if (do_scf_initial_model) {
-        scf_relaxation();
-    }
-#endif
-#endif
 
         int nstep = parent->levelSteps(0);
         Real dtlev = parent->dtLevel(0);
@@ -2346,11 +2078,6 @@ Logi::post_init (Real /*stop_time*/)
           sum_integrated_quantities();
         }
 
-#ifdef GRAVITY
-    if (level == 0 && moving_center == 1) {
-       write_center();
-    }
-#endif
 }
 
 void
@@ -2361,37 +2088,6 @@ Logi::post_grown_restart ()
 
     if (level > 0)
         return;
-
-#ifdef GRAVITY
-    if (do_grav) {
-        int finest_level = parent->finestLevel();
-        Real cur_time = state[State_Type].curTime();
-
-        if (gravity->get_gravity_type() == "PoissonGrav") {
-
-          // Update the maximum density, used in setting the solver tolerance.
-
-          gravity->update_max_rhs();
-
-          // Calculate offset before first multilevel solve.
-          gravity->set_mass_offset(cur_time);
-
-          if (gravity->NoComposite() != 1)  {
-             gravity->multilevel_solve_for_new_phi(level,finest_level);
-             if (gravity->test_results_of_solves() == 1) {
-                gravity->test_composite_phi(level);
-             }
-          }
-       }
-
-       // Make this call just to fill the initial state data.
-       for (int k = 0; k <= parent->finestLevel(); k++)
-       {
-          MultiFab& grav_new = getLevel(k).get_new_data(Gravity_Type);
-          gravity->get_new_grav_vector(k,grav_new,cur_time);
-       }
-    }
-#endif
 
 #ifdef RADIATION
     if (do_radiation) {
@@ -2540,31 +2236,6 @@ Logi::reflux(int crse_level, int fine_level)
 
     const Real strt = ParallelDescriptor::second();
 
-#ifdef GRAVITY
-    int nlevs = fine_level - crse_level + 1;
-
-    Vector<std::unique_ptr<MultiFab> > drho(nlevs);
-    Vector<std::unique_ptr<MultiFab> > dphi(nlevs);
-
-    if (do_grav && gravity->get_gravity_type() == "PoissonGrav" && gravity->NoSync() == 0)  {
-
-        for (int lev = crse_level; lev <= fine_level; ++lev) {
-
-            const auto& amrlevel = getLevel(lev);
-            const auto& ba = amrlevel.boxArray();
-            const auto& dm = amrlevel.DistributionMap();
-
-            drho[lev - crse_level].reset(new MultiFab(ba, dm, 1, 0));
-            dphi[lev - crse_level].reset(new MultiFab(ba, dm, 1, 0));
-
-            drho[lev - crse_level]->setVal(0.0);
-            dphi[lev - crse_level]->setVal(0.0);
-
-        }
-
-    }
-#endif
-
     FluxRegister* reg;
 
     for (int lev = fine_level; lev > crse_level; --lev) {
@@ -2704,18 +2375,6 @@ Logi::reflux(int crse_level, int fine_level)
 
         reg->Reflux(crse_state, crse_lev.volume, 1.0, 0, 0, NUM_STATE, crse_lev.geom);
 
-        // Store the density change, for the gravity sync.
-
-#ifdef GRAVITY
-        int ilev = lev - crse_level - 1;
-
-        if (do_grav && gravity->get_gravity_type() == "PoissonGrav" && gravity->NoSync() == 0) {
-            reg->Reflux(*drho[ilev], crse_lev.volume, 1.0, 0, URHO, 1, crse_lev.geom);
-            amrex::average_down(*drho[ilev + 1], *drho[ilev], 0, 1, getLevel(lev).crse_ratio);
-        }
-#endif
-
-
         // We no longer need the flux register data, so clear it out.
 
         reg->setVal(0.0);
@@ -2798,41 +2457,7 @@ Logi::reflux(int crse_level, int fine_level)
 
 #endif
 
-#ifdef GRAVITY
-        if (do_grav && gravity->get_gravity_type() == "PoissonGrav" && gravity->NoSync() == 0)  {
-
-            reg = &getLevel(lev).phi_reg;
-            Logi& fine_lev = getLevel(lev);
-
-            // Note that the scaling by the area here is corrected for by dividing by the
-            // cell volume in the reflux. In this way we get a discrete divergence that
-            // is analogous to the divergence of the flux in the hydrodynamics. See Equation
-            // 37 in the Logi I paper. The dimensions of dphi are therefore actually
-            // phi / cm**2, which makes it correct for the RHS of the Poisson equation.
-
-            for (int i = 0; i < AMREX_SPACEDIM; ++i) {
-                reg->CrseInit(*(gravity->get_grad_phi_curr(lev-1)[i]), crse_lev.area[i], i, 0, 0, 1, -1.0);
-                reg->FineAdd(*(gravity->get_grad_phi_curr(lev)[i]), fine_lev.area[i], i, 0, 0, 1, 1.0);
-            }
-
-            reg->Reflux(*dphi[ilev], crse_lev.volume, 1.0, 0, 0, 1, crse_lev.geom);
-
-            amrex::average_down(*dphi[ilev + 1], *dphi[ilev], 0, 1, getLevel(lev).crse_ratio);
-
-            reg->setVal(0.0);
-
-        }
-#endif
-
     }
-
-    // Do the sync solve across all levels.
-
-#ifdef GRAVITY
-    if (do_grav && gravity->get_gravity_type() == "PoissonGrav" && gravity->NoSync() == 0) {
-      gravity->gravity_sync(crse_level, fine_level, amrex::GetVecOfPtrs(drho), amrex::GetVecOfPtrs(dphi));
-    }
-#endif
 
     // Now subtract the new-time updates to the state data,
     // recompute it, and add it back. This corrects for the fact
@@ -3284,81 +2909,6 @@ void
 Logi::apply_tagging_restrictions(TagBoxArray& tags, Real time)
 {
     BL_PROFILE("Logi::apply_tagging_restrictions()");
-
-    // If we are using Poisson gravity, we must ensure that the outermost zones are untagged
-    // due to the Poisson equation boundary conditions (we currently do not know how to fill
-    // the boundary conditions for fine levels that touch the physical boundary.)
-    // To do this properly we need to be aware of AMReX's strategy for tagging, which is not
-    // cell-based, but rather chunk-based. The size of the chunk on the coarse grid is given
-    // by blocking_factor / ref_ratio -- the idea here being that blocking_factor is the
-    // smallest possible group of cells on a given level, so the smallest chunk of cells
-    // possible on the coarse grid is given by that number divided by the refinement ratio.
-    // So we cannot tag anything within that distance from the boundary. Additionally we
-    // need to stay a further amount n_error_buf away, since n_error_buf zones are always
-    // added as padding around tagged zones.
-
-#ifdef GRAVITY
-    if (gravity::gravity_type == "PoissonGrav") {
-
-        int lev = level;
-
-        int n_error_buf[3] = {0};
-        int ref_ratio[3] = {0};
-        int domlo[3] = {0};
-        int domhi[3] = {0};
-        int physbc_lo[3] = {-1};
-        int physbc_hi[3] = {-1};
-        int blocking_factor[3] = {0};
-        for (int dim = 0; dim < AMREX_SPACEDIM; ++dim) {
-            n_error_buf[dim] = parent->nErrorBuf(lev, dim);
-            ref_ratio[dim] = parent->refRatio(lev)[dim];
-            domlo[dim] = geom.Domain().loVect()[dim];
-            domhi[dim] = geom.Domain().hiVect()[dim];
-            physbc_lo[dim] = phys_bc.lo()[dim];
-            physbc_hi[dim] = phys_bc.hi()[dim];
-            blocking_factor[dim] = parent->blockingFactor(lev)[dim];
-        }
-
-#ifdef _OPENMP
-#pragma omp parallel
-#endif
-        for (MFIter mfi(tags); mfi.isValid(); ++mfi) {
-            const Box& bx = mfi.tilebox();
-
-            auto tag = tags[mfi].array();
-
-            amrex::ParallelFor(bx,
-            [=] AMREX_GPU_HOST_DEVICE (int i, int j, int k)
-            {
-                bool outer_boundary_test[3] = {false};
-
-                int idx[3] = {i, j, k};
-
-                for (int dim = 0; dim < AMREX_SPACEDIM; ++dim) {
-
-                    int boundary_buf = n_error_buf[dim] + blocking_factor[dim] / ref_ratio[dim];
-
-                    if ((physbc_lo[dim] != Symmetry && physbc_lo[dim] != Interior) &&
-                        (idx[dim] <= domlo[dim] + boundary_buf)) {
-                        outer_boundary_test[dim] = true;
-                    }
-
-                    if ((physbc_hi[dim] != Symmetry && physbc_lo[dim] != Interior) &&
-                        (idx[dim] >= domhi[dim] - boundary_buf)) {
-                        outer_boundary_test[dim] = true;
-                    }
-                }
-
-                if (outer_boundary_test[0] || outer_boundary_test[1] || outer_boundary_test[2]) {
-
-                    tag(i,j,k) = TagBox::CLEAR;
-
-                }
-            });
-        }
-
-    }
-#endif
 }
 
 
@@ -3955,260 +3505,6 @@ Logi::swap_state_time_levels(const Real dt)
     }
 
 }
-
-
-
-#ifdef GRAVITY
-int
-Logi::get_numpts ()
-{
-     int numpts_1d;
-
-     Box bx(geom.Domain());
-     long nx = bx.size()[0];
-
-#if (AMREX_SPACEDIM == 1)
-     numpts_1d = nx;
-#elif (AMREX_SPACEDIM == 2)
-     long ny = bx.size()[1];
-     Real ndiagsq = Real(nx*nx + ny*ny);
-     numpts_1d = int(sqrt(ndiagsq))+2*NUM_GROW;
-#elif (AMREX_SPACEDIM == 3)
-     long ny = bx.size()[1];
-     long nz = bx.size()[2];
-     Real ndiagsq = Real(nx*nx + ny*ny + nz*nz);
-     numpts_1d = int(sqrt(ndiagsq))+2*NUM_GROW;
-#endif
-
-     if (verbose && ParallelDescriptor::IOProcessor()) {
-       std::cout << "Logi::numpts_1d at level  " << level << " is " << numpts_1d << std::endl;
-     }
-
-     return numpts_1d;
-}
-
-void
-Logi::make_radial_data(int is_new)
-{
-#if (AMREX_SPACEDIM > 1)
-
-   BL_PROFILE("Logi::make_radial_data()");
-
-   // We only call this for level = 0
-   BL_ASSERT(level == 0);
-
-   int numpts_1d = get_numpts();
-
-   auto dx = geom.CellSizeArray();
-   Real  dr = dx[0];
-
-   auto problo = geom.ProbLoArray();
-   auto probhi = geom.ProbHiArray();
-
-   MultiFab& S = is_new ? get_new_data(State_Type) : get_old_data(State_Type);
-   const int nc = S.nComp();
-
-   Gpu::ManagedVector<Real> radial_vol(numpts_1d, 0.0_rt);
-   Real* const radial_vol_ptr = radial_vol.dataPtr();
-
-   Gpu::ManagedVector<Real> radial_state(numpts_1d * nc, 0.0_rt);
-   Real* const radial_state_ptr = radial_state.dataPtr();
-
-   for (MFIter mfi(S); mfi.isValid(); ++mfi)
-   {
-       Box bx(mfi.validbox());
-
-       auto state_arr = S[mfi].array();
-       auto vol_arr   = volume[mfi].array();
-
-       amrex::ParallelFor(bx,
-       [=] AMREX_GPU_DEVICE(int i, int j, int k)
-       {
-           Real x = problo[0] + (static_cast<Real>(i) + 0.5_rt) * dx[0] - problem::center[0];
-
-           Real y = 0.0_rt;
-#if AMREX_SPACEDIM >= 2
-           y = problo[1] + (static_cast<Real>(j) + 0.5_rt) * dx[1] - problem::center[1];
-#endif
-
-           Real z = 0.0_rt;
-#if AMREX_SPACEDIM == 3
-           z = problo[2] + (static_cast<Real>(k) + 0.5_rt) * dx[2] - problem::center[2];
-#endif
-
-           Real r = std::sqrt(x * x + y * y + z * z);
-
-           int index = int(r / dr);
-
-#ifndef AMREX_USE_GPU
-           if (index > numpts_1d-1) {
-               std::cout << "COMPUTE_AVGSTATE: INDEX TOO BIG " << index << " > " << numpts_1d-1 << "\n";
-               std::cout << "AT (i,j,k) " << i << " " << j << " " << k << "\n";
-               std::cout << "R / DR " << r << " " << dr << "\n";
-               amrex::Error("Error:: Logi_util.H :: compute_avgstate");
-           }
-#endif
-
-           Gpu::Atomic::Add(&radial_state_ptr[URHO + index * nc],
-                            vol_arr(i,j,k) * state_arr(i,j,k,URHO));
-
-           // Store the radial component of the momentum in the
-           // UMX, UMY and UMZ components for now.
-
-           Real x_mom = state_arr(i,j,k,UMX);
-           Real y_mom = state_arr(i,j,k,UMY);
-           Real z_mom = state_arr(i,j,k,UMZ);
-           Real radial_mom = x_mom * (x / r) + y_mom * (y / r) + z_mom * (z / r);
-
-           Gpu::Atomic::Add(&radial_state_ptr[UMX + index * nc], vol_arr(i,j,k) * radial_mom);
-           Gpu::Atomic::Add(&radial_state_ptr[UMY + index * nc], vol_arr(i,j,k) * radial_mom);
-           Gpu::Atomic::Add(&radial_state_ptr[UMZ + index * nc], vol_arr(i,j,k) * radial_mom);
-
-           for (int n = UMZ + 1; n <= nc; ++n) {
-               Gpu::Atomic::Add(&radial_state_ptr[n + index * nc],
-                                vol_arr(i,j,k) * state_arr(i,j,k,n));
-           }
-
-           Gpu::Atomic::Add(&radial_vol_ptr[index], vol_arr(i,j,k));
-       });
-   }
-
-   ParallelDescriptor::ReduceRealSum(radial_vol.dataPtr(), numpts_1d);
-   ParallelDescriptor::ReduceRealSum(radial_state.dataPtr(), numpts_1d * nc);
-
-   int first = 0;
-   int np_max = 0;
-   for (int i = 0; i < numpts_1d; i++) {
-       if (radial_vol[i] > 0.)
-       {
-           for (int j = 0; j < nc; j++) {
-               radial_state[nc*i+j] /= radial_vol[i];
-           }
-       }
-       else if (first == 0) {
-           np_max = i;
-           first  = 1;
-       }
-   }
-
-#endif
-}
-
-void
-Logi::define_new_center(MultiFab& S, Real time)
-{
-    BL_PROFILE("Logi::define_new_center()");
-
-    const Real* dx = geom.CellSize();
-
-    IntVect max_index = S.maxIndex(URHO,0);
-    Box bx(max_index,max_index);
-    bx.grow(1);
-    BoxArray ba(bx);
-    int owner = ParallelDescriptor::IOProcessorNumber();
-    DistributionMapping dm { Vector<int>(1,owner) };
-    MultiFab mf(ba,dm,1,0);
-
-    // Define a cube 3-on-a-side around the point with the maximum density
-    FillPatch(*this,mf,0,time,State_Type,URHO,1);
-
-    int mi[3] = {0};
-    for (int i = 0; i < AMREX_SPACEDIM; i++) {
-      mi[i] = max_index[i];
-    }
-
-    // Find the position of the "center" by interpolating from data at cell centers
-    for (MFIter mfi(mf); mfi.isValid(); ++mfi)
-    {
-
-#if AMREX_SPACEDIM >= 2
-        // it only makes sense for the center to move in 2- or 3-d
-
-        const Box& box = mfi.validbox();
-        auto data = mf.array(mfi);
-
-        Real cen = data(mi[0], mi[1], mi[2]);
-
-        amrex::ParallelFor(box,
-        [=] AMREX_GPU_HOST_DEVICE (int i, int j, int k) {
-            data(i,j,k) -= cen;
-        });
-
-        // This puts the "center" at the cell center
-        Real new_center[3];
-        for (int d = 0; d < AMREX_SPACEDIM; d++) {
-            new_center[d] = geom.ProbLo(d) +  (static_cast<Real>(mi[d]) + 0.5_rt) * dx[d];
-        }
-
-        // Fit parabola y = a x^2  + b x + c through three points
-        // a = 1/2 ( y_1 + y_-1)
-        // b = 1/2 ( y_1 - y_-1)
-        // x_vertex = -b / 2a
-
-        // ... in x-direction
-        Real a = 0.5_rt * (data(mi[0]+1, mi[1], mi[2]) + data(mi[0]-1, mi[1], mi[2]));
-        Real b = 0.5_rt * (data(mi[0]+1, mi[1], mi[2]) - data(mi[0]-1, mi[1], mi[2]));
-        Real x = -b / (2.0_rt * a);
-        problem::center[0] = new_center[0] + x * dx[0];
-
-        // ... in y-direction
-        a = 0.5_rt * (data(mi[0], mi[1]+1, mi[2]) + data(mi[0], mi[1]-1, mi[2]));
-        b = 0.5_rt * (data(mi[0], mi[1]+1, mi[2]) - data(mi[0], mi[1]-1, mi[2]));
-        Real y = -b / (2.0_rt * a);
-        problem::center[1] = new_center[1] + y * dx[1];
-
-#if AMREX_SPACEDIM == 3
-        // ... in z-direction
-        a = 0.5_rt * (data(mi[0], mi[1], mi[2]+1) + data(mi[0], mi[1], mi[2]-1));
-        b = 0.5_rt * (data(mi[0], mi[1], mi[2]+1) - data(mi[0], mi[1], mi[2]-1));
-        Real z = -b / (2.0_rt * a);
-        problem::center[2] = new_center[2] + z * dx[2];
-#endif
-
-#endif
-
-    }
-    // Now broadcast to everyone else.
-    ParallelDescriptor::Bcast(&problem::center[0], AMREX_SPACEDIM, owner);
-
-    // Make sure if R-Z that center stays exactly on axis
-    if ( Geom().IsRZ() ) {
-      problem::center[0] = 0;
-    }
-
-}
-
-void
-Logi::write_center ()
-{
-    int ndatalogs = parent->NumDataLogs();
-
-    if ( (moving_center==1) && (ndatalogs > 0) && ParallelDescriptor::IOProcessor())
-    {
-       std::ostream& data_logc = parent->DataLog(0);
-
-       int nstep = parent->levelSteps(0);
-       Real time = state[State_Type].curTime();
-
-       if (time == 0.0) {
-           data_logc << std::setw( 8) <<  "   nstep";
-           data_logc << std::setw(14) <<  "         time  ";
-           data_logc << std::setw(14) <<  "         center" << std::endl;;
-       }
-
-           data_logc << std::setw( 8) <<  nstep;
-           data_logc << std::setw(14) <<  std::setprecision(6) <<  time;
-           data_logc << std::setw(14) <<  std::setprecision(6) << problem::center[0];
-#if (AMREX_SPACEDIM >= 2)
-           data_logc << std::setw(14) <<  std::setprecision(6) << problem::center[1];
-#endif
-#if (AMREX_SPACEDIM == 3)
-           data_logc << std::setw(14) <<  std::setprecision(6) << problem::center[2];
-#endif
-           data_logc << std::endl;
-    }
-}
-#endif
 
 Real
 Logi::getCPUTime()

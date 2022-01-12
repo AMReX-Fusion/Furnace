@@ -35,10 +35,6 @@ CEXE_headers      += math.H
 
 NEED_MGUTIL =
 
-ifeq ($(USE_GRAV), TRUE)
-  NEED_MGUTIL = TRUE
-endif
-
 ifeq ($(USE_DIFFUSION), TRUE)
   NEED_MGUTIL = TRUE
 endif

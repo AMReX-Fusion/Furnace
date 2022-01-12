@@ -6,10 +6,6 @@
 #include <Radiation.H>
 #endif
 
-#ifdef GRAVITY
-#include <Gravity.H>
-#endif
-
 using namespace amrex;
 
 advance_status
@@ -120,10 +116,6 @@ Logi::do_advance_ctu(Real time,
     // later.  Note -- this does not affect the prediction of the
     // interface state, an explict source will be traced there as
     // needed.
-
-#ifdef GRAVITY
-    construct_old_gravity(amr_iteration, amr_ncycle, prev_time);
-#endif
 
     bool apply_sources_to_state = true;
 
@@ -246,30 +238,7 @@ Logi::do_advance_ctu(Real time,
     // if we are done with the update do the source correction and
     // then the second half of the reactions
 
-#ifdef GRAVITY
-    // Must define new value of "center" before we call new gravity
-    // solve or external source routine
-    if (moving_center == 1)
-      define_new_center(S_new, time);
-#endif
-
-#ifdef GRAVITY
-    // We need to make the new radial data now so that we can use it when we
-    // FillPatch in creating the new source.
-
-#if (AMREX_SPACEDIM > 1)
-    if ( (level == 0) && (spherical_star == 1) ) {
-      int is_new = 1;
-      make_radial_data(is_new);
-    }
-#endif
-#endif
-
     // Construct and apply new-time source terms.
-
-#ifdef GRAVITY
-    construct_new_gravity(amr_iteration, amr_ncycle, cur_time);
-#endif
 
     MultiFab& new_source = get_new_data(Source_Type);
 
@@ -617,12 +586,6 @@ Logi::subcycle_advance_ctu(const Real time, const Real dt, int amr_iteration, in
         if (do_swap) {
 
             swap_state_time_levels(0.0);
-
-#ifdef GRAVITY
-            if (do_grav) {
-                gravity->swapTimeLevels(level);
-            }
-#endif
 
         }
         else {

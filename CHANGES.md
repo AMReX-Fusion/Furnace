@@ -2,6 +2,7 @@
 
    * Removed gravity modules and documentation
        Source/gravity
+       Source/scf
        Docs/source/gravity.rst
    * Removing following tests that depend on gravity:
        Exec/gravity_tests
@@ -17,6 +18,14 @@
        Exec/hydro_tests/double_bubble
        Exec/hydro_tests/gamma_law_bubble
        Exec/hydro_tests/Sedov/tmp_build_dir
+       Exec/hydro_tests/RT
+       Exec/hy	dro_tests/test_convect
+       Exec/hydro_tests/toy_convect
+       Exec/mhd_tests/RT
+       Exec/radiation_tests/RadBreakout
+       Exec/science/convective_flame
+       Exec/science/subchandra
+       Exec/science/xrb_mixed
 
 # 0.1
 

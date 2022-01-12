@@ -16,9 +16,6 @@ CEXE_headers += problem_emissivity.H
 CEXE_headers += problem_diagnostics.H
 CEXE_headers += problem_rad_source.H
 
-ifeq ($(USE_GRAV),TRUE)
-  CEXE_sources += hse_fill.cpp
-endif
 ifeq ($(USE_MHD),TRUE)
   CEXE_headers += problem_initialize_mhd_data.H
 endif

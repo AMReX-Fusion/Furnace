@@ -7,9 +7,6 @@
 #ifdef DIFFUSION
 #include <diffusion_params.H>
 #endif
-#ifdef GRAVITY
-#include <gravity_params.H>
-#endif
 #ifdef RADIATION
 #include <radsolve_params.H>
 #include <radiation_params.H>
@@ -43,13 +40,6 @@ initialize_cpp_runparams()
     }
 #endif
 
-#ifdef GRAVITY
-    {
-        ParmParse pp("gravity");
-#include <gravity_queries.H>
-    }
-#endif
-
 #ifdef RADIATION
     {
         ParmParse pp("radiation");
@@ -76,9 +66,6 @@ validate_runparams()
 #endif
 #ifdef DIFFUSION
     check_namespaces.push_back("diffusion");
-#endif
-#ifdef GRAVITY
-    check_namespaces.push_back("gravity");
 #endif
 #ifdef RADIATION
     //check_namespaces.push_back("radiation");  // this doesn't yet work because RadBndry isn't setup yet

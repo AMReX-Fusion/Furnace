@@ -6,10 +6,6 @@
 #include <Radiation.H>
 #endif
 
-#ifdef GRAVITY
-#include <Gravity.H>
-#endif
-
 #include <cmath>
 #include <climits>
 
@@ -91,23 +87,6 @@ Logi::advance (Real time,
     advance_aux(time, dt);
 #endif
 
-#ifdef GRAVITY
-#if (AMREX_SPACEDIM > 1)
-    // We do this again here because the solution will have changed
-    if ( (level == 0) && (spherical_star == 1) ) {
-       int is_new = 1;
-       make_radial_data(is_new);
-    }
-#endif
-#endif
-
-#ifdef GRAVITY
-    // Update the point mass.
-    if (use_point_mass) {
-        pointmass_update(time, dt);
-    }
-#endif
-
 #ifdef RADIATION
     MultiFab& S_new = get_new_data(State_Type);
     final_radiation_call(S_new, amr_iteration, amr_ncycle);
@@ -143,19 +122,6 @@ Logi::initialize_do_advance(Real time)
       get_old_data(Rad_Type).setVal(0.0);
       get_new_data(Rad_Type).setVal(0.0);
     }
-#endif
-
-#ifdef GRAVITY
-    if (moving_center == 1) {
-        define_new_center(get_old_data(State_Type), time);
-    }
-
-#if (AMREX_SPACEDIM > 1)
-    if ( (level == 0) && (spherical_star == 1) ) {
-       int is_new = 0;
-       make_radial_data(is_new);
-    }
-#endif
 #endif
 
     // For the hydrodynamics update we need to have NUM_GROW ghost
@@ -279,16 +245,6 @@ Logi::initialize_advance(Real time, Real dt, int amr_iteration, int amr_ncycle)
     lamborder.define(grids, dmap, Radiation::nGroups, NUM_GROW);
 #endif
 
-#ifdef GRAVITY
-    // If we're on level 0, update the maximum density used in the gravity solver
-    // for setting the tolerances. This will be used in all level solves to follow.
-    // This must be done before the swap because it relies on the new data.
-
-    if (level == 0 && gravity->get_gravity_type() == "PoissonGrav") {
-        gravity->update_max_rhs();
-    }
-#endif
-
     // This array holds the source term corrector.
 
     source_corrector.define(grids, dmap, NSRC, NUM_GROW_SRC);
@@ -297,12 +253,6 @@ Logi::initialize_advance(Real time, Real dt, int amr_iteration, int amr_ncycle)
     // Swap the new data from the last timestep into the old state data.
 
     swap_state_time_levels(dt);
-
-#ifdef GRAVITY
-    if (do_grav) {
-        gravity->swapTimeLevels(level);
-    }
-#endif
 
     MultiFab& S_old = get_old_data(State_Type);
 

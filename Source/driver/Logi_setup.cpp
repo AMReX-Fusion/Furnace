@@ -402,19 +402,6 @@ Logi::variableSetUp ()
                          store_in_checkpoint);
 #endif
 
-#ifdef GRAVITY
-  store_in_checkpoint = true;
-  desc_lst.addDescriptor(PhiGrav_Type, IndexType::TheCellType(),
-                         StateDescriptor::Point, 1, 1,
-                         interp, state_data_extrap,
-                         store_in_checkpoint);
-
-  store_in_checkpoint = false;
-  desc_lst.addDescriptor(Gravity_Type,IndexType::TheCellType(),
-                         StateDescriptor::Point,NUM_GROW_SRC,3,
-                         interp,state_data_extrap,store_in_checkpoint);
-#endif
-
   // Source terms -- for the CTU method, because we do characteristic
   // tracing on the source terms, we need NUM_GROW_SRC ghost cells to do
   // the reconstruction.  For SDC, on the other hand, we only
@@ -593,23 +580,6 @@ Logi::variableSetUp ()
   desc_lst.setComponent(Mag_Type_x, 0, "b_x", bc, genericBndryFunc);
   desc_lst.setComponent(Mag_Type_y, 0, "b_y", bc, genericBndryFunc);
   desc_lst.setComponent(Mag_Type_z, 0, "b_z", bc, genericBndryFunc);
-#endif
-
-
-
-#ifdef GRAVITY
-  set_scalar_bc(bc,phys_bc);
-  replace_inflow_bc(bc);
-  desc_lst.setComponent(PhiGrav_Type,0,"phiGrav",bc,genericBndryFunc);
-  set_x_vel_bc(bc,phys_bc);
-  replace_inflow_bc(bc);
-  desc_lst.setComponent(Gravity_Type,0,"grav_x",bc,genericBndryFunc);
-  set_y_vel_bc(bc,phys_bc);
-  replace_inflow_bc(bc);
-  desc_lst.setComponent(Gravity_Type,1,"grav_y",bc,genericBndryFunc);
-  set_z_vel_bc(bc,phys_bc);
-  replace_inflow_bc(bc);
-  desc_lst.setComponent(Gravity_Type,2,"grav_z",bc,genericBndryFunc);
 #endif
 
   // Source term array will use source fill
@@ -794,16 +764,6 @@ Logi::variableSetUp ()
 #endif
 
   //
-  // Gravitational forcing
-  //
-#ifdef GRAVITY
-  //    derive_lst.add("rhog",IndexType::TheCellType(),1,
-  //                   BL_FORT_PROC_CALL(CA_RHOG,ca_rhog),the_same_box);
-  //    derive_lst.addComponent("rhog",desc_lst,State_Type, URHO, 1);
-  //    derive_lst.addComponent("rhog",desc_lst,Gravity_Type,0,AMREX_SPACEDIM);
-#endif
-
-  //
   // Entropy (S)
   //
   derive_lst.add("entropy",IndexType::TheCellType(),1,ca_derentropy,the_same_box);
@@ -955,11 +915,6 @@ Logi::variableSetUp ()
   derive_lst.add("angular_momentum_z",IndexType::TheCellType(),1,ca_derangmomz,the_same_box);
   derive_lst.addComponent("angular_momentum_z",desc_lst,State_Type,URHO,1);
   derive_lst.addComponent("angular_momentum_z",desc_lst,State_Type,UMX,3);
-
-#ifdef GRAVITY
-  derive_lst.add("maggrav",IndexType::TheCellType(),1,ca_dermaggrav,the_same_box);
-  derive_lst.addComponent("maggrav",desc_lst,Gravity_Type,0,3);
-#endif
 
 #ifdef AMREX_PARTICLES
   //
@@ -1116,10 +1071,6 @@ Logi::variableSetUp ()
 
 #ifdef HYBRID_MOMENTUM
   source_names[hybrid_src] = "hybrid";
-#endif
-
-#ifdef GRAVITY
-  source_names[grav_src] = "gravity";
 #endif
 
 #ifdef ROTATION

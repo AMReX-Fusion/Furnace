@@ -107,36 +107,6 @@ cite the following:
     }
 ```
 
-## Gravity and rotation
-
-If you use the Poisson gravity solver or rotation, please cite the
-following, which included a lot of improvements to the coupling of
-hydro and gravity:
-
-```
-    @ARTICLE{2016ApJ...819...94K,
-       author = {{Katz}, M.~P. and {Zingale}, M. and {Calder}, A.~C. and
-		      {Swesty}, F.~D. and {Almgren}, A.~S. and {Zhang},
-		      W.},
-	title = "{White Dwarf Mergers on Adaptive Meshes. I. Methodology
-		      and Code Verification}",
-      journal = {\apj},
-    archivePrefix = "arXiv",
-       eprint = {1512.06099},
-     primaryClass = "astro-ph.HE",
-     keywords = {hydrodynamics, methods: numerical, supernovae: general,
-		      white dwarfs},
-	 year = 2016,
-	month = mar,
-       volume = 819,
-	  eid = {94},
-	pages = {94},
-	  doi = {10.3847/0004-637X/819/2/94},
-       adsurl = {http://adsabs.harvard.edu/abs/2016ApJ...819...94K},
-      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
-    }
-```
-
 ## GPUs and scaling
 
 For CPU performance numbers, please cite:

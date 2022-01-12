@@ -18,10 +18,6 @@
 #include <Radiation.H>
 #endif
 
-#ifdef GRAVITY
-#include <Gravity.H>
-#endif
-
 #ifdef DIFFUSION
 #include <Diffusion.H>
 #endif
@@ -170,24 +166,6 @@ Logi::restart (Amr&     papa,
 
     }
 
-#ifdef GRAVITY
-    if (use_point_mass && level == 0)
-    {
-
-        // get the current value of the point mass
-        std::ifstream PMFile;
-        std::string FullPathPMFile = parent->theRestartFile();
-        FullPathPMFile += "/point_mass";
-        PMFile.open(FullPathPMFile.c_str(), std::ios::in);
-
-        if (PMFile.good()) {
-            PMFile >> point_mass;
-            PMFile.close();
-        }
-
-    }
-#endif
-
     if (level == 0)
     {
         // get problem-specific stuff -- note all processors do this,
@@ -291,23 +269,6 @@ Logi::restart (Amr&     papa,
     if (grown_factor > 1 && level == 1) {
       getLevel(0).avgDown();
     }
-
-#ifdef GRAVITY
-#if (AMREX_SPACEDIM > 1)
-    if ( (level == 0) && (spherical_star == 1) ) {
-       MultiFab& S_new = get_new_data(State_Type);
-       const int nc = S_new.nComp();
-       const int n1d = get_numpts();
-       int is_new = 1;
-       make_radial_data(is_new);
-    }
-#endif
-
-    if (do_grav && level == 0) {
-       BL_ASSERT(gravity == 0);
-       gravity = new Gravity(parent,parent->finestLevel(),&phys_bc, URHO);
-    }
-#endif
 
 #ifdef DIFFUSION
     if (level == 0) {
@@ -448,22 +409,6 @@ Logi::checkPoint(const std::string& dir,
             CPUFile << std::setprecision(17) << getCPUTime();
             CPUFile.close();
         }
-
-#ifdef GRAVITY
-        if (use_point_mass) {
-
-            // store current value of the point mass
-            std::ofstream PMFile;
-            std::string FullPathPMFile = dir;
-            FullPathPMFile += "/point_mass";
-            PMFile.open(FullPathPMFile.c_str(), std::ios::out);
-
-            PMFile << std::setprecision(17) << point_mass << std::endl;
-
-            PMFile.close();
-
-        }
-#endif
 
         {
             // store any problem-specific stuff
@@ -767,9 +712,6 @@ Logi::writeJobInfo (const std::string& dir, const Real io_time)
 #include <particles_job_info_tests.H>
 #endif
 
-#ifdef GRAVITY
-  gravity->output_job_info_params(jobInfoFile);
-#endif
 #ifdef DIFFUSION
   diffusion->output_job_info_params(jobInfoFile);
 #endif
@@ -1161,21 +1103,5 @@ Logi::plotFileOutput(const std::string& dir,
     if (level == 0 && ParallelDescriptor::IOProcessor()) {
         writeJobInfo(dir, io_time);
     }
-
-#ifdef GRAVITY
-    if (use_point_mass && level == 0) {
-
-        // store current value of the point mass
-        std::ofstream PMFile;
-        std::string FullPathPMFile = dir;
-        FullPathPMFile += "/point_mass";
-        PMFile.open(FullPathPMFile.c_str(), std::ios::out);
-
-        PMFile << std::setprecision(17) << point_mass << std::endl;
-
-        PMFile.close();
-
-    }
-#endif
 
 }

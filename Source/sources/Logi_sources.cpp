@@ -81,14 +81,6 @@ Logi::source_flag(int src)
         return true;
 #endif
 
-#ifdef GRAVITY
-    case grav_src:
-        if (do_grav)
-            return true;
-        else
-            return false;
-#endif
-
 #ifdef ROTATION
     case rot_src:
         if (do_rotation)
@@ -269,12 +261,6 @@ Logi::construct_old_source(int src, MultiFab& source, MultiFab& state_in, Real t
         break;
 #endif
 
-#ifdef GRAVITY
-    case grav_src:
-        construct_old_gravity_source(source, state_in, time, dt);
-        break;
-#endif
-
 #ifdef ROTATION
     case rot_src:
         construct_old_rotation_source(source, state_in, time, dt);
@@ -325,12 +311,6 @@ Logi::construct_new_source(int src, MultiFab& source, MultiFab& state_old, Multi
 #ifdef HYBRID_MOMENTUM
     case hybrid_src:
         construct_new_hybrid_source(source, state_old, state_new, time, dt);
-        break;
-#endif
-
-#ifdef GRAVITY
-    case grav_src:
-        construct_new_gravity_source(source, state_old, state_new, time, dt);
         break;
 #endif
 

@@ -406,23 +406,7 @@ In the code, the objective is to evolve the state from the old time,
 
    E. [``HYBRID_MOMENTUM``] angular momentum
 
-
-   F. [``GRAVITY``] gravity:
-
-      For full Poisson gravity, we solve for for gravity using:
-
-      .. math::
-
-         \gb^n = -\nabla\phi^n, \qquad
-               \Delta\phi^n = 4\pi G\rho^n,
-
-      The construction of the form of the gravity source for the
-      momentum and energy equation is dependent on the parameter
-      ``logi.grav_source_type``. Full details of the gravity
-      solver are given in Chapter :ref:`ch:gravity`.
-
-
-   G. [``ROTATION``] rotation
+   F. [``ROTATION``] rotation
 
       We compute the rotational potential (for use in the energy update)
       and the rotational acceleration (for use in the momentum

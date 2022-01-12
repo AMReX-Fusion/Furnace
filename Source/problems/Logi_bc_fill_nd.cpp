@@ -1,4 +1,3 @@
-
 #include <AMReX_BLFort.H>
 #include <Logi.H>
 #include <Logi_bc_fill_nd.H>
@@ -97,10 +96,6 @@ void ca_statefill(Box const& bx, FArrayBox& data,
         (bcr[URHO].hi(1) == EXT_DIR && bcr[URHO].hi(2) == EXT_DIR)) {
         amrex::Error("Error: external boundaries meeting at a corner not supported");
     }
-#endif
-
-#ifdef GRAVITY
-    hse_fill(bx, data.array(), geom, bcr, time);
 #endif
 
     // Finally, override with problem-specific boundary conditions.

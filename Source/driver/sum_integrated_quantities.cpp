@@ -3,10 +3,6 @@
 #include <Logi.H>
 #include <Logi_F.H>
 
-#ifdef GRAVITY
-#include <Gravity.H>
-#endif
-
 #include <problem_diagnostics.H>
 
 using namespace amrex;
@@ -37,10 +33,6 @@ Logi::sum_integrated_quantities ()
     Real rho_e       = 0.0;
     Real rho_K       = 0.0;
     Real rho_E       = 0.0;
-#ifdef GRAVITY
-    Real rho_phi     = 0.0;
-    Real total_energy = 0.0;
-#endif
 
     int datprecision = 16;
 
@@ -76,10 +68,6 @@ Logi::sum_integrated_quantities ()
        rho_e += ca_lev.volWgtSum("rho_e", time, local_flag);
        rho_K += ca_lev.volWgtSum("kineng", time, local_flag);
        rho_E += ca_lev.volWgtSum("rho_E", time, local_flag);
-#ifdef GRAVITY
-        if (gravity->get_gravity_type() == "PoissonGrav")
-               rho_phi += ca_lev.volProductSum("density", "phiGrav", time, local_flag);
-#endif
 
     }
 
@@ -87,28 +75,16 @@ Logi::sum_integrated_quantities ()
     {
 
 #ifdef HYBRID_MOMENTUM
-#ifdef GRAVITY
-       const int nfoo = 14;
+      const int nfoo = 13;
 #else
-       const int nfoo = 13;
-#endif
-#else
-#ifdef GRAVITY
-       const int nfoo = 11;
-#else
-       const int nfoo = 10;
-#endif
+      const int nfoo = 10;
 #endif
 
         Real foo[nfoo] = {mass, mom[0], mom[1], mom[2], ang_mom[0], ang_mom[1], ang_mom[2],
 #ifdef HYBRID_MOMENTUM
                           hyb_mom[0], hyb_mom[1], hyb_mom[2],
 #endif
-#ifdef GRAVITY
-                          rho_e, rho_K, rho_E, rho_phi};
-#else
                           rho_e, rho_K, rho_E};
-#endif
 
 #ifdef BL_LAZY
         Lazy::QueueReduction( [=] () mutable {
@@ -137,19 +113,6 @@ Logi::sum_integrated_quantities ()
             rho_e      = foo[i++];
             rho_K      = foo[i++];
             rho_E      = foo[i++];
-#ifdef GRAVITY
-            rho_phi    = foo[i++];
-
-            // Total energy is 1/2 * rho * phi + rho * E for self-gravity,
-            // and rho * phi + rho * E for externally-supplied gravity.
-            std::string gravity_type = gravity->get_gravity_type();
-            if (gravity_type == "PoissonGrav" || gravity_type == "MonopoleGrav") {
-                total_energy = 0.5 * rho_phi + rho_E;
-            }
-            else {
-                total_energy = rho_phi + rho_E;
-            }
-#endif
 
             std::cout << '\n';
             std::cout << "TIME= " << time << " MASS        = "   << mass      << '\n';
@@ -167,10 +130,6 @@ Logi::sum_integrated_quantities ()
             std::cout << "TIME= " << time << " RHO*e       = "   << rho_e     << '\n';
             std::cout << "TIME= " << time << " RHO*K       = "   << rho_K     << '\n';
             std::cout << "TIME= " << time << " RHO*E       = "   << rho_E     << '\n';
-#ifdef GRAVITY
-            std::cout << "TIME= " << time << " RHO*PHI     = "   << rho_phi   << '\n';
-            std::cout << "TIME= " << time << " TOTAL ENERGY= "   << total_energy << '\n';
-#endif
 
             std::ostream& data_log1 = *Logi::data_logs[0];
 
@@ -201,10 +160,6 @@ Logi::sum_integrated_quantities ()
                    header << std::setw(datwidth) << "              KIN. ENERGY"; ++n;
                    header << std::setw(datwidth) << "              INT. ENERGY"; ++n;
                    header << std::setw(datwidth) << "               GAS ENERGY"; ++n;
-#ifdef GRAVITY
-                   header << std::setw(datwidth) << "             GRAV. ENERGY"; ++n;
-                   header << std::setw(datwidth) << "             TOTAL ENERGY"; ++n;
-#endif
 
                    header << std::endl;
 
@@ -251,10 +206,6 @@ Logi::sum_integrated_quantities ()
                data_log1 << std::setw(datwidth) <<  std::setprecision(datprecision) << rho_K;
                data_log1 << std::setw(datwidth) <<  std::setprecision(datprecision) << rho_e;
                data_log1 << std::setw(datwidth) <<  std::setprecision(datprecision) << rho_E;
-#ifdef GRAVITY
-               data_log1 << std::setw(datwidth) <<  std::setprecision(datprecision) << rho_phi;
-               data_log1 << std::setw(datwidth) <<  std::setprecision(datprecision) << total_energy;
-#endif
                data_log1 << std::endl;
 
             }
@@ -279,116 +230,6 @@ Logi::sum_integrated_quantities ()
         });
 #endif
     }
-
-#ifdef GRAVITY
-    // Gravity diagnostics
-    {
-        // Gravitational wave amplitudes
-
-        Real h_plus_1  = 0.0;
-        Real h_cross_1 = 0.0;
-
-        Real h_plus_2  = 0.0;
-        Real h_cross_2 = 0.0;
-
-        Real h_plus_3  = 0.0;
-        Real h_cross_3 = 0.0;
-
-        for (int lev = 0; lev <= finest_level; lev++)
-        {
-            Logi& ca_lev = getLevel(lev);
-
-#if (AMREX_SPACEDIM > 1)
-            // Gravitational wave signal. This is designed to add to these quantities so we can send them directly.
-            ca_lev.gwstrain(time, h_plus_1, h_cross_1, h_plus_2, h_cross_2, h_plus_3, h_cross_3, local_flag);
-#endif
-
-        }
-
-        const int nfoo_sum = 6;
-
-        amrex::Vector<Real> foo_sum(nfoo_sum);
-
-        foo_sum[0] = h_plus_1;
-        foo_sum[1] = h_cross_1;
-        foo_sum[2] = h_plus_2;
-        foo_sum[3] = h_cross_2;
-        foo_sum[4] = h_plus_3;
-        foo_sum[5] = h_cross_3;
-
-        amrex::ParallelDescriptor::ReduceRealSum(foo_sum.dataPtr(), nfoo_sum);
-
-        h_plus_1   = foo_sum[0];
-        h_cross_1  = foo_sum[1];
-        h_plus_2   = foo_sum[2];
-        h_cross_2  = foo_sum[3];
-        h_plus_3   = foo_sum[4];
-        h_cross_3  = foo_sum[5];
-
-        if (ParallelDescriptor::IOProcessor()) {
-
-            std::ostream& log = *Logi::data_logs[1];
-
-            // Write header row
-
-            if (time == 0.0) {
-
-                log << std::setw(intwidth) << "#   COLUMN 1";
-                log << std::setw(fixwidth) << "                         2";
-                log << std::setw(fixwidth) << "                         3";
-                log << std::setw(fixwidth) << "                         4";
-                log << std::setw(fixwidth) << "                         5";
-                log << std::setw(fixwidth) << "                         6";
-                log << std::setw(fixwidth) << "                         7";
-
-                std::ostringstream header;
-
-                header << std::setw(intwidth) << "#   TIMESTEP";
-                header << std::setw(fixwidth) << "                     TIME";
-
-                header << std::setw(datwidth) << "             h_+ (x)";
-                header << std::setw(datwidth) << "             h_x (x)";
-                header << std::setw(datwidth) << "             h_+ (y)";
-                header << std::setw(datwidth) << "             h_x (y)";
-                header << std::setw(datwidth) << "             h_+ (z)";
-                header << std::setw(datwidth) << "             h_x (z)";
-
-                header << std::endl;
-
-                log << std::endl;
-
-                log << header.str();
-
-            }
-
-            log << std::fixed;
-
-            log << std::setw(intwidth)                                    << timestep;
-
-            if (time < 1.e-4_rt || time > 1.e4_rt) {
-                log << std::scientific;
-            }
-            else {
-                log << std::fixed;
-            }
-
-            log << std::setw(fixwidth) << std::setprecision(datprecision) << time;
-
-            log << std::scientific;
-
-            log << std::setw(datwidth) << std::setprecision(datprecision) << h_plus_1;
-            log << std::setw(datwidth) << std::setprecision(datprecision) << h_cross_1;
-            log << std::setw(datwidth) << std::setprecision(datprecision) << h_plus_2;
-            log << std::setw(datwidth) << std::setprecision(datprecision) << h_cross_2;
-            log << std::setw(datwidth) << std::setprecision(datprecision) << h_plus_3;
-            log << std::setw(datwidth) << std::setprecision(datprecision) << h_cross_3;
-
-            log << std::endl;
-
-        }
-
-    }
-#endif
 
     // Species
 

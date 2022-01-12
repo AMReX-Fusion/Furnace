@@ -6,10 +6,6 @@
 #include <Radiation.H>
 #endif
 
-#ifdef GRAVITY
-#include <Gravity.H>
-#endif
-
 #ifdef DIFFUSION
 #include <Diffusion.H>
 #endif
@@ -86,15 +82,6 @@ Logi::do_advance_sdc (Real time,
     // changes
     if (!(sdc_iteration > 0 && m == 0) &&
         !(sdc_iteration == sdc_order+sdc_extra-1 && m == SDC_NODES-1)) {
-
-      // Construct the "old-time" sources from Sborder.  Since we are
-      // working from Sborder, this will actually evaluate the sources
-      // using the current stage's starting point.
-
-      // TODO: this is not using the density at the current stage
-#ifdef GRAVITY
-      construct_old_gravity(amr_iteration, amr_ncycle, prev_time);
-#endif
 
       if (apply_sources()) {
 #ifndef AMREX_USE_GPU

@@ -74,10 +74,6 @@ enum StateType { State_Type = 0,
 #ifdef RADIATION
                  Rad_Type,
 #endif
-#ifdef GRAVITY
-                 PhiGrav_Type,
-                 Gravity_Type,
-#endif
                  Source_Type,
 #ifdef REACTIONS
                  Reactions_Type,
@@ -102,9 +98,6 @@ enum sources { thermo_src = 0,
 #endif
 #ifdef HYBRID_MOMENTUM
                hybrid_src,
-#endif
-#ifdef GRAVITY
-               grav_src,
 #endif
 #ifdef ROTATION
                rot_src,
@@ -534,12 +527,6 @@ public:
 
 #include <Logi_sources.H>
 
-
-#ifdef GRAVITY
-#include <Logi_gravity.H>
-#endif
-
-
 #ifdef MHD
 #include <Logi_mhd.H>
 #endif
@@ -676,20 +663,6 @@ public:
 /// @param stop_time    End time of simulation
 ///
     void post_init (amrex::Real stop_time) override;
-
-#ifdef GRAVITY
-#ifdef ROTATION
-///
-/// Initialize a model using the self-consistent field method.
-///
-    void scf_relaxation();
-
-///
-/// Perform the Hachisu SCF method.
-///
-    void do_hscf_solve();
-#endif
-#endif
 
 ///
 /// Do work after restart with ``grown_factor`` > 1
@@ -944,39 +917,6 @@ public:
 ///
     amrex::Real locSquaredSum (const std::string& name, amrex::Real time, int idir, bool local=false);
 
-#ifdef GRAVITY
-///
-/// Calculate the gravitational wave signal
-///
-/// @param time       current time
-/// @param h_plus_1   gravitational wave signal in x-direction
-/// @param h_cross_1  gravitational wave signal in x-direction
-/// @param h_plus_2   gravitational wave signal in y-direction
-/// @param h_cross_2  gravitational wave signal in y-direction
-/// @param h_plus_3   gravitational wave signal in z-direction
-/// @param h_cross_3  gravitational wave signal in z-direction
-/// @param local      is sum local
-
-    void gwstrain (Real time,
-                   Real& h_plus_1, Real& h_cross_1,
-                   Real& h_plus_2, Real& h_cross_2,
-                   Real& h_plus_3, Real& h_cross_3,
-                   bool local);
-#endif
-
-#ifdef GRAVITY
-///
-/// Are we using point mass gravity?
-///
-    int using_point_mass ();
-
-///
-/// Return the value of the point mass.
-///
-    amrex::Real get_point_mass ();
-#endif
-
-
 ///
 /// Add source terms to ``state``
 ///
@@ -997,16 +937,6 @@ public:
 /// @param ng       number of ghost cells
 ///
     void expand_state(amrex::MultiFab& S, amrex::Real time, int ng);
-
-#ifdef GRAVITY
-
-///
-/// Calculate state in radial direction by averaging
-///
-/// @param is_new   do we use new (0) or old (1) data?
-///
-    void make_radial_data (int is_new);
-#endif
 
 #ifdef AUX_UPDATE
 
@@ -1144,24 +1074,6 @@ public:
 ///
     static amrex::BCRec physbc () { return phys_bc; }
 
-#ifdef GRAVITY
-
-///
-/// Find the position of the "center" by interpolating from data at cell centers
-///
-/// @param S        Current state
-/// @param time     current time
-///
-    void define_new_center (amrex::MultiFab& S, amrex::Real time);
-    void write_center ();
-
-///
-/// @param time     current time
-/// @param dt       timestep
-///
-    void pointmass_update(amrex::Real time, amrex::Real dt);
-#endif
-
     void stopJob ();
 
 ///
@@ -1225,18 +1137,6 @@ protected:
 /// @param ng number of ghost cells
 ///
     amrex::iMultiFab& build_interior_boundary_mask (int ng);
-
-#ifdef GRAVITY
-    int get_numpts();
-
-
-///
-/// Difference between composite and level solve for phi.
-///
-    amrex::MultiFab comp_minus_level_phi;
-    amrex::Vector<std::unique_ptr<amrex::MultiFab> > comp_minus_level_grad_phi;
-#endif
-
 
 #ifdef REACTIONS
 ///
@@ -1324,9 +1224,6 @@ protected:
 #endif
 #ifdef RADIATION
     amrex::FluxRegister rad_flux_reg;
-#endif
-#ifdef GRAVITY
-    amrex::FluxRegister phi_reg;
 #endif
 
 ///
@@ -1448,12 +1345,6 @@ protected:
 
 
 ///
-/// There can be only one Gravity object, it covers all levels:
-///
-    static class Gravity *gravity;
-
-
-///
 /// There can be only one Diffusion object, it covers all levels:
 ///
     static class Diffusion *diffusion;
@@ -1565,21 +1456,5 @@ Logi::get_output_at_completion()
 {
     return output_at_completion;
 }
-
-#ifdef GRAVITY
-inline
-amrex::Real
-Logi::get_point_mass ()
-{
-    return point_mass;
-}
-
-inline
-int
-Logi::using_point_mass ()
-{
-    return use_point_mass;
-}
-#endif
 
 #endif /*_Logi_H_*/
